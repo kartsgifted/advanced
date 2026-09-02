@@ -7,7 +7,8 @@
 <title>2026 K예술영재 프로젝트 심화과정 참여 수요조사</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
 /* 뷰포트 단위(vh/svh/dvh), position:fixed, position:sticky, 음수 마진을
    모두 쓰지 않습니다. 일반 문서 흐름만 사용해 어떤 브라우저·캡처 도구에서도
@@ -21,8 +22,8 @@
 html{background:var(--cream);}
 body{
   margin:0;padding:0;background:var(--cream);
-  font-family:'Noto Sans KR',sans-serif;color:var(--text);
-  line-height:1.7;word-break:keep-all;-webkit-text-size-adjust:100%;
+  font-family:'Pretendard','Pretendard Variable','Noto Sans KR',sans-serif;color:var(--text);
+  line-height:1.72;letter-spacing:-.005em;word-break:keep-all;-webkit-text-size-adjust:100%;
 }
 [hidden]{display:none !important;}
 img{display:block;max-width:100%;border:0;}
@@ -46,24 +47,26 @@ img{display:block;max-width:100%;border:0;}
 /* ───── 공통 ───── */
 .pad{padding:26px 20px 4px;}
 .step-label{font-size:12.5px;color:var(--gold);letter-spacing:.06em;margin:0 0 8px;font-weight:500;}
-h2.title{font-family:'Noto Serif KR',serif;font-size:23px;font-weight:600;margin:0 0 10px;line-height:1.45;}
+h2.title{font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:29px;font-weight:700;margin:0 0 10px;line-height:1.35;}
 p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 .group-label{font-weight:700;font-size:14.5px;margin:0 0 12px;}
 .req{color:var(--danger);font-weight:400;}
 
 /* ───── 표지 ───── */
 .hero{position:relative;background:var(--ink0);color:var(--cream);overflow:hidden;}
-.hero .bg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:1;}
+.art{position:absolute;left:0;top:0;width:100%;height:100%;}
+.art svg{display:block;width:100%;height:100%;}
+.hero .art{opacity:1;}
 .hero .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,.22) 0%,rgba(8,33,31,.30) 34%,rgba(8,33,31,.86) 74%,var(--ink0) 100%);
+  background:linear-gradient(180deg,rgba(8,33,31,0) 0%,rgba(8,33,31,.10) 40%,rgba(8,33,31,.75) 76%,var(--ink0) 100%);
 }
 .hero-in{
   position:relative;z-index:2;min-height:500px;
   padding:calc(env(safe-area-inset-top) + 40px) 22px 34px;
 }
 .hero .issuer{font-size:12.5px;letter-spacing:.05em;color:var(--gold-lt);margin:0 0 190px;line-height:1.7;}
-.hero h1{font-family:'Noto Serif KR',serif;font-weight:700;margin:0;font-size:34px;line-height:1.34;}
+.hero h1{font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-weight:700;margin:0;font-size:42px;line-height:1.26;}
 .hero .sub{margin:16px 0 0;font-size:15px;color:rgba(247,242,230,.82);}
 .hero .meta{margin:24px 0 0;padding-top:18px;border-top:1px solid rgba(247,242,230,.18);}
 .hero .meta div{display:flex;gap:16px;margin-bottom:8px;font-size:14px;}
@@ -82,14 +85,15 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
   display:block;position:relative;width:100%;padding-top:100%;
   border-radius:6px;overflow:hidden;background:var(--ink1);cursor:pointer;
 }
-.tile .card .ph{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) brightness(.9);}
+.tile .card .ph{display:block;position:absolute;left:0;top:0;width:100%;height:100%;}
+.tile .card .ph svg{display:block;width:100%;height:100%;}
 .tile .card .sh{
   position:absolute;left:0;top:0;width:100%;height:100%;
   background:linear-gradient(180deg,rgba(8,33,31,0) 38%,rgba(8,33,31,.88) 100%);
 }
 .tile .card .nm{
   position:absolute;left:14px;bottom:12px;z-index:2;color:var(--cream);
-  font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;
+  font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:22px;font-weight:700;
   text-shadow:0 1px 6px rgba(8,33,31,.7);
 }
 .tile .card .dot{
@@ -98,11 +102,11 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 }
 .tiles.picked{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:22px;}
 .tiles.picked .card{padding-top:0;height:60px;}
-.tiles.picked .card .ph{filter:saturate(.5) brightness(.55);}
+.tiles.picked .card .ph{opacity:.45;}
 .tiles.picked .card .sh{background:linear-gradient(180deg,rgba(8,33,31,.25),rgba(8,33,31,.75));}
 .tiles.picked .card .nm{left:0;right:0;bottom:0;top:0;line-height:60px;text-align:center;font-size:14px;}
 .tiles.picked .card .dot{display:none;}
-.tiles.picked input:checked + .card .ph{filter:saturate(1.05) brightness(.85);}
+.tiles.picked input:checked + .card .ph{opacity:1;}
 .tile input:checked + .card{box-shadow:inset 0 0 0 2px var(--gold);}
 .tile input:checked + .card .ph{filter:grayscale(0) brightness(.85);}
 .tile input:checked + .card .dot{background:var(--gold);border-color:var(--gold);}
@@ -126,14 +130,14 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 
 /* ───── 안내 카드 ───── */
 .photocard{position:relative;height:170px;overflow:hidden;background:var(--ink1);}
-.photocard img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05);}
+.photocard .art svg{display:block;width:100%;height:100%;}
 .photocard .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,.05),rgba(8,33,31,.75));
+  background:linear-gradient(180deg,rgba(8,33,31,0),rgba(8,33,31,.72));
 }
 .photocard .cap{position:absolute;left:20px;bottom:15px;z-index:2;color:var(--cream);}
 .photocard .cap i{display:block;font-style:normal;font-size:12.5px;color:var(--gold-lt);}
-.photocard .cap strong{font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600;}
+.photocard .cap strong{font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:26px;font-weight:700;}
 .infobody{background:#fff;padding:20px;margin:0 0 20px;}
 .infobody .line{display:flex;gap:14px;margin-bottom:9px;font-size:14.5px;}
 .infobody .line:last-of-type{margin-bottom:0;}
@@ -173,7 +177,7 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 /* ───── 서약서 ───── */
 .pledge{background:var(--ink0);color:var(--cream);border-radius:8px;overflow:hidden;margin-top:20px;}
 .pledge .top{position:relative;height:96px;background:var(--ink1);}
-.pledge .top img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:.45;}
+.pledge .top .art{opacity:.6;}
 .pledge .top .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
   background:linear-gradient(180deg,rgba(8,33,31,.3),var(--ink0));
@@ -181,16 +185,16 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 .pledge .in{padding:8px 22px 26px;text-align:center;}
 .pledge .seal{
   width:52px;height:52px;margin:0 auto 18px;border:1px solid var(--gold);border-radius:50%;
-  font-family:'Noto Serif KR',serif;font-size:13px;line-height:50px;color:var(--gold-lt);
+  font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:16px;font-weight:700;line-height:50px;color:var(--gold-lt);
 }
-.pledge .body{font-family:'Noto Serif KR',serif;font-size:16px;line-height:2;margin:0 0 22px;}
+.pledge .body{font-family:'Pretendard','Pretendard Variable','Noto Sans KR',sans-serif;font-size:15.5px;font-weight:500;line-height:2;margin:0 0 22px;}
 .pledge .date{font-size:13.5px;color:rgba(247,242,230,.6);margin:0 0 14px;}
 .signline{
   display:inline-block;padding:0 16px 8px;min-width:200px;
   border-bottom:1px solid rgba(247,242,230,.4);
 }
 .signline .lb{font-size:12.5px;color:rgba(247,242,230,.55);margin-right:12px;}
-.signline .nm{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:600;}
+.signline .nm{font-family:'Pretendard','Pretendard Variable','Noto Sans KR',sans-serif;font-size:19px;font-weight:700;}
 .agree{
   display:flex;gap:12px;text-align:left;margin:24px 0 0;padding:15px;
   border:1px solid rgba(247,242,230,.2);border-radius:6px;cursor:pointer;font-size:14.5px;
@@ -216,7 +220,7 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 button.go{
   display:block;width:100%;min-height:56px;padding:16px;border:none;border-radius:6px;
   background:var(--teal);color:var(--cream);
-  font-family:'Noto Serif KR',serif;font-size:16.5px;font-weight:600;cursor:pointer;
+  font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:21px;font-weight:700;cursor:pointer;
 }
 button.go:disabled{background:#9C978B;}
 button.go.gold{background:var(--gold);color:#241C05;}
@@ -231,15 +235,15 @@ button.go.gold{background:var(--gold);color:#241C05;}
 
 /* ───── 완료 ───── */
 .done{position:relative;background:var(--ink0);color:var(--cream);overflow:hidden;}
-.done .bg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:.55;}
-.done .veil{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(8,33,31,.55),rgba(8,33,31,.95));}
+.done .art{opacity:.6;}
+.done .veil{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(8,33,31,.35),rgba(8,33,31,.9));}
 .done .in{position:relative;z-index:2;padding:calc(env(safe-area-inset-top) + 80px) 24px 40px;text-align:center;min-height:420px;}
 .done .mark{width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;margin:0 auto 26px;position:relative;}
 .done .mark::after{
   content:'';position:absolute;left:20px;top:27px;width:22px;height:11px;
   border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg);
 }
-.done h2{font-family:'Noto Serif KR',serif;font-size:24px;margin:0 0 14px;}
+.done h2{font-family:'Gaegu','Pretendard','Noto Sans KR',cursive;font-size:30px;font-weight:700;margin:0 0 14px;}
 .done p{color:rgba(247,242,230,.75);margin:0 auto;font-size:14.5px;max-width:30em;}
 .recap{margin:32px auto 0;max-width:320px;text-align:left;border:1px solid rgba(247,242,230,.2);border-radius:8px;overflow:hidden;}
 .recap div{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;font-size:14.5px;}
@@ -263,7 +267,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
   <!-- 0. 표지 -->
   <section class="screen" id="s0">
     <div class="hero">
-      <img class="bg" id="heroImg" alt="">
+      <div class="art" id="heroImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="hero-in">
         <p class="issuer">한국예술종합학교 한국예술영재교육연구원<br>2026 K예술영재 프로젝트</p>
@@ -302,14 +306,14 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
 
     <div class="photocard">
-      <img id="mentorImg" alt="" loading="lazy">
+      <div class="art" id="mentorImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="cap"><i>&#9312;</i><strong>멘토링</strong></div>
     </div>
     <div class="infobody" id="mentorInfo"></div>
 
     <div class="photocard">
-      <img id="campImg" alt="" loading="lazy">
+      <div class="art" id="campImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="cap"><i>&#9313;</i><strong>겨울캠프</strong></div>
     </div>
@@ -368,7 +372,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
 
       <div id="pledgeBox" hidden>
         <div class="pledge">
-          <div class="top"><img id="pledgeImg" alt="" loading="lazy"><div class="veil"></div></div>
+          <div class="top"><div class="art" id="pledgeImg" aria-hidden="true"></div><div class="veil"></div></div>
           <div class="in">
             <div class="seal">서약</div>
             <p class="body">심화과정 일정 및 내용을<br>충분히 확인하였으며,<br>프로그램에 성실히 참여할 것을<br>서약합니다.</p>
@@ -407,7 +411,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
   <!-- 6. 완료 -->
   <section class="screen" id="s6" hidden>
     <div class="done">
-      <img class="bg" id="doneImg" alt="" loading="lazy">
+      <div class="art" id="doneImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="in">
         <div class="mark"></div>
@@ -435,17 +439,102 @@ button.go.gold{background:var(--gold);color:#241C05;}
 /* ═══ Apps Script 웹앱 URL ═══ */
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbw3HuhOl8P4upR61iIOE7bMIuOxJalCfk38r6X50R2Ih3xuMdo987pW9QryvkugVE7z3A/exec";
 
-/* 사진 (Unsplash License · 상업적 이용 무료) */
-const PH = {
-  hero:"photo-1543893424-907f9ebc6a5d",            // 한낮에 도약하는 무용수
-  "무용":"photo-1555656220-46e30749d330",           // 발레 슈즈
-  "미술":"photo-1560421683-6856ea585c78",           // 물감으로 그린 그림들
-  "음악":"photo-1514119412350-e174d90d280e",        // 피아노 위의 악보
-  "전통예술":"photo-1717176355137-3f0ae67fbe56",     // 한옥 처마의 청사초롱
-  camp:"photo-1615414047026-802692414b79"          // 공연장 객석과 무대
+/* ═══ 일러스트 (외부 이미지 없이 SVG 로 직접 그립니다) ═══ */
+const C = { bg:"#0E3532", bg2:"#123F3A", line:"#EBD9A6", gold:"#C39B36", cream:"#F7F2E6",
+            rose:"#E9A7A9", orange:"#E0894B", sky:"#7FBEB4", red:"#C4553F" };
+
+function svg(vb, inner){
+  return '<svg viewBox="' + vb + '" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">' + inner + '</svg>';
+}
+function sky_(w, h){   /* 공통 배경 */
+  return '<rect width="' + w + '" height="' + h + '" fill="' + C.bg + '"/>' +
+         '<circle cx="' + (w*0.5) + '" cy="' + (h*0.52) + '" r="' + (Math.min(w,h)*0.42) + '" fill="' + C.bg2 + '"/>';
+}
+
+/* 분야 타일 (정사각) */
+const TILE = {
+  "무용": svg("0 0 120 120", sky_(120,120) +
+    '<g fill="none" stroke="' + C.rose + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M45 30 Q60 20 75 30"/>' +
+      '<path d="M60 38 L60 62"/>' +
+      '<path d="M60 62 L46 86"/><path d="M60 62 L76 84"/>' +
+      '<path d="M46 86 L36 90"/><path d="M76 84 L87 89"/>' +
+    '</g>' +
+    '<circle cx="60" cy="29" r="8" fill="' + C.cream + '"/>' +
+    '<path d="M60 44 L40 78 Q60 88 80 76 Z" fill="' + C.rose + '" opacity=".35"/>'),
+
+  "미술": svg("0 0 120 120", sky_(120,120) +
+    '<path d="M60 26c-19 0-34 14-34 31 0 12 9 20 19 20 6 0 8 4 8 8 0 6 5 9 11 9 17 0 30-16 30-35 0-19-15-33-34-33z" ' +
+      'fill="none" stroke="' + C.line + '" stroke-width="4"/>' +
+    '<circle cx="46" cy="49" r="5" fill="' + C.rose + '"/>' +
+    '<circle cx="63" cy="42" r="5" fill="' + C.orange + '"/>' +
+    '<circle cx="78" cy="54" r="5" fill="' + C.sky + '"/>' +
+    '<circle cx="52" cy="67" r="5" fill="' + C.gold + '"/>'),
+
+  "음악": svg("0 0 120 120", sky_(120,120) +
+    '<rect x="24" y="52" width="72" height="38" rx="5" fill="none" stroke="' + C.line + '" stroke-width="4"/>' +
+    '<g stroke="' + C.line + '" stroke-width="3"><path d="M42 52v38M60 52v38M78 52v38"/></g>' +
+    '<g fill="' + C.line + '"><rect x="36" y="52" width="9" height="21" rx="2"/>' +
+      '<rect x="55" y="52" width="9" height="21" rx="2"/><rect x="73" y="52" width="9" height="21" rx="2"/></g>' +
+    '<g fill="none" stroke="' + C.gold + '" stroke-width="4" stroke-linecap="round">' +
+      '<path d="M56 40V22l16-5v18"/></g>' +
+    '<circle cx="52" cy="40" r="6" fill="' + C.gold + '"/><circle cx="68" cy="36" r="6" fill="' + C.gold + '"/>'),
+
+  "전통예술": svg("0 0 120 120", sky_(120,120) +
+    '<g fill="none" stroke="' + C.line + '" stroke-width="4" stroke-linecap="round">' +
+      '<path d="M32 42c0 12-6 12-6 18s6 6 6 18"/>' +
+      '<path d="M88 42c0 12 6 12 6 18s-6 6-6 18"/>' +
+      '<path d="M32 42q28 10 56 0"/><path d="M32 78q28-10 56 0"/>' +
+    '</g>' +
+    '<g stroke="' + C.red + '" stroke-width="3" stroke-linecap="round">' +
+      '<path d="M44 49v22M56 52v16M64 52v16M76 49v22"/></g>' +
+    '<circle cx="26" cy="60" r="4" fill="' + C.gold + '"/><circle cx="94" cy="60" r="4" fill="' + C.gold + '"/>')
 };
-function img(key, w, h){
-  return "https://images.unsplash.com/" + PH[key] + "?auto=format&fit=crop&q=70&w=" + w + (h ? "&h=" + h : "");
+
+/* 가로 배너 */
+const BANNER = {
+  hero: svg("0 0 360 300",
+    '<defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="#17635A"/><stop offset="1" stop-color="#08211F"/></linearGradient></defs>' +
+    '<rect width="360" height="300" fill="url(#hg)"/>' +
+    '<circle cx="180" cy="120" r="86" fill="#1E7A6E" opacity=".45"/>' +
+    '<path d="M180 6 L286 210 H74 Z" fill="' + C.gold + '" opacity=".14"/>' +
+    '<g fill="none" stroke="' + C.line + '" stroke-width="3.5" stroke-linecap="round" opacity=".9">' +
+      '<path d="M150 96q30-22 60 0"/><path d="M180 108v40"/>' +
+      '<path d="M180 148l-24 40M180 148l26 38"/><path d="M156 188l-14 6M206 186l15 7"/></g>' +
+    '<circle cx="180" cy="94" r="12" fill="' + C.cream + '"/>' +
+    '<path d="M180 116 L146 178 Q180 194 214 174 Z" fill="' + C.rose + '" opacity=".35"/>' +
+    '<g fill="' + C.gold + '" opacity=".85">' +
+      '<circle cx="72" cy="72" r="6"/><circle cx="292" cy="96" r="5"/><circle cx="108" cy="176" r="4"/>' +
+      '<circle cx="266" cy="188" r="6"/><circle cx="48" cy="140" r="4"/></g>' +
+    '<g fill="none" stroke="' + C.gold + '" stroke-width="3" opacity=".55">' +
+      '<path d="M0 226q90-26 180 0t180 0"/><path d="M0 250q90-26 180 0t180 0"/></g>'),
+
+  camp: svg("0 0 360 160",
+    '<rect width="360" height="160" fill="' + C.bg + '"/>' +
+    '<path d="M0 160 L96 54 L168 160 Z" fill="#12504B"/>' +
+    '<path d="M140 160 L240 40 L340 160 Z" fill="#17635A"/>' +
+    '<path d="M240 40 L268 74 L212 74 Z" fill="' + C.cream + '" opacity=".7"/>' +
+    '<circle cx="66" cy="44" r="16" fill="' + C.gold + '" opacity=".8"/>' +
+    '<g stroke="' + C.line + '" stroke-width="2.5" stroke-linecap="round" opacity=".8">' +
+      '<path d="M300 34v18M291 43h18M294 37l12 12M306 37l-12 12"/>' +
+      '<path d="M130 26v12M124 32h12M126 28l8 8M134 28l-8 8"/>' +
+      '<path d="M196 100v10M191 105h10"/></g>'),
+
+  pledge: svg("0 0 360 100",
+    '<rect width="360" height="100" fill="' + C.bg + '"/>' +
+    '<g fill="none" stroke="' + C.gold + '" stroke-width="2" opacity=".5">' +
+      '<path d="M0 74q90-26 180 0t180 0"/><path d="M0 92q90-26 180 0t180 0"/></g>' +
+    '<g fill="' + C.gold + '" opacity=".6">' +
+      '<circle cx="60" cy="34" r="4"/><circle cx="150" cy="24" r="3"/>' +
+      '<circle cx="240" cy="34" r="4"/><circle cx="310" cy="22" r="3"/></g>')
+};
+
+/* 분야별 가로 배너 = 배경 + 해당 분야 모티프 */
+function mentorArt(field){
+  const t = TILE[field] || TILE["무용"];
+  return '<div style="position:absolute;left:0;top:0;width:100%;height:100%;background:' + C.bg + '"></div>' +
+         '<div style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:.95">' + t + '</div>';
 }
 
 const FIELDS = ["무용","미술","음악","전통예술"];
@@ -480,16 +569,17 @@ $("todayText").textContent = now.getFullYear() + "년 " + (now.getMonth()+1) + "
 $("birth").max = todayISO;
 
 /* 이미지 */
-$("heroImg").src = img("hero", 1000);
-$("campImg").src = img("camp", 900, 400);
-$("doneImg").src = img("hero", 1000);
+$("heroImg").innerHTML = BANNER.hero;
+$("campImg").innerHTML = BANNER.camp;
+$("doneImg").innerHTML = BANNER.hero;
+$("pledgeImg").innerHTML = BANNER.pledge;
 
 /* 분야 타일 */
 $("tiles").innerHTML = FIELDS.map(function(f){
   return '<label class="tile">' +
     '<input type="radio" name="field" value="' + f + '">' +
     '<span class="card">' +
-      '<img class="ph" src="' + img(f, 520, 520) + '" alt="" loading="lazy">' +
+      '<span class="ph">' + TILE[f] + '</span>' +
       '<span class="sh"></span><span class="dot"></span><span class="nm">' + f + '</span>' +
     '</span></label>';
 }).join("");
@@ -516,8 +606,7 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=field]'), fun
       return '<div class="line"><span>' + r[0] + '</span><div>' + r[1] + '</div></div>';
     }).join("") +
     '<p class="foot">분야 및 전공에 따라 개인별 일정이 상이할 수 있으며, 사정에 따라 일정이 변동될 수 있습니다.</p>';
-    $("mentorImg").src = img(state.field, 900, 400);
-    $("pledgeImg").src = img(state.field, 700, 300);
+    $("mentorImg").innerHTML = mentorArt(state.field);
     $("s2Title").textContent = state.field + " 심화과정 일정";
   });
 });
