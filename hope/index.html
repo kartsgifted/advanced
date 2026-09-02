@@ -219,6 +219,12 @@ button.go{
 }
 button.go:disabled{background:#9C978B;}
 button.go.gold{background:var(--gold);color:#241C05;}
+.contact{
+  background:var(--ink0);color:rgba(247,242,230,.55);
+  text-align:center;font-size:12.5px;line-height:1.8;
+  padding:20px 20px calc(24px + env(safe-area-inset-bottom));margin:0;
+}
+.contact a{color:var(--gold-lt);text-decoration:none;font-weight:500;}
 .errbar{margin-bottom:12px;}
 .errbar div{background:#F3E0DA;color:var(--danger);font-size:13.5px;padding:12px 15px;border-radius:6px;}
 
@@ -418,6 +424,11 @@ button.go.gold{background:var(--gold);color:#241C05;}
     <button class="go" id="mainBtn" type="button">응답 시작하기</button>
   </div>
 
+  <p class="contact">
+    문의 · 한국예술영재교육원 K예술영재 프로젝트 사무국<br>
+    <a href="mailto:kgifted2026@naver.com">kgifted2026@naver.com</a>
+  </p>
+
 </div>
 <script>
 /* ═══ Apps Script 웹앱 URL ═══ */
@@ -549,6 +560,51 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=join]'), func
   });
 });
 
+/* Apps Script 호출 (JSONP — CORS 영향 없음) */
+function callApi(params){
+  return new Promise(function(resolve, reject){
+    const cb = "karts_cb_" + Date.now();
+    const el = document.createElement("script");
+    const timer = setTimeout(function(){ cleanup(); reject(new Error("timeout")); }, 20000);
+    function cleanup(){
+      clearTimeout(timer);
+      try{ delete window[cb]; }catch(e){ window[cb] = undefined; }
+      if(el.parentNode) el.parentNode.removeChild(el);
+    }
+    window[cb] = function(data){ cleanup(); resolve(data); };
+    el.onerror = function(){ cleanup(); reject(new Error("network")); };
+    el.src = ENDPOINT + "?" + params + "&callback=" + cb + "&t=" + Date.now();
+    document.body.appendChild(el);
+  });
+}
+
+/* 합격자 명단 확인 후 다음 단계로 */
+function checkRoster(){
+  const btn = $("mainBtn");
+  btn.disabled = true; btn.textContent = "확인 중…";
+  const q = "view=check" +
+    "&name=" + encodeURIComponent($("name").value.trim()) +
+    "&birth=" + encodeURIComponent(getBirth()) +
+    "&field=" + encodeURIComponent(state.field);
+
+  callApi(q).then(function(d){
+    btn.disabled = false; btn.textContent = STEPS[3].btn;
+    if(!d || !d.ok){ showErr("확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."); return; }
+    if(!d.found){
+      showErr("합격자 명단에 등록되지 않은 정보입니다. 이름과 생년월일을 다시 확인해 주세요.");
+      return;
+    }
+    if(d.fieldMatch === false){
+      showErr("선택하신 분야가 명단에 등록된 분야와 다릅니다. 분야를 다시 선택해 주세요.");
+      return;
+    }
+    show(4);
+  }).catch(function(){
+    btn.disabled = false; btn.textContent = STEPS[3].btn;
+    showErr("서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+  });
+}
+
 /* 화면 전환 */
 function show(n){
   for(let i = 0; i <= 6; i++){ $("s" + i).hidden = (i !== n); }
@@ -632,6 +688,7 @@ function renderReview(){
 $("backBtn").addEventListener("click", function(){ if(cur > 0) show(cur - 1); });
 
 $("mainBtn").addEventListener("click", function(){
+  if(cur === 3){ if(valid(3)) checkRoster(); return; }
   if(cur < 5){ if(valid(cur)) show(cur + 1); return; }
   submit();
 });
@@ -660,9 +717,13 @@ function submit(){
   send(payload).then(function(){
     sent = true;
     done(payload);
-  }).catch(function(){
+  }).catch(function(err){
     btn.disabled = false; btn.textContent = STEPS[5].btn;
-    showErr("제출에 실패했습니다. 연결을 확인한 뒤 다시 시도해 주세요.");
+    if(err && err.message === "not_in_roster"){
+      showErr("합격자 명단에 등록되지 않은 정보입니다. 이름과 생년월일을 다시 확인해 주세요.");
+    }else{
+      showErr("제출에 실패했습니다. 연결을 확인한 뒤 다시 시도해 주세요.");
+    }
   });
 }
 
@@ -671,10 +732,15 @@ function send(payload){
   return fetch(ENDPOINT, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:body})
     .then(function(res){ return res.json(); })
     .then(function(data){
-      if(!data.ok) throw new Error(data.error || "server");
+      if(!data.ok){
+        const e = new Error(data.error || "server");
+        e.server = true;            // 서버가 명확히 거부 → 재시도하지 않음
+        throw e;
+      }
       return data;
     })
-    .catch(function(){
+    .catch(function(err){
+      if(err && err.server) throw err;
       return fetch(ENDPOINT, {method:"POST", mode:"no-cors", body:body}).then(function(){ return {ok:true}; });
     });
 }
