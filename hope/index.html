@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#08211F">
+<meta name="theme-color" content="#0B1F3A">
 <title>2026 K예술영재 프로젝트 심화과정 참여 수요조사</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
    모두 쓰지 않습니다. 일반 문서 흐름만 사용해 어떤 브라우저·캡처 도구에서도
    레이아웃이 어긋나지 않도록 했습니다. */
 :root{
-  --ink0:#08211F; --ink1:#0E3532; --teal:#13564F; --teal-lt:#1E7A6E;
+  --ink0:#0B1F3A;  /* 딥네이비 */ --ink1:#12294A; --teal:#1B3A6B; --teal-lt:#2F5B99;
   --cream:#F7F2E6; --cream2:#EDE5D2; --gold:#C39B36; --gold-lt:#EBD9A6;
   --text:#1B1B19; --mute:#63605A; --danger:#A03A29;
 }
@@ -59,7 +59,7 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 .hero .art{opacity:1;}
 .hero .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,0) 0%,rgba(8,33,31,.10) 40%,rgba(8,33,31,.75) 76%,var(--ink0) 100%);
+  background:linear-gradient(180deg,rgba(11,31,58,0) 0%,rgba(11,31,58,.10) 40%,rgba(11,31,58,.75) 76%,var(--ink0) 100%);
 }
 .hero-in{
   position:relative;z-index:2;min-height:500px;
@@ -89,12 +89,12 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 .tile .card .ph svg{display:block;width:100%;height:100%;}
 .tile .card .sh{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,0) 38%,rgba(8,33,31,.88) 100%);
+  background:linear-gradient(180deg,rgba(11,31,58,0) 38%,rgba(11,31,58,.88) 100%);
 }
 .tile .card .nm{
   position:absolute;left:14px;bottom:12px;z-index:2;color:var(--cream);
   font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:18px;font-weight:400;
-  text-shadow:0 1px 6px rgba(8,33,31,.7);
+  text-shadow:0 1px 6px rgba(11,31,58,.7);
 }
 .tile .card .dot{
   position:absolute;right:12px;top:12px;z-index:2;width:22px;height:22px;border-radius:50%;
@@ -103,7 +103,7 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 .tiles.picked{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:22px;}
 .tiles.picked .card{padding-top:0;height:60px;}
 .tiles.picked .card .ph{opacity:.45;}
-.tiles.picked .card .sh{background:linear-gradient(180deg,rgba(8,33,31,.25),rgba(8,33,31,.75));}
+.tiles.picked .card .sh{background:linear-gradient(180deg,rgba(11,31,58,.25),rgba(11,31,58,.75));}
 .tiles.picked .card .nm{left:0;right:0;bottom:0;top:0;line-height:60px;text-align:center;font-size:14px;}
 .tiles.picked .card .dot{display:none;}
 .tiles.picked input:checked + .card .ph{opacity:1;}
@@ -133,7 +133,7 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:14.5px;}
 .photocard .art svg{display:block;width:100%;height:100%;}
 .photocard .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,0),rgba(8,33,31,.72));
+  background:linear-gradient(180deg,rgba(11,31,58,0),rgba(11,31,58,.72));
 }
 .photocard .cap{position:absolute;left:20px;bottom:15px;z-index:2;color:var(--cream);}
 .photocard .cap i{display:block;font-style:normal;font-size:12.5px;color:var(--gold-lt);}
@@ -180,7 +180,7 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 .pledge .top .art{opacity:.6;}
 .pledge .top .veil{
   position:absolute;left:0;top:0;width:100%;height:100%;
-  background:linear-gradient(180deg,rgba(8,33,31,.3),var(--ink0));
+  background:linear-gradient(180deg,rgba(11,31,58,.3),var(--ink0));
 }
 .pledge .in{padding:8px 22px 26px;text-align:center;}
 .pledge .seal{
@@ -236,7 +236,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
 /* ───── 완료 ───── */
 .done{position:relative;background:var(--ink0);color:var(--cream);overflow:hidden;}
 .done .art{opacity:.6;}
-.done .veil{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(8,33,31,.35),rgba(8,33,31,.9));}
+.done .veil{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(11,31,58,.35),rgba(11,31,58,.9));}
 .done .in{position:relative;z-index:2;padding:calc(env(safe-area-inset-top) + 80px) 24px 40px;text-align:center;min-height:420px;}
 .done .mark{width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;margin:0 auto 26px;position:relative;}
 .done .mark::after{
@@ -440,8 +440,8 @@ button.go.gold{background:var(--gold);color:#241C05;}
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbw3HuhOl8P4upR61iIOE7bMIuOxJalCfk38r6X50R2Ih3xuMdo987pW9QryvkugVE7z3A/exec";
 
 /* ═══ 일러스트 (외부 이미지 없이 SVG 로 직접 그립니다) ═══ */
-const C = { bg:"#0E3532", bg2:"#123F3A", line:"#EBD9A6", gold:"#C39B36", cream:"#F7F2E6",
-            rose:"#E9A7A9", orange:"#E0894B", sky:"#7FBEB4", red:"#C4553F" };
+const C = { bg:"#12294A", bg2:"#17305C", line:"#EBD9A6", gold:"#C39B36", cream:"#F7F2E6",
+            rose:"#E9A7A9", orange:"#E0894B", sky:"#8FB6E6", red:"#C4553F" };
 
 function svg(vb, inner){
   return '<svg viewBox="' + vb + '" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">' + inner + '</svg>';
@@ -495,9 +495,9 @@ const TILE = {
 const BANNER = {
   hero: svg("0 0 360 300",
     '<defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0" stop-color="#17635A"/><stop offset="1" stop-color="#08211F"/></linearGradient></defs>' +
+      '<stop offset="0" stop-color="#264C88"/><stop offset="1" stop-color="#0B1F3A"/></linearGradient></defs>' +
     '<rect width="360" height="300" fill="url(#hg)"/>' +
-    '<circle cx="180" cy="120" r="86" fill="#1E7A6E" opacity=".45"/>' +
+    '<circle cx="180" cy="120" r="86" fill="#2F5B99" opacity=".45"/>' +
     '<path d="M180 6 L286 210 H74 Z" fill="' + C.gold + '" opacity=".14"/>' +
     '<g fill="none" stroke="' + C.line + '" stroke-width="3.5" stroke-linecap="round" opacity=".9">' +
       '<path d="M150 96q30-22 60 0"/><path d="M180 108v40"/>' +
@@ -512,8 +512,8 @@ const BANNER = {
 
   camp: svg("0 0 360 160",
     '<rect width="360" height="160" fill="' + C.bg + '"/>' +
-    '<path d="M0 160 L96 54 L168 160 Z" fill="#12504B"/>' +
-    '<path d="M140 160 L240 40 L340 160 Z" fill="#17635A"/>' +
+    '<path d="M0 160 L96 54 L168 160 Z" fill="#1A3B6E"/>' +
+    '<path d="M140 160 L240 40 L340 160 Z" fill="#264C88"/>' +
     '<path d="M240 40 L268 74 L212 74 Z" fill="' + C.cream + '" opacity=".7"/>' +
     '<circle cx="66" cy="44" r="16" fill="' + C.gold + '" opacity=".8"/>' +
     '<g stroke="' + C.line + '" stroke-width="2.5" stroke-linecap="round" opacity=".8">' +
