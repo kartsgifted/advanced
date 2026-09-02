@@ -121,7 +121,7 @@ button.refresh:disabled{background:#9C978B;}
 
 <script>
 /* ═══ Apps Script 웹앱 URL (survey_advanced.html과 동일) ═══ */
-const ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbw3HuhOl8P4upR61iIOE7bMIuOxJalCfk38r6X50R2Ih3xuMdo987pW9QryvkugVE7z3A/exec";
 
 const $ = id => document.getElementById(id);
 let KEY = "", DATA = null, filter = "전체", query = "";
@@ -137,26 +137,57 @@ function tryEnter(){
   const v = $('key').value.trim();
   if(!v) return;
   KEY = v; $('lockErr').textContent = "확인 중…";
+  $('enter').disabled = true;
+  setTimeout(function(){ $('enter').disabled = false; }, 1200);
   load();
 }
 
-async function load(){
-  try{
-    const url = `${ENDPOINT}?view=status&key=${encodeURIComponent(KEY)}&t=${Date.now()}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if(!data.ok){
-      $('lockErr').textContent = data.error === 'unauthorized' ? "접속 키가 올바르지 않습니다." : "불러오지 못했습니다.";
-      localStorage.removeItem('kartsKey');
-      return;
+/* Apps Script 웹앱을 JSONP 로 호출합니다. 브라우저 CORS 정책의 영향을 받지 않습니다. */
+function callApi(params){
+  return new Promise(function(resolve, reject){
+    const cb = 'karts_cb_' + Date.now();
+    const el = document.createElement('script');
+    const timer = setTimeout(function(){ cleanup(); reject(new Error('timeout')); }, 20000);
+    function cleanup(){
+      clearTimeout(timer);
+      try{ delete window[cb]; }catch(e){ window[cb] = undefined; }
+      if(el.parentNode) el.parentNode.removeChild(el);
     }
-    localStorage.setItem('kartsKey', KEY);
-    DATA = data;
-    $('lock').hidden = true; $('app').hidden = false;
-    render();
+    window[cb] = function(data){ cleanup(); resolve(data); };
+    el.onerror = function(){ cleanup(); reject(new Error('network')); };
+    el.src = ENDPOINT + '?' + params + '&callback=' + cb + '&t=' + Date.now();
+    document.body.appendChild(el);
+  });
+}
+
+function fail(msg){ $('lockErr').textContent = msg; }
+
+async function load(){
+  let data;
+  try{
+    data = await callApi('view=status&key=' + encodeURIComponent(KEY));
   }catch(err){
-    $('lockErr').textContent = "서버에 연결하지 못했습니다.";
+    fail(err.message === 'timeout'
+      ? "서버 응답이 없습니다. 잠시 후 다시 시도해 주세요."
+      : "서버에 연결하지 못했습니다. 웹앱 배포의 액세스 권한이 '모든 사용자'인지 확인해 주세요.");
+    return;
   }
+  if(!data || !data.ok){
+    fail(data && data.error === 'unauthorized'
+      ? "접속 키가 올바르지 않습니다."
+      : "서버 오류: " + ((data && data.error) || "알 수 없음"));
+    localStorage.removeItem('kartsKey');
+    return;
+  }
+  if(!data.summary){
+    fail("웹앱이 예전 버전입니다. Apps Script에서 [배포 관리 → 새 버전]으로 다시 배포해 주세요.");
+    return;
+  }
+  localStorage.setItem('kartsKey', KEY);
+  DATA = data;
+  $('lock').hidden = true; $('app').hidden = false;
+  try{ render(); }
+  catch(err){ $('list').innerHTML = '<p class="empty">화면을 그리는 중 오류가 발생했습니다: ' + err.message + '</p>'; }
 }
 
 $('reload').addEventListener('click', async ()=>{
