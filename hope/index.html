@@ -22,7 +22,6 @@
   --text:#1B1B19;
   --mute:#63605A;
   --danger:#A03A29;
-  --bar: 84px;          /* 하단 버튼 영역 */
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;height:100%;}
@@ -35,7 +34,11 @@ body{
 [hidden]{display:none !important;}
 img{display:block;max-width:100%;}
 
-.app{max-width:600px;margin:0 auto;min-height:100dvh;position:relative;background:var(--cream);overflow:hidden;}
+.app{
+  max-width:600px;margin:0 auto;background:var(--cream);
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;
+}
 
 /* ───── 상단 바 ───── */
 .topbar{
@@ -55,12 +58,15 @@ img{display:block;max-width:100%;}
 .track i.now{background:var(--gold);}
 
 /* ───── 화면 ───── */
-.screen{padding-bottom:calc(var(--bar) + env(safe-area-inset-bottom));}
+.screen{flex:1 1 auto;padding-bottom:28px;}
 .pad{padding:26px 20px 8px;}
 
 /* ───── 표지 ───── */
-#s0{padding-bottom:0;}
-.hero{position:relative;height:100dvh;min-height:560px;color:var(--cream);overflow:hidden;}
+#s0{padding-bottom:0;display:flex;}
+.hero{
+  position:relative;flex:1;width:100%;color:var(--cream);overflow:hidden;
+  min-height:calc(100vh - 96px);min-height:calc(100svh - 96px);
+}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75) contrast(1.05);}
 .hero::after{
   content:'';position:absolute;inset:0;
@@ -207,12 +213,11 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 
 /* ───── 하단 고정 버튼 ───── */
 .actions{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;
-  max-width:600px;margin:0 auto;
-  background:linear-gradient(180deg,rgba(247,242,230,0),var(--cream) 30%);
+  position:sticky;bottom:0;z-index:40;flex:none;
+  background:linear-gradient(180deg,rgba(247,242,230,0),var(--cream) 26%);
   padding:16px 20px calc(16px + env(safe-area-inset-bottom));
-  display:flex;gap:10px;
 }
+.actions .btns{display:flex;gap:10px;}
 .actions.dark{background:linear-gradient(180deg,rgba(8,33,31,0),var(--ink0) 30%);}
 button.go{
   flex:1;min-height:56px;border:none;border-radius:6px;background:var(--teal);color:var(--cream);
@@ -222,15 +227,12 @@ button.go:active{background:var(--teal-lt);}
 button.go:disabled{background:#9C978B;}
 button.go.gold{background:var(--gold);color:#241C05;}
 button.go:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-.errbar{
-  position:fixed;left:0;right:0;bottom:calc(var(--bar) + env(safe-area-inset-bottom));z-index:41;
-  max-width:600px;margin:0 auto;padding:0 20px;
-}
+.errbar{margin-bottom:10px;}
 .errbar div{background:#F3E0DA;color:var(--danger);font-size:13.5px;padding:12px 15px;border-radius:6px;}
 
 /* ───── 완료 ───── */
-#s5{padding:0;}
-.done{position:relative;min-height:100dvh;color:var(--cream);}
+#s5{padding:0;display:flex;}
+.done{position:relative;flex:1;width:100%;color:var(--cream);min-height:100vh;min-height:100svh;}
 .done img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7);}
 .done::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,33,31,.75),rgba(8,33,31,.97));}
 .done .in{
@@ -421,9 +423,9 @@ button.go:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   </section>
 
   <!-- 하단 고정 버튼 -->
-  <div class="errbar" id="errBar" hidden><div id="errText"></div></div>
   <div class="actions" id="actions">
-    <button class="go" id="mainBtn" type="button">응답 시작하기</button>
+    <div class="errbar" id="errBar" hidden><div id="errText"></div></div>
+    <div class="btns"><button class="go" id="mainBtn" type="button">응답 시작하기</button></div>
   </div>
 
 </div>
@@ -540,7 +542,8 @@ function show(n){
   $('mainBtn').classList.toggle('gold', n === 4);
   hideErr();
   cur = n;
-  window.scrollTo(0,0);
+  window.scrollTo({top:0,behavior:'auto'});
+  document.documentElement.scrollTop = 0;
 }
 
 function showErr(msg){ $('errText').textContent = msg; $('errBar').hidden = false; }
