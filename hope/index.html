@@ -68,10 +68,7 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .hero .issuer{font-size:13.5px;letter-spacing:.04em;color:var(--gold-lt);margin:0 0 78px;line-height:1.7;}
 .hero h1{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;margin:0;font-size:36px;line-height:1.3;}
 .hero .sub{margin:14px 0 0;font-size:17px;line-height:1.72;color:rgba(247,242,230,.94);}
-.hero .tag{
-  display:inline-block;margin:0 0 12px;padding:6px 14px;border-radius:999px;
-  background:var(--gold);color:#241C05;font-size:13.5px;font-weight:700;letter-spacing:.02em;
-}
+.hero h1 b{color:var(--gold-lt);font-weight:inherit;}
 .progcards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;}
 .progcards > div{
   background:rgba(247,242,230,.10);border:1px solid rgba(247,242,230,.2);
@@ -188,7 +185,7 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .daystrip span{display:block;font-size:11.5px;color:rgba(247,242,230,.65);margin-top:3px;}
 .daystrip .mark{display:block;font-size:10.5px;color:var(--gold-lt);margin-top:4px;}
 .dayband{
-  position:relative;display:flex;align-items:center;gap:10px;margin:34px 0 8px;
+  position:relative;display:flex;align-items:center;gap:10px;margin:6px 0 10px;
   font-size:13.5px;color:var(--mute);
 }
 .dayband .bar{
@@ -201,10 +198,6 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 }
 .dayband .bar::before{left:-2px;}
 .dayband .bar::after{right:-2px;}
-.dayband .cap{
-  position:absolute;left:50%;top:-26px;transform:translateX(-50%);white-space:nowrap;
-  background:var(--ink0);color:var(--cream);font-size:12.5px;padding:5px 12px;border-radius:999px;
-}
 .dayband .side{flex:none;font-size:12.5px;color:var(--text);font-weight:700;}
 .doing{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:6px 15px;}
 .doing div{display:flex;gap:11px;align-items:flex-start;padding:12px 0;font-size:15.5px;line-height:1.6;}
@@ -345,8 +338,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
       <div class="veil"></div>
       <div class="hero-in">
         <p class="issuer">한국예술종합학교 한국예술영재교육연구원<br>2026 K예술영재 프로젝트</p>
-        <p class="tag">심화과정</p>
-        <h1>심화과정 대상자<br>참여 수요조사</h1>
+        <h1><b>심화과정</b> 대상자<br>참여 수요조사</h1>
         <p class="sub">워크숍 수료자 중 선발된 학생에게만 열리는 과정입니다. 두 프로그램의 일정을 확인하고 참여 가능 여부를 응답해 주세요.</p>
         <div class="progcards">
           <div><i>①</i><b>멘토링</b><span>2026. 10 ~ 12월<br>분야별 대면 · 비대면</span></div>
@@ -409,7 +401,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
 
       <div class="dayband">
         <span class="side">입소</span>
-        <span class="bar"><span class="cap">이 기간 내내 참여합니다</span></span>
+        <span class="bar"></span>
         <span class="side">퇴소</span>
       </div>
 
