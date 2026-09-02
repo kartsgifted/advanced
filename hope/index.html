@@ -197,6 +197,17 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 .agree input{width:22px;height:22px;flex:none;margin:2px 0 0;accent-color:var(--gold);}
 .pledge .fine{font-size:12.5px;color:rgba(247,242,230,.5);margin:14px 0 0;}
 .foot-note{color:var(--mute);font-size:12px;text-align:center;margin:22px 0 0;}
+.review{background:#fff;border:1px solid var(--cream2);border-radius:8px;overflow:hidden;}
+.review .r{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;}
+.review .r + .r{border-top:1px solid var(--cream2);}
+.review .k{flex:none;width:72px;color:var(--mute);font-size:13.5px;}
+.review .v{flex:1;font-size:15px;font-weight:500;word-break:break-word;}
+.review .edit{
+  flex:none;border:1px solid var(--cream2);background:var(--cream);border-radius:5px;
+  padding:6px 11px;font-family:inherit;font-size:12.5px;color:var(--mute);cursor:pointer;
+}
+.review .r.note{background:#FBF4E2;font-size:13.5px;color:#6E5716;display:block;}
+.review .r.note b{color:var(--danger);}
 
 /* ───── 버튼 (문서 흐름 안) ───── */
 .actions{padding:22px 20px calc(26px + env(safe-area-inset-bottom));background:var(--cream);}
@@ -239,7 +250,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
       <span class="label" id="stepLabel"></span>
       <span class="count" id="stepCount"></span>
     </div>
-    <div class="track" id="track"><i></i><i></i><i></i><i></i></div>
+    <div class="track" id="track"><i></i><i></i><i></i><i></i><i></i></div>
   </header>
 
   <!-- 0. 표지 -->
@@ -372,12 +383,22 @@ button.go.gold{background:var(--gold);color:#241C05;}
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- 5. 응답 확인 -->
+  <section class="screen" id="s5" hidden>
+    <div class="pad">
+      <p class="step-label">확인</p>
+      <h2 class="title">이대로 제출할까요?</h2>
+      <p class="lede">입력하신 내용을 확인해 주세요. 수정이 필요하면 오른쪽 수정 버튼을 누르면 해당 단계로 돌아갑니다.</p>
+      <div class="review" id="review"></div>
       <p class="foot-note">제출 후에는 수정할 수 없습니다.</p>
     </div>
   </section>
 
-  <!-- 5. 완료 -->
-  <section class="screen" id="s5" hidden>
+  <!-- 6. 완료 -->
+  <section class="screen" id="s6" hidden>
     <div class="done">
       <img class="bg" id="doneImg" alt="" loading="lazy">
       <div class="veil"></div>
@@ -431,7 +452,8 @@ const STEPS = [
   {label:"분야 및 전공", btn:"다음"},
   {label:"심화과정 안내", btn:"확인했습니다"},
   {label:"개인정보", btn:"다음"},
-  {label:"참여 가능 여부", btn:"응답 제출하기"}
+  {label:"참여 가능 여부", btn:"입력 내용 확인"},
+  {label:"응답 확인", btn:"이대로 제출하기"}
 ];
 
 const $ = function(id){ return document.getElementById(id); };
@@ -529,21 +551,22 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=join]'), func
 
 /* 화면 전환 */
 function show(n){
-  for(let i = 0; i <= 5; i++){ $("s" + i).hidden = (i !== n); }
-  $("topbar").hidden = (n === 0 || n === 5);
-  $("actions").hidden = (n === 5);
+  for(let i = 0; i <= 6; i++){ $("s" + i).hidden = (i !== n); }
+  $("topbar").hidden = (n === 0 || n === 6);
+  $("actions").hidden = (n === 6);
   $("actions").className = "actions" + (n === 0 ? " dark" : "");
-  if(n >= 1 && n <= 4){
+  if(n >= 1 && n <= 5){
     $("stepLabel").textContent = STEPS[n].label;
-    $("stepCount").textContent = n + " / 4";
+    $("stepCount").textContent = n + " / 5";
     const bars = $("track").children;
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < 5; i++){
       bars[i].className = i < n - 1 ? "done" : (i === n - 1 ? "now" : "");
     }
   }
-  if(n <= 4){
+  if(n === 5) renderReview();
+  if(n <= 5){
     $("mainBtn").textContent = STEPS[n].btn;
-    $("mainBtn").className = "go" + (n === 4 ? " gold" : "");
+    $("mainBtn").className = "go" + (n === 5 ? " gold" : "");
   }
   hideErr();
   cur = n;
@@ -567,13 +590,49 @@ function valid(step){
       $("birthText").focus(); return false;
     }
   }
+  if(step === 4){
+    if(!state.join){ showErr("참여 가능 여부를 선택해 주세요."); return false; }
+    if(state.join === "참여 가능" && !$("agree").checked){ showErr("서약 동의에 체크해 주세요."); return false; }
+    if(state.join === "참여 불가" && !$("reason").value.trim()){
+      showErr("참여가 어려운 이유를 작성해 주세요."); $("reason").focus(); return false;
+    }
+  }
   return true;
+}
+
+/* 응답 확인 */
+function esc(t){
+  return String(t).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; });
+}
+function renderReview(){
+  const rows = [
+    ["분야", state.field, 1],
+    ["전공", state.major || "해당 없음", 1],
+    ["이름", $("name").value.trim(), 3],
+    ["생년월일", getBirth(), 3],
+    ["참여 여부", state.join, 4]
+  ];
+  if(state.join === "참여 가능"){
+    rows.push(["서약", "일정과 내용을 확인하고 성실히 참여할 것을 서약함", 4]);
+  }else{
+    rows.push(["불참 사유", $("reason").value.trim(), 4]);
+  }
+  $("review").innerHTML = rows.map(function(r){
+    return '<div class="r"><div class="k">' + r[0] + '</div>' +
+           '<div class="v">' + esc(r[1]) + '</div>' +
+           '<button class="edit" type="button" data-step="' + r[2] + '">수정</button></div>';
+  }).join("") +
+  '<div class="r note">제출한 내용은 <b>수정할 수 없습니다.</b> 이름과 생년월일이 정확한지 다시 확인해 주세요.</div>';
+
+  Array.prototype.forEach.call($("review").querySelectorAll(".edit"), function(b){
+    b.addEventListener("click", function(){ show(Number(b.dataset.step)); });
+  });
 }
 
 $("backBtn").addEventListener("click", function(){ if(cur > 0) show(cur - 1); });
 
 $("mainBtn").addEventListener("click", function(){
-  if(cur < 4){ if(valid(cur)) show(cur + 1); return; }
+  if(cur < 5){ if(valid(cur)) show(cur + 1); return; }
   submit();
 });
 
@@ -581,10 +640,8 @@ $("mainBtn").addEventListener("click", function(){
 function submit(){
   if(sent) return;
   hideErr();
-  if(!state.join){ showErr("참여 가능 여부를 선택해 주세요."); return; }
+  if(!valid(4)){ show(4); return; }
   const reason = $("reason").value.trim();
-  if(state.join === "참여 가능" && !$("agree").checked){ showErr("서약 동의에 체크해 주세요."); return; }
-  if(state.join === "참여 불가" && !reason){ showErr("참여가 어려운 이유를 작성해 주세요."); $("reason").focus(); return; }
 
   const payload = {
     "분야": state.field,
@@ -604,7 +661,7 @@ function submit(){
     sent = true;
     done(payload);
   }).catch(function(){
-    btn.disabled = false; btn.textContent = STEPS[4].btn;
+    btn.disabled = false; btn.textContent = STEPS[5].btn;
     showErr("제출에 실패했습니다. 연결을 확인한 뒤 다시 시도해 주세요.");
   });
 }
@@ -623,7 +680,7 @@ function send(payload){
 }
 
 function done(p){
-  show(5);
+  show(6);
   $("doneText").textContent = p["참여여부"] === "참여 가능"
     ? "서약과 함께 참여 의사가 접수되었습니다. 세부 일정은 추후 개별 안내드립니다."
     : "응답이 접수되었습니다. 작성해 주신 사유는 운영에 참고하겠습니다.";
