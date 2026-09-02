@@ -34,6 +34,22 @@ body{background:var(--ink0);font-family:'Noto Sans KR',sans-serif;color:var(--te
 .summary .warn b{color:var(--danger);}
 .summary .ok b{color:var(--teal-lt);}
 
+/* 분야별 통계 */
+.bysec{padding:20px 20px 4px;}
+.bysec h2{font-size:13px;color:var(--mute);font-weight:500;margin:0 0 10px;letter-spacing:.03em;}
+.bytable{background:#fff;border:1px solid var(--cream2);border-radius:8px;overflow:hidden;}
+.byrow{display:flex;align-items:center;gap:10px;padding:12px 14px;}
+.byrow + .byrow{border-top:1px solid var(--cream2);}
+.byrow .fn{flex:none;width:64px;font-size:14px;font-weight:700;}
+.byrow .bar{flex:1;height:8px;background:var(--cream2);border-radius:4px;overflow:hidden;}
+.byrow .bar i{display:block;height:100%;background:var(--teal-lt);}
+.byrow .num{flex:none;font-size:13px;color:var(--mute);width:96px;text-align:right;}
+.byrow .num b{color:var(--text);}
+.byrow.head{background:#FBF7EC;font-size:12px;color:var(--mute);}
+.bylegend{display:flex;gap:14px;padding:10px 14px 0;font-size:12px;color:var(--mute);}
+.bydetail{display:flex;gap:8px;padding:0 14px 12px;font-size:12.5px;color:var(--mute);}
+.bydetail span b{color:var(--text);}
+
 /* 도구 */
 .tools{padding:16px 20px 6px;display:flex;flex-direction:column;gap:12px;}
 .search{width:100%;min-height:48px;padding:12px 15px;font-family:inherit;font-size:16px;background:#fff;border:1px solid var(--cream2);border-radius:6px;}
@@ -106,6 +122,11 @@ button.refresh:disabled{background:#9C978B;}
   </header>
 
   <div class="summary" id="summary"></div>
+
+  <div class="bysec">
+    <h2>분야별 응답 현황</h2>
+    <div class="bytable" id="byField"></div>
+  </div>
 
   <div class="tools">
     <input class="search" id="q" type="search" placeholder="이름으로 검색" enterkeyhint="search">
@@ -209,6 +230,8 @@ function render(){
     `<div><b>${s.불참}</b><span>참여 불가</span></div>` +
     `<div><b>${s.대상 ? Math.round(s.응답 / s.대상 * 100) : 0}%</b><span>응답률</span></div>`;
 
+  renderByField();
+
   const fields = ["전체","미응답","응답 완료"].concat(
     [...new Set(DATA.list.map(x => x.분야).filter(Boolean))]
   );
@@ -245,6 +268,39 @@ function render(){
       if(d) d.hidden = !d.hidden;
     });
   });
+}
+
+function renderByField(){
+  const groups = {};
+  DATA.list.forEach(function(x){
+    const f = x.분야 || "미지정";
+    if(!groups[f]) groups[f] = {total:0, done:0, yes:0, no:0};
+    const g = groups[f];
+    g.total++;
+    if(x.응답상태 === "응답 완료"){
+      g.done++;
+      if(x.참여여부 === "참여 가능") g.yes++;
+      else if(x.참여여부 === "참여 불가") g.no++;
+    }
+  });
+  const order = ["무용","미술","음악","전통예술"];
+  const names = Object.keys(groups).sort(function(a,b){
+    const ia = order.indexOf(a), ib = order.indexOf(b);
+    return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib);
+  });
+
+  $('byField').innerHTML = names.map(function(f){
+    const g = groups[f];
+    const pct = g.total ? Math.round(g.done / g.total * 100) : 0;
+    return '<div class="byrow">' +
+        '<div class="fn">' + f + '</div>' +
+        '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+        '<div class="num"><b>' + g.done + '</b> / ' + g.total + ' (' + pct + '%)</div>' +
+      '</div>' +
+      '<div class="bydetail"><span>참여 <b>' + g.yes + '</b></span>' +
+        '<span>불참 <b>' + g.no + '</b></span>' +
+        '<span>미응답 <b>' + (g.total - g.done) + '</b></span></div>';
+  }).join("") || '<div class="byrow"><div class="num" style="width:auto">명단이 비어 있습니다.</div></div>';
 }
 
 function card(x){
