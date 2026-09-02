@@ -3,33 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#08211F">
+<meta name="theme-color" content="#0B1F3A">
 <title>심화과정 수요조사 응답 현황</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
 :root{
-  --ink0:#08211F; --ink1:#0E3532; --teal:#13564F; --teal-lt:#1E7A6E;
+  --ink0:#0B1F3A;  /* 딥네이비 */ --ink1:#12294A; --teal:#1B3A6B; --teal-lt:#2F5B99;
   --cream:#F7F2E6; --cream2:#EDE5D2; --gold:#C39B36; --gold-lt:#EBD9A6;
   --text:#1B1B19; --mute:#63605A; --danger:#A03A29;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;}
-body{background:var(--ink0);font-family:'Noto Sans KR',sans-serif;color:var(--text);line-height:1.65;word-break:keep-all;-webkit-text-size-adjust:100%;}
+body{background:var(--ink0);font-family:'Pretendard','Pretendard Variable','Noto Sans KR',sans-serif;color:var(--text);line-height:1.65;word-break:keep-all;-webkit-text-size-adjust:100%;}
 [hidden]{display:none !important;}
 .app{max-width:720px;margin:0 auto;min-height:100dvh;background:var(--cream);}
 
 /* 헤더 */
 .head{background:var(--ink0);color:var(--cream);padding:calc(env(safe-area-inset-top) + 26px) 20px 22px;}
 .head p{margin:0;font-size:12.5px;color:var(--gold-lt);letter-spacing:.05em;}
-.head h1{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:600;margin:8px 0 0;}
+.head h1{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:22px;font-weight:400;margin:8px 0 0;}
 .head .when{margin-top:6px;font-size:12.5px;color:rgba(247,242,230,.5);}
 
 /* 요약 */
 .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--cream2);border-bottom:1px solid var(--cream2);}
 .summary div{background:var(--cream);padding:16px 12px;text-align:center;}
-.summary b{display:block;font-family:'Noto Serif KR',serif;font-size:24px;font-weight:600;line-height:1.2;}
+.summary b{display:block;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:24px;font-weight:400;line-height:1.2;}
 .summary span{font-size:12.5px;color:var(--mute);}
 .summary .warn b{color:var(--danger);}
 .summary .ok b{color:var(--teal-lt);}
@@ -53,7 +54,7 @@ body{background:var(--ink0);font-family:'Noto Sans KR',sans-serif;color:var(--te
 /* 도구 */
 .tools{padding:16px 20px 6px;display:flex;flex-direction:column;gap:12px;}
 .search{width:100%;min-height:48px;padding:12px 15px;font-family:inherit;font-size:16px;background:#fff;border:1px solid var(--cream2);border-radius:6px;}
-.search:focus{outline:none;border-color:var(--teal-lt);box-shadow:0 0 0 3px rgba(30,122,110,.15);}
+.search:focus{outline:none;border-color:var(--teal-lt);box-shadow:0 0 0 3px rgba(47,91,153,.18);}
 .filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
 .filters button{
   flex:none;padding:9px 15px;border:1px solid var(--cream2);background:#fff;border-radius:999px;
@@ -73,7 +74,7 @@ body{background:var(--ink0);font-family:'Noto Sans KR',sans-serif;color:var(--te
 .row .nm{font-weight:700;font-size:15.5px;}
 .row .sub{font-size:12.5px;color:var(--mute);margin-top:2px;}
 .badge{flex:none;font-size:12px;padding:5px 10px;border-radius:999px;white-space:nowrap;align-self:center;}
-.b-yes{background:#E3EFEA;color:#155048;}
+.b-yes{background:#E3EAF6;color:#1B3A6B;}
 .b-no{background:#F3E0DA;color:var(--danger);}
 .b-wait{background:#EFEADC;color:var(--mute);}
 .detail{margin-top:11px;padding-top:11px;border-top:1px dashed var(--cream2);font-size:13.5px;color:var(--mute);}
@@ -89,17 +90,17 @@ body{background:var(--ink0);font-family:'Noto Sans KR',sans-serif;color:var(--te
 }
 button.refresh{
   width:100%;min-height:52px;border:none;border-radius:6px;background:var(--teal);color:var(--cream);
-  font-family:'Noto Serif KR',serif;font-size:16px;font-weight:600;cursor:pointer;
+  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:16px;font-weight:400;cursor:pointer;
 }
 button.refresh:disabled{background:#9C978B;}
 
 /* 잠금 화면 */
 .lock{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;background:var(--ink0);color:var(--cream);}
-.lock h2{font-family:'Noto Serif KR',serif;font-size:21px;margin:0 0 8px;}
+.lock h2{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:21px;margin:0 0 8px;}
 .lock p{font-size:14px;color:rgba(247,242,230,.6);margin:0 0 22px;}
 .lock input{width:100%;min-height:52px;padding:14px 16px;font-size:16px;font-family:inherit;border:1px solid rgba(247,242,230,.25);background:rgba(247,242,230,.06);color:var(--cream);border-radius:6px;}
 .lock input:focus{outline:none;border-color:var(--gold);}
-.lock button{width:100%;min-height:52px;margin-top:10px;border:none;border-radius:6px;background:var(--gold);color:#241C05;font-family:'Noto Serif KR',serif;font-size:16px;font-weight:600;cursor:pointer;}
+.lock button{width:100%;min-height:52px;margin-top:10px;border:none;border-radius:6px;background:var(--gold);color:#241C05;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:16px;font-weight:400;cursor:pointer;}
 .lock .err{color:#F0B3A6;font-size:13.5px;margin-top:12px;min-height:20px;}
 </style>
 </head>
