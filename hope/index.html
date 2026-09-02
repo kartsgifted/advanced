@@ -68,6 +68,21 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .hero .issuer{font-size:13.5px;letter-spacing:.04em;color:var(--gold-lt);margin:0 0 78px;line-height:1.7;}
 .hero h1{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;margin:0;font-size:36px;line-height:1.3;}
 .hero .sub{margin:14px 0 0;font-size:17px;line-height:1.72;color:rgba(247,242,230,.94);}
+.hero .tag{
+  display:inline-block;margin:0 0 12px;padding:6px 14px;border-radius:999px;
+  background:var(--gold);color:#241C05;font-size:13.5px;font-weight:700;letter-spacing:.02em;
+}
+.progcards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;}
+.progcards > div{
+  background:rgba(247,242,230,.10);border:1px solid rgba(247,242,230,.2);
+  border-radius:10px;padding:14px 14px 15px;
+}
+.progcards i{font-style:normal;display:block;color:var(--gold-lt);font-size:13px;margin-bottom:3px;}
+.progcards b{
+  display:block;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;
+  font-size:19px;font-weight:400;margin-bottom:7px;color:var(--cream);
+}
+.progcards span{display:block;font-size:13.5px;line-height:1.65;color:rgba(247,242,230,.88);}
 .hero .meta{margin:24px 0 0;padding-top:18px;border-top:1px solid rgba(247,242,230,.18);}
 .hero .meta div{display:flex;gap:16px;margin-bottom:10px;font-size:16px;}
 .hero .meta span{flex:none;width:72px;color:var(--gold-lt);font-size:15px;}
@@ -147,6 +162,65 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .caution h3{font-size:16.5px;margin:0 0 10px;font-weight:700;}
 .caution p{margin:0;}
 .caution em{font-style:normal;font-weight:700;color:var(--danger);}
+
+
+/* ───── 인포그래픽 ───── */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.fact{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:14px 15px;}
+.fact.wide{grid-column:1 / -1;}
+.fact em{font-style:normal;display:block;font-size:13px;color:var(--mute);margin-bottom:6px;}
+.fact b{
+  display:block;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;
+  font-weight:400;font-size:20px;line-height:1.35;color:var(--text);
+}
+.fact small{display:block;margin-top:5px;font-size:13.5px;color:var(--mute);line-height:1.55;}
+.datechips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.dchip{
+  flex:1 1 60px;background:var(--ink0);color:var(--cream);border-radius:10px;
+  padding:11px 6px;text-align:center;
+}
+.dchip b{display:block;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:19px;}
+.dchip span{display:block;font-size:12px;color:var(--gold-lt);margin-top:2px;}
+.daystrip{display:flex;background:var(--ink0);border-radius:12px;overflow:hidden;}
+.daystrip > div{flex:1;padding:12px 0 11px;text-align:center;}
+.daystrip > div + div{border-left:1px solid rgba(247,242,230,.16);}
+.daystrip b{display:block;font-size:17px;font-weight:700;color:var(--cream);}
+.daystrip span{display:block;font-size:11.5px;color:rgba(247,242,230,.65);margin-top:3px;}
+.daystrip .mark{display:block;font-size:10.5px;color:var(--gold-lt);margin-top:4px;}
+.dayband{
+  position:relative;display:flex;align-items:center;gap:10px;margin:34px 0 8px;
+  font-size:13.5px;color:var(--mute);
+}
+.dayband .bar{
+  flex:1;height:8px;border-radius:5px;position:relative;
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold) 100%);
+}
+.dayband .bar::before,.dayband .bar::after{
+  content:'';position:absolute;top:-3px;width:14px;height:14px;border-radius:50%;
+  background:var(--gold);
+}
+.dayband .bar::before{left:-2px;}
+.dayband .bar::after{right:-2px;}
+.dayband .cap{
+  position:absolute;left:50%;top:-26px;transform:translateX(-50%);white-space:nowrap;
+  background:var(--ink0);color:var(--cream);font-size:12.5px;padding:5px 12px;border-radius:999px;
+}
+.dayband .side{flex:none;font-size:12.5px;color:var(--text);font-weight:700;}
+.doing{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:6px 15px;}
+.doing div{display:flex;gap:11px;align-items:flex-start;padding:12px 0;font-size:15.5px;line-height:1.6;}
+.doing div + div{border-top:1px solid var(--cream2);}
+.doing i{
+  flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#241C05;
+  font-style:normal;font-size:13px;font-weight:700;text-align:center;line-height:24px;margin-top:1px;
+}
+.warncard{background:#FBF4E2;border-radius:10px;padding:18px 18px 18px 16px;margin-bottom:12px;display:flex;gap:14px;}
+.warncard .big{
+  flex:none;width:56px;text-align:center;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;
+  font-weight:400;font-size:26px;line-height:1.15;color:var(--danger);
+}
+.warncard .big span{display:block;font-size:12px;color:#7A6420;margin-top:3px;font-family:inherit;}
+.warncard h3{font-size:16.5px;margin:0 0 6px;font-weight:700;}
+.warncard p{margin:0;font-size:14.5px;line-height:1.72;color:#4A4436;}
 
 /* ───── 입력 ───── */
 .field{margin-bottom:20px;}
@@ -261,7 +335,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
       <span class="label" id="stepLabel"></span>
       <span class="count" id="stepCount"></span>
     </div>
-    <div class="track" id="track"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="track" id="track"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </header>
 
   <!-- 0. 표지 -->
@@ -271,14 +345,14 @@ button.go.gold{background:var(--gold);color:#241C05;}
       <div class="veil"></div>
       <div class="hero-in">
         <p class="issuer">한국예술종합학교 한국예술영재교육연구원<br>2026 K예술영재 프로젝트</p>
+        <p class="tag">심화과정</p>
         <h1>심화과정 대상자<br>참여 수요조사</h1>
-        <p class="sub">워크숍 수료자 중 선발된 학생을 대상으로, 멘토링과 겨울캠프 참여 가능 여부를 확인합니다.</p>
-        <div class="meta">
-          <div><span>멘토링</span>2026. 10 ~ 12월</div>
-          <div><span>겨울캠프</span>2027. 1. 24. ~ 1. 30. (6박 7일)</div>
-          <div><span>소요 시간</span>약 2분</div>
+        <p class="sub">워크숍 수료자 중 선발된 학생에게만 열리는 과정입니다. 두 프로그램의 일정을 확인하고 참여 가능 여부를 응답해 주세요.</p>
+        <div class="progcards">
+          <div><i>①</i><b>멘토링</b><span>2026. 10 ~ 12월<br>분야별 대면 · 비대면</span></div>
+          <div><i>②</i><b>겨울캠프</b><span>2027. 1. 24. ~ 1. 30.<br>6박 7일 숙박형</span></div>
         </div>
-        <div class="due">응답기한 <b>9월 9일(수) 18:00</b></div>
+        <div class="due">응답기한 <b>9월 9일(수) 18:00</b> · 약 2분</div>
       </div>
     </div>
   </section>
@@ -297,40 +371,100 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
   </section>
 
-  <!-- 2. 안내 -->
+  <!-- 2. 멘토링 -->
   <section class="screen" id="s2" hidden>
     <div class="pad">
-      <p class="step-label">안내</p>
-      <h2 class="title" id="s2Title">심화과정 일정</h2>
-      <p class="lede">아래 일정을 확인한 뒤 다음 단계로 이동해 주세요.</p>
+      <p class="step-label">안내 1 / 3</p>
+      <h2 class="title" id="s2Title">멘토링</h2>
+      <p class="lede">전공 선생님과 함께하는 개인별 코칭 과정입니다. 아래 일정을 확인해 주세요.</p>
     </div>
-
     <div class="photocard">
       <div class="art" id="mentorImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="cap"><i>&#9312;</i><strong>멘토링</strong></div>
     </div>
-    <div class="infobody" id="mentorInfo"></div>
+    <div class="pad" style="padding-top:20px;">
+      <div id="mentorInfo"></div>
+    </div>
+  </section>
 
+  <!-- 3. 겨울캠프 -->
+  <section class="screen" id="s3" hidden>
+    <div class="pad">
+      <p class="step-label">안내 2 / 3</p>
+      <h2 class="title">겨울캠프</h2>
+      <p class="lede">전 분야가 함께 모여 6박 7일간 합숙하는 과정입니다.</p>
+    </div>
     <div class="photocard">
       <div class="art" id="campImg" aria-hidden="true"></div>
       <div class="veil"></div>
       <div class="cap"><i>&#9313;</i><strong>겨울캠프</strong></div>
     </div>
-    <div class="infobody">
-      <div class="line"><span>일정</span><div>2027. 1. 24.(일) ~ 1. 30.(토)<br>6박 7일 (숙박형)</div></div>
-      <div class="line"><span>장소</span><div>한국예술영재교육원 광주캠퍼스 일대</div></div>
-      <div class="line"><span>내용</span><div>정상급 아티스트 마스터클래스, 크로스오버 프로젝트, 갈라 공연 등</div></div>
-    </div>
+    <div class="pad" style="padding-top:20px;">
+      <div class="facts">
+        <div class="fact"><em>기간</em><b>6박 7일</b><small>합숙형</small></div>
+        <div class="fact"><em>숙소</em><b>2인 1실</b><small>전 분야 합동</small></div>
+        <div class="fact wide"><em>장소</em><b>광주캠퍼스 일대</b><small>한국예술영재교육원</small></div>
+      </div>
 
-    <div class="caution">
-      <h3>유의사항</h3>
-      <p>참가자는 교육 일정 동안 스스로 생활하고 단체활동에 참여할 수 있어야 합니다(6박 7일 합숙, 2인 1실 제공). 참여가 확정된 이후 사전 협의 없이 불참하거나 정당한 사유 없이 반복적으로 결석 또는 중도이탈하는 경우 <em>향후 5년간</em> K예술영재 프로젝트 및 관련 프로그램 참여가 제한됩니다.</p>
+      <div class="dayband">
+        <span class="side">입소</span>
+        <span class="bar"><span class="cap">이 기간 내내 참여합니다</span></span>
+        <span class="side">퇴소</span>
+      </div>
+
+      <div class="daystrip">
+        <div><b>24</b><span>일</span><span class="mark">1일차</span></div>
+        <div><b>25</b><span>월</span><span class="mark">2일차</span></div>
+        <div><b>26</b><span>화</span><span class="mark">3일차</span></div>
+        <div><b>27</b><span>수</span><span class="mark">4일차</span></div>
+        <div><b>28</b><span>목</span><span class="mark">5일차</span></div>
+        <div><b>29</b><span>금</span><span class="mark">6일차</span></div>
+        <div><b>30</b><span>토</span><span class="mark">7일차</span></div>
+      </div>
+      <p class="hint" style="margin:10px 0 16px;">2027년 1월 24일(일) 입소 · 1월 30일(토) 퇴소 · 중간 참여나 부분 참여는 어렵습니다.</p>
+
+      <div class="doing">
+        <div><i>1</i><div>정상급 아티스트 마스터클래스</div></div>
+        <div><i>2</i><div>분야를 넘나드는 크로스오버 프로젝트</div></div>
+        <div><i>3</i><div>과정을 마무리하는 갈라 공연</div></div>
+      </div>
     </div>
   </section>
 
-  <!-- 3. 개인정보 -->
-  <section class="screen" id="s3" hidden>
+  <!-- 4. 유의사항 -->
+  <section class="screen" id="s4" hidden>
+    <div class="pad">
+      <p class="step-label">안내 3 / 3</p>
+      <h2 class="title">참여 전 꼭 확인해 주세요</h2>
+      <p class="lede">아래 내용에 동의할 수 있는 경우에만 참여 가능으로 응답해 주세요.</p>
+
+      <div class="warncard">
+        <div class="big">7<span>일 합숙</span></div>
+        <div>
+          <h3>스스로 생활할 수 있어야 합니다</h3>
+          <p>겨울캠프는 6박 7일 합숙으로 진행됩니다. 교육 일정 동안 스스로 생활하고 단체활동에 참여할 수 있어야 합니다.</p>
+        </div>
+      </div>
+      <div class="warncard">
+        <div class="big">5<span>년 제한</span></div>
+        <div>
+          <h3>확정 후 불참 시 제한이 있습니다</h3>
+          <p>참여가 확정된 이후 사전 협의 없이 불참하거나, 정당한 사유 없이 반복적으로 결석 또는 중도이탈하는 경우 향후 <em style="font-style:normal;font-weight:700;color:var(--danger);">5년간</em> K예술영재 프로젝트 및 관련 프로그램 참여가 제한됩니다.</p>
+        </div>
+      </div>
+      <div class="warncard">
+        <div class="big">!<span>일정 변동</span></div>
+        <div>
+          <h3>일정은 변동될 수 있습니다</h3>
+          <p>분야 및 전공에 따라 개인별 일정이 상이할 수 있으며, 사정에 따라 일정이 변동될 수 있습니다. 변동 시 개별 안내드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 개인정보 -->
+  <section class="screen" id="s5" hidden>
     <div class="pad">
       <p class="step-label">응답 2</p>
       <h2 class="title">본인 정보를 입력해 주세요</h2>
@@ -358,8 +492,8 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
   </section>
 
-  <!-- 4. 참여 여부 -->
-  <section class="screen" id="s4" hidden>
+  <!-- 6. 참여 여부 -->
+  <section class="screen" id="s6" hidden>
     <div class="pad">
       <p class="step-label">응답 3</p>
       <h2 class="title">심화과정에 참여할 수 있나요?</h2>
@@ -397,8 +531,8 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
   </section>
 
-  <!-- 5. 응답 확인 -->
-  <section class="screen" id="s5" hidden>
+  <!-- 7. 응답 확인 -->
+  <section class="screen" id="s7" hidden>
     <div class="pad">
       <p class="step-label">확인</p>
       <h2 class="title">이대로 제출할까요?</h2>
@@ -408,8 +542,8 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
   </section>
 
-  <!-- 6. 완료 -->
-  <section class="screen" id="s6" hidden>
+  <!-- 8. 완료 -->
+  <section class="screen" id="s8" hidden>
     <div class="done">
       <div class="art" id="doneImg" aria-hidden="true"></div>
       <div class="veil"></div>
@@ -554,19 +688,28 @@ const MAJORS = {
   "전통예술": ["가야금","거문고","해금","연희","타악","판소리"]
 };
 const MENTOR = {
-  "음악":     [["방식","대면 · 한국예술종합학교 서초동캠퍼스"],["일정","개인별 일정 상이"]],
-  "무용":     [["방식","비대면"],["일정","2026. 10~12월 중 월 1회"]],
-  "전통예술": [["방식","대면 · 한국예술종합학교 석관동캠퍼스"],["일정","10/3(토), 10/17(토), 11/21(토), 12/19(토)"]],
-  "미술":     [["방식","비대면"],["일정","2026. 10~12월 중 월 1회"]]
+  "음악":     { 방식:"대면", 장소:"한예종 서초동캠퍼스", 주기:"개인별 일정",
+                기간:"2026. 10 ~ 12월", 비고:"멘토와 협의해 일정을 정합니다", dates:[] },
+  "무용":     { 방식:"비대면", 장소:"온라인", 주기:"월 1회",
+                기간:"2026. 10 ~ 12월", 비고:"세부 일정은 확정 후 안내드립니다", dates:[] },
+  "미술":     { 방식:"비대면", 장소:"온라인", 주기:"월 1회",
+                기간:"2026. 10 ~ 12월", 비고:"세부 일정은 확정 후 안내드립니다", dates:[] },
+  "전통예술": { 방식:"대면", 장소:"한예종 석관동캠퍼스", 주기:"총 4회",
+                기간:"2026. 10 ~ 12월", 비고:"아래 네 번의 토요일에 진행합니다",
+                dates:[["10/3","토"],["10/17","토"],["11/21","토"],["12/19","토"]] }
 };
 const STEPS = [
   {label:"", btn:"응답 시작하기"},
-  {label:"분야 및 전공", btn:"다음"},
-  {label:"심화과정 안내", btn:"확인했습니다"},
-  {label:"개인정보", btn:"다음"},
-  {label:"참여 가능 여부", btn:"입력 내용 확인"},
-  {label:"응답 확인", btn:"이대로 제출하기"}
+  {label:"분야 및 전공",   btn:"다음"},
+  {label:"멘토링 안내",     btn:"확인했습니다"},
+  {label:"겨울캠프 안내",   btn:"확인했습니다"},
+  {label:"유의사항",       btn:"모두 확인했습니다"},
+  {label:"개인정보",       btn:"다음"},
+  {label:"참여 가능 여부",  btn:"입력 내용 확인"},
+  {label:"응답 확인",       btn:"이대로 제출하기"}
 ];
+const LAST = 7;                     // 마지막 입력 단계(응답 확인)
+const DONE_SCREEN = 8;
 
 const $ = function(id){ return document.getElementById(id); };
 const state = {field:"", major:"", join:""};
@@ -612,13 +755,25 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=field]'), fun
       $("majorBox").hidden = true;
       $("majorChips").innerHTML = "";
     }
-    const rows = (MENTOR[state.field] || []).concat([["내용","크로스오버 프로젝트 및 개인별 맞춤 코칭 등"]]);
-    $("mentorInfo").innerHTML = rows.map(function(r){
-      return '<div class="line"><span>' + r[0] + '</span><div>' + r[1] + '</div></div>';
-    }).join("") +
-    '<p class="foot">분야 및 전공에 따라 개인별 일정이 상이할 수 있으며, 사정에 따라 일정이 변동될 수 있습니다.</p>';
+    const m = MENTOR[state.field] || MENTOR["무용"];
+    const chips = m.dates.length
+      ? '<div class="datechips">' + m.dates.map(function(d){
+          return '<div class="dchip"><b>' + d[0] + '</b><span>' + d[1] + '</span></div>';
+        }).join('') + '</div>'
+      : '';
+    $("mentorInfo").innerHTML =
+      '<div class="facts">' +
+        '<div class="fact"><em>진행 방식</em><b>' + m.방식 + '</b><small>' + m.장소 + '</small></div>' +
+        '<div class="fact"><em>횟수</em><b>' + m.주기 + '</b><small>' + m.기간 + '</small></div>' +
+      '</div>' +
+      chips +
+      '<div class="doing">' +
+        '<div><i>1</i><div>분야를 넘나드는 크로스오버 프로젝트</div></div>' +
+        '<div><i>2</i><div>전공 역량을 키우는 개인별 맞춤 코칭</div></div>' +
+      '</div>' +
+      '<p class="hint" style="margin-top:12px;">' + m.비고 + '</p>';
     $("mentorImg").innerHTML = mentorArt(state.field);
-    $("s2Title").textContent = state.field + " 심화과정 일정";
+    $("s2Title").textContent = state.field + " 멘토링";
   });
 });
 
@@ -689,7 +844,7 @@ function checkRoster(){
     "&field=" + encodeURIComponent(state.field);
 
   callApi(q).then(function(d){
-    btn.disabled = false; btn.textContent = STEPS[3].btn;
+    btn.disabled = false; btn.textContent = STEPS[5].btn;
     if(!d || !d.ok){ showErr("확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."); return; }
     if(!d.found){
       showErr("합격자 명단에 등록되지 않은 정보입니다. 이름과 생년월일을 다시 확인해 주세요.");
@@ -699,31 +854,31 @@ function checkRoster(){
       showErr("선택하신 분야가 명단에 등록된 분야와 다릅니다. 분야를 다시 선택해 주세요.");
       return;
     }
-    show(4);
+    show(6);
   }).catch(function(){
-    btn.disabled = false; btn.textContent = STEPS[3].btn;
+    btn.disabled = false; btn.textContent = STEPS[5].btn;
     showErr("서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.");
   });
 }
 
 /* 화면 전환 */
 function show(n){
-  for(let i = 0; i <= 6; i++){ $("s" + i).hidden = (i !== n); }
-  $("topbar").hidden = (n === 0 || n === 6);
-  $("actions").hidden = (n === 6);
+  for(let i = 0; i <= DONE_SCREEN; i++){ $("s" + i).hidden = (i !== n); }
+  $("topbar").hidden = (n === 0 || n === DONE_SCREEN);
+  $("actions").hidden = (n === DONE_SCREEN);
   $("actions").className = "actions" + (n === 0 ? " dark" : "");
-  if(n >= 1 && n <= 5){
+  if(n >= 1 && n <= LAST){
     $("stepLabel").textContent = STEPS[n].label;
-    $("stepCount").textContent = n + " / 5";
+    $("stepCount").textContent = n + " / " + LAST;
     const bars = $("track").children;
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < LAST; i++){
       bars[i].className = i < n - 1 ? "done" : (i === n - 1 ? "now" : "");
     }
   }
-  if(n === 5) renderReview();
-  if(n <= 5){
+  if(n === LAST) renderReview();
+  if(n <= LAST){
     $("mainBtn").textContent = STEPS[n].btn;
-    $("mainBtn").className = "go" + (n === 5 ? " gold" : "");
+    $("mainBtn").className = "go" + (n === LAST ? " gold" : "");
   }
   hideErr();
   cur = n;
@@ -738,7 +893,7 @@ function valid(step){
     if(!state.field){ showErr("분야를 선택해 주세요."); return false; }
     if(MAJORS[state.field] && !state.major){ showErr("전공을 선택해 주세요."); return false; }
   }
-  if(step === 3){
+  if(step === 5){
     if(!$("name").value.trim()){ showErr("이름을 입력해 주세요."); $("name").focus(); return false; }
     if(!getBirth()){
       showErr($("birthText").value.trim()
@@ -747,7 +902,7 @@ function valid(step){
       $("birthText").focus(); return false;
     }
   }
-  if(step === 4){
+  if(step === 6){
     if(!state.join){ showErr("참여 가능 여부를 선택해 주세요."); return false; }
     if(state.join === "참여 가능" && !$("agree").checked){ showErr("서약 동의에 체크해 주세요."); return false; }
     if(state.join === "참여 불가" && !$("reason").value.trim()){
@@ -765,14 +920,14 @@ function renderReview(){
   const rows = [
     ["분야", state.field, 1],
     ["전공", state.major || "해당 없음", 1],
-    ["이름", $("name").value.trim(), 3],
-    ["생년월일", getBirth(), 3],
-    ["참여 여부", state.join, 4]
+    ["이름", $("name").value.trim(), 5],
+    ["생년월일", getBirth(), 5],
+    ["참여 여부", state.join, 6]
   ];
   if(state.join === "참여 가능"){
-    rows.push(["서약", "일정과 내용을 확인하고 성실히 참여할 것을 서약함", 4]);
+    rows.push(["서약", "일정과 내용을 확인하고 성실히 참여할 것을 서약함", 6]);
   }else{
-    rows.push(["불참 사유", $("reason").value.trim(), 4]);
+    rows.push(["불참 사유", $("reason").value.trim(), 6]);
   }
   $("review").innerHTML = rows.map(function(r){
     return '<div class="r"><div class="k">' + r[0] + '</div>' +
@@ -789,8 +944,8 @@ function renderReview(){
 $("backBtn").addEventListener("click", function(){ if(cur > 0) show(cur - 1); });
 
 $("mainBtn").addEventListener("click", function(){
-  if(cur === 3){ if(valid(3)) checkRoster(); return; }
-  if(cur < 5){ if(valid(cur)) show(cur + 1); return; }
+  if(cur === 5){ if(valid(5)) checkRoster(); return; }
+  if(cur < LAST){ if(valid(cur)) show(cur + 1); return; }
   submit();
 });
 
@@ -798,7 +953,7 @@ $("mainBtn").addEventListener("click", function(){
 function submit(){
   if(sent) return;
   hideErr();
-  if(!valid(4)){ show(4); return; }
+  if(!valid(6)){ show(6); return; }
   const reason = $("reason").value.trim();
 
   const payload = {
@@ -819,7 +974,7 @@ function submit(){
     sent = true;
     done(payload);
   }).catch(function(err){
-    btn.disabled = false; btn.textContent = STEPS[5].btn;
+    btn.disabled = false; btn.textContent = STEPS[LAST].btn;
     if(err && err.message === "not_in_roster"){
       showErr("합격자 명단에 등록되지 않은 정보입니다. 이름과 생년월일을 다시 확인해 주세요.");
     }else{
@@ -847,7 +1002,7 @@ function send(payload){
 }
 
 function done(p){
-  show(6);
+  show(DONE_SCREEN);
   $("doneText").textContent = p["참여여부"] === "참여 가능"
     ? "서약과 함께 참여 의사가 접수되었습니다. 세부 일정은 추후 개별 안내드립니다."
     : "응답이 접수되었습니다. 작성해 주신 사유는 운영에 참고하겠습니다.";
