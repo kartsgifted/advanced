@@ -206,12 +206,18 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .dayband .bar::before{left:-2px;}
 .dayband .bar::after{right:-2px;}
 .dayband .side{flex:none;font-size:12.5px;color:var(--text);font-weight:700;}
-.doing{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:6px 15px;}
-.doing div{display:flex;gap:11px;align-items:flex-start;padding:12px 0;font-size:15.5px;line-height:1.6;}
-.doing div + div{border-top:1px solid var(--cream2);}
+.doing{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:4px 15px;}
+.doing > div{display:flex;gap:11px;align-items:flex-start;padding:13px 0;}
+.doing > div + div{border-top:1px solid var(--cream2);}
+.doing > div > div{flex:1;font-size:15.5px;line-height:24px;}   /* 줄 높이를 번호 원과 같게 */
 .doing i{
   flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#241C05;
-  font-style:normal;font-size:13px;font-weight:700;text-align:center;line-height:24px;margin-top:1px;
+  font-style:normal;font-size:13px;font-weight:700;text-align:center;line-height:24px;
+}
+.doing i.plain{position:relative;background:rgba(195,155,54,.22);}
+.doing i.plain::after{
+  content:'';position:absolute;left:8px;top:8px;width:8px;height:8px;
+  border-radius:50%;background:var(--gold);
 }
 .warncard{background:#FBF4E2;border-radius:10px;padding:18px 18px 18px 16px;margin-bottom:12px;display:flex;gap:14px;}
 .warncard .big{
@@ -789,8 +795,8 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=field]'), fun
       '</div>' +
       chips +
       '<div class="doing">' +
-        m.items.map(function(t, i){
-          return '<div><i>' + (i + 1) + '</i><div>' + t + '</div></div>';
+        m.items.map(function(t){
+          return '<div><i class="plain"></i><div>' + t + '</div></div>';
         }).join('') +
       '</div>' +
       '<p class="later">* 세부 일정 및 내용 추후 안내</p>';
