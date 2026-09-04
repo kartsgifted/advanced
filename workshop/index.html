@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K예술영재 프로젝트 | 자료실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<style>
+  :root{
+    --bg:#14171D;
+    --surface:#1D212B;
+    --surface-2:#232833;
+    --text:#EDE7D8;
+    --text-soft:#B7AF9C;
+    --text-faint:#7C7669;
+    --brass:#D4AF5A;
+    --brass-deep:#E9C97E;
+    --line:#2B303B;
+
+    --dance:#E08AA6;
+    --art:#7FC17A;
+    --music:#7FB0DD;
+    --trad:#E08A5E;
+
+    --accent:var(--brass);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    font-family:'Pretendard Variable','Pretendard','Noto Sans KR',sans-serif;
+    color:var(--text);
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+
+  .shell{ max-width:1200px; margin:0 auto; padding:24px 24px 96px; }
+
+  /* ── 상단 바 ──────────────────────────────── */
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    padding:14px 0 20px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:40px;
+  }
+  .brand{
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--text-soft);
+    white-space:nowrap;
+  }
+  .brand:hover{ color:var(--text); }
+  .search{
+    position:relative;
+    flex:1;
+    max-width:440px;
+    margin-left:auto;
+  }
+  .search input{
+    width:100%;
+    padding:10px 36px 10px 36px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+    font:inherit;
+    font-size:14px;
+  }
+  .search input::placeholder{ color:var(--text-faint); }
+  .search input::-webkit-search-cancel-button,
+  .search input::-webkit-search-decoration{ -webkit-appearance:none; appearance:none; }
+  .search input:focus{ outline:none; border-color:var(--brass); }
+  .search .ico{
+    position:absolute;
+    left:13px; top:50%;
+    transform:translateY(-50%);
+    color:var(--text-faint);
+    font-size:13px;
+    pointer-events:none;
+  }
+  .search .clear{
+    position:absolute;
+    right:8px; top:50%;
+    transform:translateY(-50%);
+    padding:4px 8px;
+    color:var(--text-faint);
+    font-size:14px;
+    line-height:1;
+  }
+  .search .clear:hover{ color:var(--text); }
+  @media(max-width:640px){
+    .topbar{ flex-wrap:wrap; gap:12px; }
+    .search{ max-width:none; flex:1 0 100%; margin-left:0; }
+  }
+
+  .setup-banner{
+    margin:0 0 28px;
+    padding:14px 18px;
+    background:#3A3120;
+    border:1px solid var(--brass);
+    border-radius:6px;
+    color:var(--brass-deep);
+    font-size:13.5px;
+    line-height:1.6;
+  }
+
+  .kicker{ font-size:13px; color:var(--text-faint); margin:0; }
+
+  /* ── 분야 선택 ────────────────────────────── */
+  .picker h1{
+    font-weight:800;
+    font-size:clamp(40px,5.2vw,66px);
+    line-height:1.18;
+    margin:14px 0 0;
+  }
+  .picker .lede{
+    color:var(--text-soft);
+    font-size:15.5px;
+    line-height:1.75;
+    max-width:52ch;
+    margin:18px 0 42px;
+  }
+  .picks{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  @media(max-width:900px){ .picks{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:520px){ .picks{ grid-template-columns:1fr; gap:14px; } }
+
+  .pick{
+    position:relative;
+    display:block;
+    width:100%;
+    padding:0;
+    text-align:left;
+    border-radius:14px;
+    overflow:hidden;
+    aspect-ratio:3/4;
+    background:
+      radial-gradient(120% 140% at 15% 0%, color-mix(in srgb, var(--accent) 55%, white) 0%, transparent 55%),
+      linear-gradient(150deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 50%, #0C0E12) 100%);
+    box-shadow:0 14px 32px rgba(0,0,0,.4);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  @media(max-width:520px){ .pick{ aspect-ratio:16/9; } }
+  .pick:hover{ transform:translateY(-3px); box-shadow:0 22px 44px rgba(0,0,0,.5); }
+  .pick img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:grayscale(.85) contrast(1.05) brightness(.82);
+  }
+  .pick .tint{ position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.9; }
+  .pick .scrim{
+    position:absolute; left:0; right:0; bottom:0; height:70%;
+    background:linear-gradient(180deg, transparent, rgba(12,16,24,.78));
+  }
+  .pick .foot{ position:absolute; left:18px; right:18px; bottom:16px; }
+  .pick h2{ font-size:24px; font-weight:700; margin:0; color:#fff; }
+  .pick .count{ display:block; margin-top:6px; font-size:12.5px; color:rgba(255,255,255,.72); }
+
+  /* ── 분야 상세 ────────────────────────────── */
+  .browser{ display:grid; grid-template-columns:212px 1fr; gap:44px; align-items:start; }
+  @media(max-width:820px){ .browser{ grid-template-columns:1fr; gap:24px; } }
+
+  .rail{ position:sticky; top:24px; }
+  @media(max-width:820px){ .rail{ position:static; } }
+  .rail .home{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:13px; color:var(--text-faint); padding:4px 0;
+  }
+  .rail .home:hover{ color:var(--text); }
+  .rail nav{ margin-top:22px; display:flex; flex-direction:column; gap:2px; }
+  @media(max-width:820px){
+    .rail nav{ flex-direction:row; gap:8px; overflow-x:auto; padding-bottom:4px; margin-top:16px; }
+  }
+  .rail-item{
+    display:flex; align-items:center; gap:10px;
+    width:100%; padding:10px 12px; border-radius:8px;
+    font-size:14.5px; font-weight:600; color:var(--text-soft);
+    white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
+  }
+  .rail-item .dot{ width:7px; height:7px; border-radius:50%; opacity:.55; flex:none; }
+  .rail-item:hover{ background:var(--surface); color:var(--text); }
+  .rail-item.is-active{ background:var(--surface); color:var(--text); }
+  .rail-item.is-active .dot{ opacity:1; }
+
+  .panel-head h1{ font-size:clamp(30px,3.8vw,42px); font-weight:800; margin:8px 0 0; line-height:1.2; }
+  .panel-head .sub{ margin:10px 0 0; color:var(--text-faint); font-size:13.5px; }
+
+  .tabs{
+    display:flex; gap:24px; flex-wrap:wrap;
+    margin:28px 0 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tab{
+    position:relative; padding:0 2px 13px;
+    font-size:15px; font-weight:600; color:var(--text-faint);
+    transition:color .15s ease;
+  }
+  .tab:hover{ color:var(--text-soft); }
+  .tab.is-active{ color:var(--text); }
+  .tab.is-active::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px;
+    height:2px; background:var(--accent);
+  }
+  .tab .n{ margin-left:7px; font-size:12px; font-weight:600; color:var(--text-faint); }
+  .tab.is-active .n{ color:var(--accent); }
+
+  /* ── 항목 줄 ──────────────────────────────── */
+  .items{ margin-top:4px; }
+  .item{
+    display:flex; align-items:center; gap:14px;
+    padding:17px 2px;
+    border-bottom:1px solid var(--line);
+  }
+  .item-main{ flex:1; min-width:0; }
+  .item-name{ font-size:15.5px; font-weight:600; line-height:1.45; }
+  .item-where{ margin-top:4px; font-size:12.5px; color:var(--text-faint); }
+  a.item{ transition:padding-left .15s ease; }
+  a.item:hover{ padding-left:8px; }
+  a.item:hover .go{ color:var(--accent); }
+  .go{
+    font-size:13.5px; font-weight:600; color:var(--text-faint);
+    white-space:nowrap; transition:color .15s ease;
+  }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:700;
+    padding:3px 10px 3px 8px; border-radius:999px;
+    background:var(--surface-2); color:var(--text-soft);
+    white-space:nowrap; flex:none;
+  }
+  .status-pill::before{ content:''; width:6px; height:6px; border-radius:50%; }
+  .status-pill.is-open::before{ background:#5FBF4A; }
+  .status-pill.is-closed::before{ background:#D9694A; }
+
+  .btns{ display:flex; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end; }
+  .btn{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:7px 14px; border-radius:8px;
+    border:1px solid var(--line);
+    color:var(--text-soft);
+    font-size:13px; font-weight:600;
+    white-space:nowrap;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .btn.is-download{ background:rgba(255,255,255,.06); color:var(--text); }
+  .btn.is-download:hover{ background:var(--accent); border-color:var(--accent); color:var(--bg); }
+  .btn .ico{ font-size:11px; line-height:1; }
+
+  @media(max-width:560px){
+    .item{ flex-wrap:wrap; gap:10px; padding:15px 2px; }
+    .item-main{ flex:1 0 100%; }
+    .btns{ justify-content:flex-start; }
+    a.item:hover{ padding-left:0; }
+  }
+
+  .meeting{ padding:22px 2px; border-bottom:1px solid var(--line); }
+  .meeting-top{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .round{
+    display:inline-flex; align-items:center;
+    padding:3px 10px; border-radius:999px;
+    background:var(--surface-2); color:var(--accent);
+    font-size:11.5px; font-weight:700; letter-spacing:.01em;
+  }
+  .meeting .date{ font-size:13.5px; font-weight:600; color:var(--text-soft); }
+  .meeting h3{ margin:12px 0 0; font-size:16.5px; font-weight:700; line-height:1.5; }
+  .meeting .meta{ margin:8px 0 0; font-size:13px; color:var(--text-faint); line-height:1.65; }
+  .meeting .btns{ margin-top:15px; justify-content:flex-start; }
+  .meeting .none{ margin-top:14px; font-size:13px; color:var(--text-faint); }
+
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:700;
+    padding:3px 9px; border-radius:999px;
+    border:1px solid var(--line); color:var(--text-soft);
+    flex:none;
+  }
+  .chip .dot{ width:6px; height:6px; border-radius:50%; }
+
+  .results-head{ margin:0 0 8px; font-size:15px; color:var(--text-soft); }
+  .empty{ padding:52px 4px; color:var(--text-faint); font-size:14px; line-height:1.7; }
+  .loading{ padding:60px 4px; color:var(--text-faint); font-size:14px; }
+  .updated{ margin-top:40px; color:var(--text-faint); font-size:12.5px; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="#">K예술영재 프로젝트</a>
+    <div class="search">
+      <span class="ico">⌕</span>
+      <input id="q" type="search" placeholder="자료 이름, 분야, 탭으로 검색" autocomplete="off">
+      <button class="clear" id="qClear" type="button" hidden aria-label="검색어 지우기">✕</button>
+    </div>
+  </header>
+
+  <div id="setupBanner" class="setup-banner" style="display:none;"></div>
+  <div id="view"><div class="loading">불러오는 중…</div></div>
+</div>
+
+<script>
+/* ============================================================
+   설정 (CONFIG)
+
+   ① 아래 SHEET_URL 에 구글시트 주소를 통째로 붙여넣으세요.
+      (Apps Script 배포는 필요 없습니다. 브라우저가 시트를 직접 읽습니다)
+
+   ② 시트 공유를 "링크가 있는 모든 사용자 · 뷰어"로 바꿔주세요.
+      이 설정이 안 되어 있으면 화면이 비어 보입니다.
+
+   ③ 시트 안에 탭 두 장을 두시면 됩니다. 이름은 그대로 두셔도 됩니다.
+      · 첫 번째 탭(시트1) = 자료 링크
+      · 두 번째 탭(시트2) = 평가회의
+      순서로 찾으므로 시트1 / 시트2 / Sheet1 / 링크 / 평가회의 어느 이름이든 됩니다.
+
+   ── 시트1 : 자료 링크 ──────────────────────────
+   1행에 이 머리글을 그대로 넣어주세요.
+   ┌────────┬──────────────────┬────────────┬──────────┬──────────┬──────────┬──────────┐
+   │ A 탭    │ B 항목            │ C 세부항목  │ D 무용    │ E 미술    │ F 음악    │ G 전통예술│
+   ├────────┼──────────────────┼────────────┼──────────┼──────────┼──────────┼──────────┤
+   │ 온라인  │ 만족도 조사 문항   │            │ https://…│ https://…│ https://…│ https://…│
+   │        │ 만족도 조사 문항 상태│           │ 진행      │ 마감      │ 진행      │          │
+   │        │ 웹 리플렛         │            │ https://…│ https://…│ https://…│ https://…│
+   │ 문서파일│ 리플렛            │ 보기        │ https://…│ https://…│ https://…│ https://…│
+   │        │                  │ 다운로드     │ https://…│ https://…│ https://…│ https://…│
+   └────────┴──────────────────┴────────────┴──────────┴──────────┴──────────┴──────────┘
+   - "탭"에 적은 이름이 그대로 화면 탭이 됩니다. 새 이름을 적으면 탭이 생깁니다.
+   - "항목"에 적은 이름이 버튼 줄의 이름입니다.
+   - 탭·항목 칸을 비워두면 바로 위 줄의 값을 이어받습니다.
+   - "세부항목"은 버튼 안에 표시됩니다. 비워두면 항목 줄 전체가 링크가 됩니다.
+     세부항목이 "다운로드"이고 드라이브 파일이면 내려받기 주소로 바꿔줍니다.
+   - 항목 이름이 "○○ 상태"인 줄은 버튼이 되지 않고, 같은 이름의 항목에
+     진행/마감 배지를 붙입니다. ("상태" 열을 따로 두셔도 됩니다)
+
+   ── 시트2 : 평가회의 ───────────────────────────
+   ┌────────┬──────┬─────────────┬──────────┬────────────┬──────────────┬──────────────┐
+   │ A 분야  │ B 회차│ C 일자       │ D 장소    │ E 참석      │ F 회의록      │ G 녹취        │
+   └────────┴──────┴─────────────┴──────────┴────────────┴──────────────┴──────────────┘
+   - 분야·회차·일자·장소·참석·안건·비고는 회의 정보로 표시됩니다.
+   - 그 밖의 열은 머리글 이름이 그대로 버튼이 됩니다. (열을 늘리면 버튼도 늘어남)
+     머리글을 "회의록 다운로드"로 적으면 바로 내려받기가 됩니다.
+   - A열 분야를 비워두면 위 줄의 분야를 이어받습니다.
+   - 평가회의 탭은 시트가 비어 있어도 모든 분야에 항상 표시됩니다.
+
+   화면이 비어 보이면 상단에 진단 상자가 뜹니다. 어느 단계에서 막혔는지
+   거기에 그대로 적히니, 그 내용을 보고 고치시면 됩니다.
+   ============================================================ */
+
+  // 구글시트 주소를 통째로 붙여넣으세요 (/edit 까지 있어도 됩니다)
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1wDbUTo4Wxo_t3VJMqVDnKbthBpdQZTgX10wQ7wlpq1M/edit';
+
+  // 탭 이름을 직접 지정하고 싶을 때만 채우세요. 비워두면 순서로 찾습니다.
+  const SHEET1_NAME = '';   // 자료 링크 (비우면 첫 번째 탭)
+  const SHEET2_NAME = '';   // 평가회의 (비우면 두 번째 탭)
+
+  // 평가회의 탭을 이름으로 찾을 때 시도하는 후보들
+  const SHEET2_CANDIDATES = ['평가회의', '시트2', 'Sheet2', '평가 회의', '회의'];
+
+  const FIELD_COL_START = 3;      // 자료 시트: D열부터 분야
+  const MEETING_TAB = '평가회의';   // 모든 분야에 기본으로 붙는 탭
+
+/* ============================================================ */
+
+  const FIELD_META = {
+    '무용':  { key:'dance', color:'#E08AA6', order:1, image:'https://k-brainc.github.io/kriga/img/b.webp' },
+    '미술':  { key:'art',   color:'#7FC17A', order:2, image:'https://k-brainc.github.io/kriga/img/a.jpg' },
+    '음악':  { key:'music', color:'#7FB0DD', order:3, image:'https://k-brainc.github.io/kriga/img/m.jpg' },
+    '전통예술': { key:'trad', color:'#E08A5E', order:4, image:'https://k-brainc.github.io/kriga/img/t.webp' },
+  };
+
+  const FIELD_ALIASES = {
+    '무용':'무용', '발레':'무용', 'dance':'무용', 'ballet':'무용',
+    '미술':'미술', '시각예술':'미술', 'art':'미술', 'visual arts':'미술',
+    '음악':'음악', 'music':'음악',
+    '전통예술':'전통예술', '전통':'전통예술', 'traditional arts':'전통예술', 'traditional':'전통예술',
+  };
+
+  let ROWS = [];       // 자료 시트에서 만든 버튼 줄
+  let MEETINGS = [];   // 평가회의 시트에서 만든 회의
+
+  /* ── 도구 ────────────────────────────────── */
+  function esc(v){
+    return String(v == null ? '' : v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function trim(v){ return v == null ? '' : String(v).trim(); }
+
+  function normalizeField(raw){
+    const t = trim(raw);
+    if(!t) return null;
+    return FIELD_ALIASES[t] || FIELD_ALIASES[t.toLowerCase()] || null;
+  }
+
+  function statusOf(raw){
+    const v = trim(raw).toLowerCase();
+    if(!v) return null;
+    if(['마감','마감중','closed','close','종료','off','no','n'].includes(v)) return 'closed';
+    return 'open';
+  }
+
+  function driveFileId(url){
+    if(!url) return null;
+    const m = String(url).match(/\/file\/d\/([-\w]{20,})/)
+           || String(url).match(/[?&]id=([-\w]{20,})/);
+    return m ? m[1] : null;
+  }
+  function isDownloadLabel(label){ return /다운로드|내려받|download/i.test(label || ''); }
+
+  /* 세부항목이 "다운로드"면 드라이브 링크를 바로 내려받기 주소로 바꿉니다. */
+  function resolveUrl(row){
+    const id = driveFileId(row.url);
+    if(!id) return row.url;
+    return isDownloadLabel(row.detail)
+      ? 'https://drive.google.com/uc?export=download&id=' + id
+      : 'https://drive.google.com/file/d/' + id + '/view';
+  }
+
+  function fieldByKey(key){
+    return Object.keys(FIELD_META).find(f => FIELD_META[f].key === key) || null;
+  }
+  function fieldOrder(){
+    const known = Object.keys(FIELD_META).sort((a,b)=>FIELD_META[a].order-FIELD_META[b].order);
+    return known.filter(f => ROWS.some(r => r.field === f)).length
+      ? known
+      : known;
+  }
+
+  /* ── 시트 해석 ──────────────────────────────
+     시트 이름과 머리글을 보고 어떤 표인지 스스로 판단합니다.
+     - 머리글에 "탭"과 "항목"이 있으면 버튼 표
+       · "분야" 열이 있으면 그 열이 분야
+       · 시트 이름이 분야면 시트 전체가 그 분야 (링크 열 1개)
+       · 그 외에는 머리글이 분야 이름인 열들이 각각의 분야 (통합 표)
+     - 그 밖의 시트는 무시합니다. */
+  function findCol(header, test){
+    for(let i = 0; i < header.length; i++){ if(test(header[i], i)) return i; }
+    return -1;
+  }
+
+  function parseButtonSheet(sheetName, values){
+    if(!values || values.length < 2) return [];
+    const raw = values[0] || [];
+    const header = raw.map(h => trim(h).replace(/\s/g,''));
+
+    const cDetail = findCol(header, h => h.includes('세부'));
+    const cTitle  = findCol(header, (h,i) => i !== cDetail && h.includes('항목'));
+    const cTab    = findCol(header, h => h === '탭' || h.includes('탭명') || h.includes('탭이름') || h.includes('탭명'));
+    if(cTitle < 0) return [];
+
+    const cStatus = findCol(header, h => h.includes('상태'));
+    const cField  = findCol(header, h => h === '분야');
+    const usedInfo = [cTab, cTitle, cDetail, cStatus, cField];
+
+    // 링크 열 찾기
+    const linkCols = [];
+    const sheetField = normalizeField(sheetName);
+    if(cField >= 0 || sheetField){
+      const c = findCol(header, (h,i) =>
+        usedInfo.indexOf(i) < 0 && (h.includes('링크') || h.includes('주소') || /URL/i.test(h)));
+      const col = c >= 0 ? c : findCol(header, (h,i) => usedInfo.indexOf(i) < 0 && !!h);
+      if(col >= 0) linkCols.push({ col, field:null });   // field 는 줄마다 결정
+    }else{
+      header.forEach((h, i) => {
+        if(usedInfo.indexOf(i) >= 0) return;
+        const f = normalizeField(raw[i]);
+        if(f) linkCols.push({ col:i, field:f });
+      });
+    }
+    if(!linkCols.length) return [];
+
+    const rows = [];
+    const statuses = [];
+    let lastTab = '';
+    let lastTitle = '';
+    let lastField = '';
+
+    for(let r = 1; r < values.length; r++){
+      const line = values[r] || [];
+      const tab = (cTab >= 0 ? trim(line[cTab]) : '') || lastTab;
+      const title = trim(line[cTitle]) || lastTitle;
+      const detail = cDetail >= 0 ? trim(line[cDetail]) : '';
+      const status = cStatus >= 0 ? trim(line[cStatus]) : '';
+      lastTab = tab;
+      lastTitle = title;
+      if(!title) continue;
+
+      // 줄의 분야 (분야 열 → 시트 이름 순)
+      let rowField = null;
+      if(cField >= 0){
+        const v = trim(line[cField]) || lastField;
+        lastField = v;
+        rowField = normalizeField(v);
+      }else if(sheetField){
+        rowField = sheetField;
+      }
+
+      // "○○ 상태" 줄은 버튼이 아니라 배지
+      if(/상태$/.test(title)){
+        const base = title.replace(/상태$/, '').trim();
+        if(base){
+          const map = {};
+          linkCols.forEach(c => {
+            const f = c.field || rowField;
+            if(f) map[f] = trim(line[c.col]);
+          });
+          statuses.push({ tab, base, map });
+        }
+        lastTitle = '';
+        continue;
+      }
+
+      linkCols.forEach(c => {
+        const field = c.field || rowField;
+        const url = trim(line[c.col]);
+        if(!field || !url) return;
+        rows.push({ tab: tab || '자료', title, detail, field, url, status });
+      });
+    }
+
+    statuses.forEach(st => {
+      rows.forEach(row => {
+        if(row.title === st.base && (!st.tab || row.tab === st.tab) && st.map[row.field] && !row.status){
+          row.status = st.map[row.field];
+        }
+      });
+    });
+    return rows;
+  }
+
+  /* 평가회의 시트 해석
+     분야·회차·일자·장소·참석·안건·비고는 정보 열,
+     나머지 열은 머리글 이름을 라벨로 쓰는 링크 열로 봅니다. */
+  const MEETING_INFO_KEYS = [
+    ['field',  ['분야']],
+    ['round',  ['회차','차수']],
+    ['date',   ['일자','날짜','일시']],
+    ['place',  ['장소']],
+    ['people', ['참석','참여']],
+    ['agenda', ['안건','주제','내용','제목']],
+    ['note',   ['비고','메모']],
+  ];
+
+  function meetingsFromGrid(values){
+    if(!values || values.length < 2) return [];
+    const header = values[0] || [];
+
+    const info = {};
+    const linkCols = [];
+    for(let c = 0; c < header.length; c++){
+      const h = trim(header[c]).replace(/\s/g,'');
+      if(!h) continue;
+      const match = MEETING_INFO_KEYS.find(k =>
+        info[k[0]] === undefined && k[1].some(w => h.includes(w)));
+      if(match) info[match[0]] = c;
+      else linkCols.push({ col:c, label:trim(header[c]) });
+    }
+    if(info.field === undefined) return [];
+
+    const get = (line, key) => info[key] === undefined ? '' : trim(line[info[key]]);
+
+    const out = [];
+    let lastField = '';
+    for(let r = 1; r < values.length; r++){
+      const line = values[r] || [];
+      const rawField = trim(line[info.field]) || lastField;
+      lastField = rawField;
+      const field = normalizeField(rawField);
+      if(!field) continue;
+
+      const m = {
+        field,
+        round: get(line,'round'),
+        date: get(line,'date'),
+        place: get(line,'place'),
+        people: get(line,'people'),
+        agenda: get(line,'agenda'),
+        note: get(line,'note'),
+        links: [],
+      };
+      linkCols.forEach(c => {
+        const url = trim(line[c.col]);
+        if(url) m.links.push({ label:c.label, url });
+      });
+
+      // 아무 내용도 없는 빈 줄은 건너뜁니다
+      if(!m.round && !m.date && !m.agenda && !m.links.length) continue;
+      out.push(m);
+    }
+    return out;
+  }
+
+  function meetingText(m){
+    return [MEETING_TAB, m.field, m.round, m.date, m.place, m.people, m.agenda, m.note]
+      .concat(m.links.map(l => l.label)).join(' ');
+  }
+
+  function meetingHtml(m, opts){
+    opts = opts || {};
+    const head = [
+      m.round ? '<span class="round">' + esc(m.round) + '</span>' : '',
+      m.date ? '<span class="date">' + esc(m.date) + '</span>' : '',
+      opts.chip || '',
+    ].filter(Boolean).join('');
+
+    const title = m.agenda || ((m.round ? m.round + ' ' : '') + '평가회의');
+    const meta = [m.place, m.people, m.note].filter(Boolean).map(esc).join(' · ');
+
+    const btns = m.links.length
+      ? '<span class="btns">' + m.links.map(l =>
+          buttonHtml({ title:l.label, detail:l.label, url:l.url })).join('') + '</span>'
+      : '<p class="none">첨부된 문서가 아직 없습니다.</p>';
+
+    return '<article class="meeting">' +
+      (head ? '<div class="meeting-top">' + head + '</div>' : '') +
+      '<h3>' + esc(title) + '</h3>' +
+      (meta ? '<p class="meta">' + meta + '</p>' : '') +
+      btns +
+    '</article>';
+  }
+
+  /* 웹앱 응답을 받아 ROWS(버튼)와 MEETINGS(평가회의)로 나눕니다.
+     웹앱은 "링크" 시트와 "평가회의" 시트만 보내옵니다. */
+  function ingest(data){
+    ROWS = [];
+    MEETINGS = [];
+    if(!data) return;
+
+    if(Array.isArray(data.link) || Array.isArray(data.meetings) || Array.isArray(data.main)){
+      ROWS = parseButtonSheet('', data.link || data.main || []);
+      MEETINGS = meetingsFromGrid(data.meetings || []);
+      return;
+    }
+    if(Array.isArray(data) && Array.isArray(data[0])){
+      ROWS = parseButtonSheet('', data);
+    }
+  }
+
+  /* ── 묶기 ────────────────────────────────── */
+  function tabsFor(field){
+    const out = [];
+    ROWS.forEach(r => {
+      if(r.field === field && !out.includes(r.tab)) out.push(r.tab);
+    });
+    if(!out.includes(MEETING_TAB)) out.push(MEETING_TAB);   // 평가회의는 항상 마지막 탭
+    return out;
+  }
+
+  function meetingsFor(field){
+    return MEETINGS.filter(m => m.field === field);
+  }
+
+  function countFor(field, tab){
+    return tab === MEETING_TAB
+      ? meetingsFor(field).length
+      : groupItems(ROWS.filter(r => r.field === field && r.tab === tab)).length;
+  }
+
+  /* 같은 항목이 이어지면 버튼을 한 줄로 모읍니다. */
+  function groupItems(list){
+    const out = [];
+    list.forEach(r => {
+      const last = out[out.length - 1];
+      if(last && last.title === r.title){
+        last.buttons.push(r);
+        if(!last.status && r.status) last.status = r.status;
+      }else{
+        out.push({ title:r.title, tab:r.tab, field:r.field, status:r.status, buttons:[r] });
+      }
+    });
+    return out;
+  }
+
+  /* ── 항목 그리기 ──────────────────────────── */
+  function pill(status){
+    const st = statusOf(status);
+    if(!st) return '';
+    return '<span class="status-pill is-' + st + '">' + (st === 'open' ? '진행중' : '마감') + '</span>';
+  }
+
+  function buttonHtml(row){
+    const dl = isDownloadLabel(row.detail);
+    const label = row.detail || '열기';
+    const ico = dl ? '<span class="ico">↓</span>' : '';
+    const target = dl ? '' : ' target="_blank" rel="noopener"';
+    return '<a class="btn' + (dl ? ' is-download' : '') + '" href="' + esc(resolveUrl(row)) + '"' + target + '>' +
+      ico + esc(label) + '</a>';
+  }
+
+  function itemHtml(item, opts){
+    opts = opts || {};
+    const where = opts.where
+      ? '<div class="item-where">' + esc(opts.where) + '</div>'
+      : '';
+    const main = '<div class="item-main"><div class="item-name">' + esc(item.title) + '</div>' + where + '</div>';
+
+    // 세부항목이 없는 단일 링크는 줄 전체를 링크로
+    if(item.buttons.length === 1 && !item.buttons[0].detail){
+      const row = item.buttons[0];
+      return '<a class="item" href="' + esc(resolveUrl(row)) + '" target="_blank" rel="noopener">' +
+        main + pill(item.status) + '<span class="go">열기 →</span></a>';
+    }
+    return '<div class="item">' + main + pill(item.status) +
+      '<span class="btns">' + item.buttons.map(buttonHtml).join('') + '</span></div>';
+  }
+
+  /* ── 화면: 분야 선택 ──────────────────────── */
+  function renderPicker(){
+    const picks = fieldOrder().map(f => {
+      const meta = FIELD_META[f];
+      const mine = ROWS.filter(r => r.field === f);
+      const items = groupItems(mine).length + meetingsFor(f).length;
+      const tabs = tabsFor(f).length;
+      const count = items ? (items + '건 · 탭 ' + tabs + '개') : '준비중';
+      return '<button class="pick" style="--accent:' + meta.color + '" data-key="' + meta.key + '">' +
+        '<img src="' + meta.image + '" alt="">' +
+        '<span class="tint"></span><span class="scrim"></span>' +
+        '<span class="foot"><h2>' + f + '</h2><span class="count">' + count + '</span></span>' +
+      '</button>';
+    }).join('');
+
+    document.getElementById('view').innerHTML =
+      '<div class="picker">' +
+        '<p class="kicker">K-Arts Gifted Project · 2026</p>' +
+        '<h1>K예술영재 프로젝트</h1>' +
+        '<p class="lede">분야를 선택하면 만족도 조사 문항, 리플렛, 분석 보고서와 내려받을 수 있는 문서를 한자리에서 볼 수 있습니다. 위쪽 검색창으로 전체 분야를 한 번에 찾을 수도 있습니다.</p>' +
+        '<div class="picks">' + picks + '</div>' +
+      '</div>';
+
+    document.querySelectorAll('.pick').forEach(el => {
+      el.addEventListener('click', () => { location.hash = '#/' + el.dataset.key; });
+    });
+  }
+
+  /* ── 화면: 분야 상세 ──────────────────────── */
+  function renderField(field, tabWanted){
+    const meta = FIELD_META[field];
+    const tabs = tabsFor(field);
+    const tab = tabs.includes(tabWanted) ? tabWanted : (tabs[0] || null);
+    const isMeeting = tab === MEETING_TAB;
+    const list = (tab && !isMeeting) ? ROWS.filter(r => r.field === field && r.tab === tab) : [];
+    const items = groupItems(list);
+    const meetings = meetingsFor(field);
+    const total = groupItems(ROWS.filter(r => r.field === field)).length + meetings.length;
+
+    const rail = fieldOrder().map(f => {
+      const m = FIELD_META[f];
+      const on = f === field;
+      return '<a class="rail-item' + (on ? ' is-active' : '') + '"' +
+        (on ? ' style="color:' + m.color + '"' : '') + ' href="#/' + m.key + '">' +
+        '<span class="dot" style="background:' + m.color + '"></span>' + f + '</a>';
+    }).join('');
+
+    const tabBar = tabs.map(t =>
+      '<button class="tab' + (t === tab ? ' is-active' : '') + '" data-tab="' + esc(t) + '">' +
+        esc(t) + '<span class="n">' + countFor(field, t) + '</span></button>').join('');
+
+    let body;
+    if(isMeeting){
+      body = meetings.length
+        ? '<div class="items">' + meetings.map(m => meetingHtml(m)).join('') + '</div>'
+        : '<div class="empty">등록된 평가회의가 없습니다. "평가회의" 시트에 이 분야 줄을 추가하면 여기에 표시됩니다.</div>';
+    }else{
+      body = items.length
+        ? '<div class="items">' + items.map(it => itemHtml(it)).join('') + '</div>'
+        : '<div class="empty">이 분야에 등록된 링크가 없습니다. 시트의 해당 분야 열에 주소를 넣으면 여기에 표시됩니다.</div>';
+    }
+
+    document.getElementById('view').innerHTML =
+      '<div class="browser" style="--accent:' + meta.color + '">' +
+        '<aside class="rail">' +
+          '<a class="home" href="#">← 분야 선택</a>' +
+          '<nav>' + rail + '</nav>' +
+        '</aside>' +
+        '<main>' +
+          '<div class="panel-head">' +
+            '<p class="kicker">2026 워크숍 자료실</p>' +
+            '<h1>' + field + '</h1>' +
+            '<p class="sub">전체 ' + total + '건</p>' +
+          '</div>' +
+          (tabs.length ? '<div class="tabs">' + tabBar + '</div>' : '') +
+          body +
+          '<p class="updated">마지막 갱신: ' + new Date().toLocaleString('ko-KR') + '</p>' +
+        '</main>' +
+      '</div>';
+
+    document.querySelectorAll('.tab').forEach(el => {
+      el.addEventListener('click', () => {
+        location.hash = '#/' + meta.key + '/' + encodeURIComponent(el.dataset.tab);
+      });
+    });
+  }
+
+  /* ── 화면: 검색 결과 ──────────────────────── */
+  function renderSearch(query){
+    const q = query.trim().toLowerCase();
+    const hit = ROWS.filter(r =>
+      (r.title + ' ' + r.detail + ' ' + r.tab + ' ' + r.field).toLowerCase().includes(q));
+    const hitMeetings = MEETINGS.filter(m => meetingText(m).toLowerCase().includes(q));
+
+    let body = '';
+    let count = 0;
+    if(!hit.length && !hitMeetings.length){
+      body = '<div class="empty">"' + esc(query) + '"에 해당하는 자료가 없습니다.</div>';
+    }else{
+      body = fieldOrder().map(f => {
+        const mine = hit.filter(r => r.field === f);
+        const mineMeetings = hitMeetings.filter(m => m.field === f);
+        if(!mine.length && !mineMeetings.length) return '';
+        const meta = FIELD_META[f];
+        const group = groupItems(mine);
+        count += group.length + mineMeetings.length;
+        const items = group.map(it => itemHtml(it, { where: it.tab })).join('') +
+          mineMeetings.map(m => meetingHtml(m)).join('');
+        return '<section style="--accent:' + meta.color + '; margin-top:32px;">' +
+          '<span class="chip"><span class="dot" style="background:' + meta.color + '"></span>' + f + '</span>' +
+          '<div class="items">' + items + '</div></section>';
+      }).join('');
+    }
+
+    document.getElementById('view').innerHTML =
+      '<div class="results">' +
+        '<p class="results-head">"' + esc(query) + '" 검색 결과 ' + count + '건</p>' +
+        body +
+      '</div>';
+  }
+
+  /* ── 주소(#) 기반 화면 전환 ─────────────────── */
+  function route(){
+    const q = document.getElementById('q').value;
+    document.getElementById('qClear').hidden = !q;
+    if(q.trim()){ renderSearch(q); return; }
+
+    const parts = (location.hash || '').replace(/^#\/?/, '').split('/').filter(Boolean);
+    const field = parts.length ? fieldByKey(parts[0]) : null;
+    if(!field){ renderPicker(); return; }
+    renderField(field, parts[1] ? decodeURIComponent(parts[1]) : null);
+    window.scrollTo(0, 0);
+  }
+
+  /* ── 진단 ────────────────────────────────── */
+  const DIAG = [];
+  function log(step, detail){ DIAG.push({ step, detail }); }
+
+  function showDiag(title){
+    const banner = document.getElementById('setupBanner');
+    banner.style.display = 'block';
+    banner.innerHTML =
+      '<strong>' + esc(title) + '</strong>' +
+      '<ul style="margin:10px 0 0;padding-left:18px;line-height:1.75;">' +
+        DIAG.map(d => '<li>' + esc(d.step) + (d.detail ? ' — ' + esc(d.detail) : '') + '</li>').join('') +
+      '</ul>';
+  }
+
+  /* ── 시트 읽기 ────────────────────────────── */
+  function sheetId(){
+    const m = String(SHEET_URL).match(/\/d\/([-\w]{20,})/) || String(SHEET_URL).match(/^([-\w]{30,})$/);
+    return m ? m[1] : '';
+  }
+
+  function csvUrl(name){
+    return 'https://docs.google.com/spreadsheets/d/' + sheetId() +
+      '/gviz/tq?tqx=out:csv&headers=0' +
+      (name ? '&sheet=' + encodeURIComponent(name) : '') +
+      '&_=' + Date.now();
+  }
+
+  /* 따옴표와 줄바꿈을 지키는 CSV 파서 */
+  function parseCsv(text){
+    const rows = [];
+    let row = [], cell = '', quoted = false;
+    for(let i = 0; i < text.length; i++){
+      const c = text[i];
+      if(quoted){
+        if(c === '"'){
+          if(text[i+1] === '"'){ cell += '"'; i++; }
+          else quoted = false;
+        }else cell += c;
+      }else if(c === '"'){ quoted = true; }
+      else if(c === ','){ row.push(cell); cell = ''; }
+      else if(c === '\n'){ row.push(cell); rows.push(row); row = []; cell = ''; }
+      else if(c !== '\r'){ cell += c; }
+    }
+    if(cell !== '' || row.length){ row.push(cell); rows.push(row); }
+    return rows.filter(r => r.some(v => trim(v) !== ''));
+  }
+
+  /* 시트 한 장을 읽습니다. name 이 비면 문서의 첫 번째 탭을 읽습니다.
+     결과: { ok, rows, why } */
+  async function readOne(name){
+    const url = csvUrl(name);
+    let res;
+    try{
+      res = await fetch(url, { cache:'no-store' });
+    }catch(e){
+      return { ok:false, rows:[], why:'네트워크 오류 — 시트 공유가 "링크가 있는 모든 사용자"인지 확인해 주세요.' };
+    }
+    const text = await res.text();
+
+    if(!res.ok){
+      return { ok:false, rows:[], why:'HTTP ' + res.status +
+        (res.status === 404 ? ' — 그런 이름의 탭이 없습니다.' :
+         (res.status === 401 || res.status === 403) ? ' — 공유 설정이 비공개입니다.' : '') };
+    }
+    if(/^\s*</.test(text) || /accounts\.google\.com/.test(text.slice(0, 500))){
+      return { ok:false, rows:[], why:'구글 로그인 화면이 돌아왔습니다. 공유를 "링크가 있는 모든 사용자 · 뷰어"로 바꿔주세요.', locked:true };
+    }
+    if(text.indexOf('google.visualization.Query.setResponse') >= 0 || /^\s*\/\*/.test(text)){
+      let reason = '';
+      const m = text.match(/"detailed_message":"(.*?)"/) || text.match(/"message":"(.*?)"/);
+      if(m) reason = m[1].replace(/\\u003c[^\\]*?\\u003e/g, '').replace(/\\'/g, "'");
+      return { ok:false, rows:[], why:reason || '그런 이름의 탭을 찾지 못했습니다.' };
+    }
+    return { ok:true, rows:parseCsv(text), why:'' };
+  }
+
+  function headerLine(rows){
+    return rows.length ? rows[0].map(trim).filter(Boolean).join(' | ') : '';
+  }
+
+  /* 첫 번째 탭 = 자료 링크 */
+  async function readSheet1(){
+    const label = SHEET1_NAME || '첫 번째 탭';
+    const r = await readOne(SHEET1_NAME);
+    if(!r.ok){ log('자료 시트를 읽지 못함 (' + label + ')', r.why); return []; }
+    if(!r.rows.length){ log('자료 시트가 비어 있음 (' + label + ')', '1행에 탭·항목·세부항목·분야 머리글을 넣어주세요.'); return []; }
+    log('자료 시트 읽음 (' + label + ')', r.rows.length + '행 · 머리글: ' + headerLine(r.rows));
+    return r.rows;
+  }
+
+  /* 두 번째 탭 = 평가회의. 이름을 모르면 후보를 차례로 시도합니다. */
+  async function readSheet2(){
+    const names = SHEET2_NAME ? [SHEET2_NAME] : SHEET2_CANDIDATES;
+    const tried = [];
+    for(let i = 0; i < names.length; i++){
+      const r = await readOne(names[i]);
+      if(r.locked){ log('평가회의 시트를 읽지 못함', r.why); return []; }
+      if(r.ok && r.rows.length){
+        log('평가회의 시트 읽음 ("' + names[i] + '")', r.rows.length + '행 · 머리글: ' + headerLine(r.rows));
+        return r.rows;
+      }
+      tried.push(names[i]);
+    }
+    log('평가회의 시트 없음', '두 번째 탭 이름을 ' + tried.map(n => '"' + n + '"').join(' / ') +
+      ' 중 하나로 하시거나, SHEET2_NAME 값에 실제 이름을 넣어주세요. (평가회의 탭은 빈 채로 표시됩니다)');
+    return [];
+  }
+
+  async function loadFromSheet(){
+    if(!sheetId()){
+      log('시트 주소가 비어 있음', '파일 위쪽 SHEET_URL 값에 구글시트 주소를 붙여넣어 주세요.');
+      return { link:[], meetings:[] };
+    }
+    log('시트 문서 ID', sheetId());
+    const link = await readSheet1();
+    const meetings = await readSheet2();
+    return { link, meetings };
+  }
+
+  async function load(){
+    let data = { link:[], meetings:[] };
+    try{
+      data = await loadFromSheet();
+    }catch(err){
+      console.error(err);
+      log('불러오기 중 오류', String(err && err.message || err));
+    }
+
+    ingest(data);
+    log('만든 버튼 줄', ROWS.length + '개');
+    log('읽은 평가회의', MEETINGS.length + '건');
+    console.log('[디버그] 원본:', data);
+    console.log('[디버그] 버튼:', ROWS);
+    console.log('[디버그] 평가회의:', MEETINGS);
+
+    const gotLinkRows = !!(data.link && data.link.length);
+    if(!ROWS.length && gotLinkRows){
+      log('자료 시트의 표를 해석하지 못함',
+        '1행에 "탭"과 "항목" 머리글이 있는지, 분야 이름(무용·미술·음악·전통예술)이 열 머리글에 있는지 확인해 주세요.');
+    }
+    if(!ROWS.length){
+      showDiag('시트에서 자료를 읽지 못했습니다. 아래 단계를 확인해 주세요.');
+    }
+    route();
+  }
+
+  const qInput = document.getElementById('q');
+  let timer = null;
+  qInput.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(route, 140);
+  });
+  qInput.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){ qInput.value = ''; route(); }
+  });
+  document.getElementById('qClear').addEventListener('click', () => {
+    qInput.value = '';
+    qInput.focus();
+    route();
+  });
+
+  window.addEventListener('hashchange', route);
+  load();
+</script>
+
+</body>
+</html>
