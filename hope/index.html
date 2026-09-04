@@ -245,6 +245,10 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 
 .progbox{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:16px 17px;margin-bottom:18px;}
 .progbox p{margin:0;font-size:15.5px;line-height:1.75;}
+p.lede mark{
+  background:rgba(195,155,54,.22);color:#1B3A6B;font-weight:700;
+  padding:1px 3px;border-radius:3px;
+}
 .progbox mark{
   background:rgba(195,155,54,.22);color:#1B3A6B;font-weight:700;
   padding:1px 2px;border-radius:3px;
@@ -255,6 +259,11 @@ p.lede{margin:0 0 24px;color:var(--mute);font-size:16.5px;line-height:1.78;}
 .notes .n{background:#fff;border:1px solid var(--cream2);border-radius:9px;padding:14px 15px;margin-bottom:8px;}
 .notes .n h4{font-size:14.5px;margin:0 0 5px;font-weight:700;color:#3E3B35;}
 .notes .n p{margin:0;font-size:13.5px;line-height:1.7;color:#7B7870;}
+.notes .n ul{margin:0;padding:0;list-style:none;}
+.notes .n li{position:relative;padding-left:11px;margin-bottom:6px;font-size:13.5px;line-height:1.7;color:#7B7870;}
+.notes .n li:last-child{margin-bottom:0;}
+.notes .n li::before{content:'·';position:absolute;left:0;}
+.notes .n .ex{display:inline-block;margin-top:3px;color:#95928A;font-size:12.5px;}
 
 /* ───── 입력 ───── */
 .field{margin-bottom:20px;}
@@ -426,7 +435,7 @@ button.go.gold{background:var(--gold);color:#241C05;}
     <div class="pad">
       <p class="step-label">안내 2 / 2</p>
       <h2 class="title">겨울캠프</h2>
-      <p class="lede">전 분야가 함께 모여 6박 7일간 합숙하는 과정입니다.</p>
+      <p class="lede">분야별 전문 교강사의 집중 지도와 작품 발표, 저명 아티스트와의 만남 등 다양한 심화 프로그램이 마련됩니다. 특히 <mark>분야를 넘나드는 콜라보 공연</mark>을 준비하며, 각자의 전공을 넘어 서로의 예술을 이해하고 함께 창작하고 호흡하는 특별한 경험을 하게 될 것입니다.</p>
     </div>
     <div class="photocard">
       <div class="art" id="campImg" aria-hidden="true"></div>
@@ -435,8 +444,8 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
     <div class="pad" style="padding-top:20px;">
       <div class="facts">
-        <div class="fact"><em>기간</em><b>6박 7일</b><small>합숙형</small></div>
-        <div class="fact"><em>숙소</em><b>2인 1실</b><small>전 분야 합동</small></div>
+        <div class="fact"><em>기간</em><b>6박 7일</b><small>2027. 1. 24.(일) ~ 1. 30.(토) 합숙</small></div>
+        <div class="fact"><em>숙소</em><b>2인 1실</b><small>3성급 호텔</small></div>
         <div class="fact wide"><em>장소</em><b>한국예술영재교육원 광주캠퍼스</b><small>전남광주 동구 장동</small></div>
       </div>
 
@@ -457,27 +466,27 @@ button.go.gold{background:var(--gold);color:#241C05;}
       </div>
       <div class="notice-red">
         <div><i></i><span>2027년 1월 24일(일) 입소 · 1월 30일(토) 퇴소</span></div>
-        <div><i></i><span>중간 참여나 부분 참여는 어렵습니다.</span></div>
+        <div><i></i><span>하이라이트 공연 준비를 위해 전 일정 필수 참석 (부분 참여 불가)</span></div>
       </div>
 
-      <div class="progbox">
-        <p>분야별 전문 교강사진의 집중 교육, 작품 레퍼토리 및 앙상블, 작품 전시, 저명 아티스트와의 만남 등 다양한 심화 프로그램과 함께, <mark>분야 간 교류와 협업을 통한 다양한 융합 프로그램이 마련</mark>됩니다.</p>
-        <p class="later">* 분야별 세부 프로그램 추후 안내</p>
-      </div>
+      <p class="later" style="margin:0 0 18px;">* 분야별 세부 프로그램 추후 안내</p>
 
       <div class="notes">
         <h3>유의사항</h3>
         <div class="n">
-          <h4>스스로 생활할 수 있어야 합니다</h4>
-          <p>참가자는 교육 일정 동안 스스로 생활하고 단체활동에 참여할 수 있어야 합니다. (6박 7일 합숙, 2인 1실 제공)</p>
+          <h4>합숙 기간 중 독립적인 생활이 가능한 참가자</h4>
+          <ul>
+            <li>6박 7일간 2인 1실 합숙으로 진행됩니다.</li>
+            <li>단체 생활에 적응하고, 일정에 따라 스스로 생활할 수 있어야 합니다.</li>
+          </ul>
         </div>
         <div class="n">
-          <h4>확정 후 불참 시 참여가 제한됩니다</h4>
-          <p>참여가 확정된 이후 사전 협의 없이 불참하거나, 정당한 사유 없이 반복적으로 결석 또는 중도이탈하는 경우 향후 5년간 K예술영재 프로젝트 및 관련 프로그램 참여가 제한됩니다.</p>
-        </div>
-        <div class="n">
-          <h4>일정은 변동될 수 있습니다</h4>
-          <p>분야 및 전공에 따라 개인별 일정이 상이할 수 있으며, 사정에 따라 일정이 변동될 수 있습니다.</p>
+          <h4>참여 확정 후 불참 시 제한사항</h4>
+          <ul>
+            <li>참여를 확정한 이후에는 하이라이트 공연 준비를 위해 전 일정에 성실하게 참여해야 합니다.</li>
+            <li>참여를 확정한 이후에는 정당한 사유 없이 무단 불참하거나 중도 이탈하는 경우, 향후 5년간 K예술영재 프로젝트 및 관련 프로그램 참여에 제한이 있을 수 있습니다.<br><span class="ex">※ 질병, 가족상 등 불가피한 사유가 있는 경우 예외</span></li>
+            <li>함께 공연을 준비하는 모든 참가자와의 약속인 만큼, 참여 가능 여부를 신중하게 결정해 주시기 바랍니다.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -806,7 +815,8 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=field]'), fun
           return '<div><i class="plain"></i><div>' + t + '</div></div>';
         }).join('') +
       '</div>' +
-      '<p class="later">* 세부 일정 및 내용 추후 안내</p>';
+      '<p class="later">* 세부 일정 및 내용 추후 안내<br>' +
+      '* 가급적 모든 회차 참석을 권장하며, 부득이한 사정으로 참여가 어려운 경우 반드시 사전 연락 바랍니다.</p>';
     $("mentorImg").innerHTML = mentorArt(state.field);
     $("s2Title").textContent = state.field + " 멘토링";
   });
