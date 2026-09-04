@@ -331,6 +331,19 @@ textarea{min-height:140px;resize:vertical;line-height:1.7;}
 .review .r.note{background:#FBF4E2;font-size:15px;line-height:1.72;color:#63500F;display:block;}
 .review .r.note b{color:var(--danger);}
 
+.dupbox{
+  margin-top:16px;padding:18px 18px 16px;
+  background:#FBF4E2;border:1px solid var(--gold);border-radius:10px;
+}
+.dupbox h3{
+  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;
+  font-size:18px;margin:0 0 8px;color:#6E5716;
+}
+.dupbox p{margin:0 0 14px;font-size:14.5px;line-height:1.7;color:#5E5539;}
+.dupbtns{display:flex;gap:10px;}
+.dupbtns .go{min-height:50px;font-size:15.5px;}
+button.go.ghost{background:#fff;border:1px solid var(--cream2);color:var(--mute);}
+
 /* ───── 버튼 (문서 흐름 안) ───── */
 .actions{padding:22px 20px calc(26px + env(safe-area-inset-bottom));background:var(--cream);}
 .actions.dark{background:var(--ink0);}
@@ -567,6 +580,14 @@ button.go.gold{background:var(--gold);color:#241C05;}
       <h2 class="title">이대로 제출할까요?</h2>
       <p class="lede">입력하신 내용을 확인해 주세요. 수정이 필요하면 오른쪽 수정 버튼을 누르면 해당 단계로 돌아갑니다.</p>
       <div class="review" id="review"></div>
+      <div class="dupbox" id="dupBox" hidden>
+        <h3>이미 제출된 응답이 있습니다</h3>
+        <p>다시 제출하시겠습니까? 다시 제출하면 가장 최근에 제출한 내용이 반영됩니다.</p>
+        <div class="dupbtns">
+          <button type="button" class="go gold" id="dupYes">다시 제출</button>
+          <button type="button" class="go ghost" id="dupNo">제출 취소</button>
+        </div>
+      </div>
       <p class="foot-note">제출 후에는 수정할 수 없습니다.</p>
     </div>
   </section>
@@ -755,7 +776,7 @@ const DONE_SCREEN = 7;
 
 const $ = function(id){ return document.getElementById(id); };
 const state = {field:"", major:"", join:""};
-let cur = 0, sent = false;
+let cur = 0, sent = false, overwriteOK = false;
 
 /* 오늘 날짜 */
 const now = new Date();
@@ -926,6 +947,7 @@ function show(n){
     $("mainBtn").className = "go" + (n === LAST ? " gold" : "");
   }
   hideErr();
+  if(n !== LAST){ $("dupBox").hidden = true; $("mainBtn").hidden = false; overwriteOK = false; }
   cur = n;
   window.scrollTo(0, 0);
 }
@@ -995,6 +1017,22 @@ $("mainBtn").addEventListener("click", function(){
 });
 
 /* 제출 */
+/* 다시 제출 확인 */
+function askAgain(show_){
+  $("dupBox").hidden = !show_;
+  $("mainBtn").hidden = show_;
+}
+$("dupYes").addEventListener("click", function(){
+  askAgain(false);
+  overwriteOK = true;
+  submit();
+});
+$("dupNo").addEventListener("click", function(){
+  askAgain(false);
+  overwriteOK = false;
+  show(0);
+});
+
 function submit(){
   if(sent) return;
   hideErr();
@@ -1013,6 +1051,26 @@ function submit(){
   };
 
   const btn = $("mainBtn");
+
+  // 이미 제출한 응답이 있는지 먼저 확인합니다
+  if(!overwriteOK){
+    btn.disabled = true; btn.textContent = "확인 중…";
+    callApi("view=check&name=" + encodeURIComponent(payload["이름"]) +
+            "&birth=" + encodeURIComponent(payload["생년월일"]) +
+            "&field=" + encodeURIComponent(payload["분야"]))
+      .then(function(d){
+        btn.disabled = false; btn.textContent = STEPS[LAST].btn;
+        if(d && d.ok && d.submitted){ askAgain(true); return; }
+        overwriteOK = true;
+        submit();
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = STEPS[LAST].btn;
+        showErr("서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+      });
+    return;
+  }
+
   btn.disabled = true; btn.textContent = "제출 중…";
 
   send(payload).then(function(){
