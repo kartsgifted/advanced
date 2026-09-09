@@ -175,21 +175,61 @@
     font-size:13px; color:var(--text-faint); padding:4px 0;
   }
   .rail .home:hover{ color:var(--text); }
-  .rail nav{ margin-top:22px; display:flex; flex-direction:column; gap:2px; }
+  .rail nav{ margin-top:20px; display:flex; flex-direction:column; gap:8px; }
+
+  .rail-tile{
+    position:relative;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    height:58px;
+    border-radius:12px;
+    text-decoration:none;
+    background:
+      radial-gradient(120% 140% at 15% 0%, color-mix(in srgb, var(--accent) 55%, white) 0%, transparent 55%),
+      linear-gradient(150deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 50%, #0C0E12) 100%);
+    transition:height .3s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;
+  }
+  .rail-tile.is-active{
+    height:216px;
+    align-items:flex-end;
+    box-shadow:0 14px 30px rgba(0,0,0,.42);
+  }
+  .rail-tile img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:grayscale(.9) brightness(.5);
+    transition:filter .3s ease;
+  }
+  .rail-tile.is-active img{ filter:grayscale(.7) brightness(.82); }
+  .rail-tile:hover img{ filter:grayscale(.7) brightness(.72); }
+  .rail-tile .tint{ position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.88; }
+  .rail-tile .scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(12,16,24,.18), rgba(12,16,24,.72));
+  }
+  .rail-tile .label{
+    position:relative;
+    padding:0 14px;
+    font-size:14px; font-weight:700;
+    color:rgba(255,255,255,.82);
+    transition:font-size .3s ease, color .3s ease;
+  }
+  .rail-tile.is-active .label{
+    padding:0 16px 14px;
+    font-size:20px;
+    color:#fff;
+  }
+  .rail-tile:hover .label{ color:#fff; }
+
   @media(max-width:820px){
-    .rail nav{ flex-direction:row; gap:8px; overflow-x:auto; padding-bottom:4px; margin-top:16px; }
+    .rail nav{ flex-direction:row; gap:8px; margin-top:16px; overflow-x:auto; padding-bottom:4px; }
+    .rail-tile{ height:64px; flex:0 0 auto; }
+    .rail-tile.is-active{ height:64px; align-items:center; box-shadow:none; }
+    .rail-tile .label{ font-size:13px; padding:0 14px; white-space:nowrap; }
+    .rail-tile.is-active .label{ font-size:15.5px; padding:0 20px; }
   }
-  .rail-item{
-    display:flex; align-items:center; gap:10px;
-    width:100%; padding:10px 12px; border-radius:8px;
-    font-size:14.5px; font-weight:600; color:var(--text-soft);
-    white-space:nowrap;
-    transition:background .15s ease, color .15s ease;
-  }
-  .rail-item .dot{ width:7px; height:7px; border-radius:50%; opacity:.55; flex:none; }
-  .rail-item:hover{ background:var(--surface); color:var(--text); }
-  .rail-item.is-active{ background:var(--surface); color:var(--text); }
-  .rail-item.is-active .dot{ opacity:1; }
 
   .panel-head h1{ font-size:clamp(30px,3.8vw,42px); font-weight:800; margin:8px 0 0; line-height:1.2; }
   .panel-head .sub{ margin:10px 0 0; color:var(--text-faint); font-size:13.5px; }
@@ -273,6 +313,40 @@
     font-size:11.5px; font-weight:700; letter-spacing:.01em;
   }
   .meeting .date{ font-size:13.5px; font-weight:600; color:var(--text-soft); }
+
+  /* 전체 분야 통합회의 묶음 */
+  .mgroup + .mgroup{ margin-top:44px; }
+  .mgroup-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:0 0 6px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--text-faint);
+    text-transform:none;
+  }
+  .mgroup-note{ font-size:12px; font-weight:500; color:var(--text-faint); opacity:.8; }
+  .mgroup.is-shared{
+    border-left:2px solid var(--brass);
+    padding-left:18px;
+    margin-bottom:44px;
+  }
+  .mgroup.is-shared .mgroup-head{ color:var(--brass); }
+  .shared-chip{
+    display:inline-flex;
+    align-items:center;
+    padding:3px 9px;
+    border-radius:999px;
+    border:1px solid rgba(212,175,90,.45);
+    background:rgba(212,175,90,.12);
+    color:var(--brass-deep);
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.03em;
+  }
   .meeting h3{ margin:12px 0 0; font-size:16.5px; font-weight:700; line-height:1.5; }
   .meeting .meta{ margin:8px 0 0; font-size:13px; color:var(--text-faint); line-height:1.65; }
   .meeting .btns{ margin-top:15px; justify-content:flex-start; }
@@ -320,9 +394,12 @@
       이 설정이 안 되어 있으면 화면이 비어 보입니다.
 
    ③ 시트 안에 탭 두 장을 두시면 됩니다. 이름은 그대로 두셔도 됩니다.
-      · 첫 번째 탭(시트1) = 자료 링크
-      · 두 번째 탭(시트2) = 평가회의
-      순서로 찾으므로 시트1 / 시트2 / Sheet1 / 링크 / 평가회의 어느 이름이든 됩니다.
+      · 첫 번째 탭(시트1) = 자료 링크   ← 순서로 읽으므로 이름은 아무래도 됩니다
+      · 평가회의 탭                    ← 이름 또는 gid 로 찾습니다
+
+      ※ 평가회의가 비어 보이면 아래 SHEET2_GID 에 gid 숫자를 넣어주세요.
+        구글시트에서 평가회의 탭을 클릭하면 주소창 끝이 #gid=1234567890 이 됩니다.
+        이 방법이 탭 이름에 의존하지 않아 가장 확실합니다.
 
    ── 시트1 : 자료 링크 ──────────────────────────
    1행에 이 머리글을 그대로 넣어주세요.
@@ -361,22 +438,32 @@
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1wDbUTo4Wxo_t3VJMqVDnKbthBpdQZTgX10wQ7wlpq1M/edit';
 
   // 탭 이름을 직접 지정하고 싶을 때만 채우세요. 비워두면 순서로 찾습니다.
-  const SHEET1_NAME = '';   // 자료 링크 (비우면 첫 번째 탭)
-  const SHEET2_NAME = '';   // 평가회의 (비우면 두 번째 탭)
+  const SHEET1_NAME = '';         // 자료 링크 (비우면 첫 번째 탭)
+  const SHEET2_NAME = '회의자료';   // 평가회의 자료가 들어 있는 탭 이름
 
-  // 평가회의 탭을 이름으로 찾을 때 시도하는 후보들
-  const SHEET2_CANDIDATES = ['평가회의', '시트2', 'Sheet2', '평가 회의', '회의'];
+  // ★ 가장 확실한 방법 : 평가회의 탭의 gid 를 적어주세요.
+  //   구글시트에서 평가회의 탭을 누르면 주소창 끝이 #gid=1234567890 으로 바뀝니다.
+  //   그 숫자를 그대로 아래에 넣으면 탭 이름을 바꿔도 계속 잘 읽힙니다.
+  const SHEET2_GID = '';    // 예: '1234567890'
+
+  // gid 를 비워두면 아래 이름들을 차례로 시도합니다.
+  const SHEET2_CANDIDATES = [
+    '회의자료', '회의 자료', '평가회의', '평가 회의', '회의', '회의록', '평가회의록',
+    '회의 목록', '회의목록', '평가', '워크숍 평가회의',
+    '시트2', '시트 2', 'Sheet2', 'Sheet 2',
+  ];
 
   const FIELD_COL_START = 3;      // 자료 시트: D열부터 분야
   const MEETING_TAB = '평가회의';   // 모든 분야에 기본으로 붙는 탭
+  const SHARED_CHIP = '<span class="shared-chip">통합</span>';
 
 /* ============================================================ */
 
   const FIELD_META = {
-    '무용':  { key:'dance', color:'#E08AA6', order:1, image:'https://k-brainc.github.io/kriga/img/b.webp' },
-    '미술':  { key:'art',   color:'#7FC17A', order:2, image:'https://k-brainc.github.io/kriga/img/a.jpg' },
-    '음악':  { key:'music', color:'#7FB0DD', order:3, image:'https://k-brainc.github.io/kriga/img/m.jpg' },
-    '전통예술': { key:'trad', color:'#E08A5E', order:4, image:'https://k-brainc.github.io/kriga/img/t.webp' },
+    '무용':  { key:'dance', color:'#E08AA6', order: 2, image:'https://k-brainc.github.io/kriga/img/b.webp' },
+    '미술':  { key:'art',   color:'#7FC17A', order: 4, image:'https://k-brainc.github.io/kriga/img/a.jpg' },
+    '음악':  { key:'music', color:'#7FB0DD', order: 1, image:'https://k-brainc.github.io/kriga/img/m.jpg' },
+    '전통예술': { key:'trad', color:'#E08A5E', order: 3, image:'https://k-brainc.github.io/kriga/img/t.webp' },
   };
 
   const FIELD_ALIASES = {
@@ -388,6 +475,7 @@
 
   let ROWS = [];       // 자료 시트에서 만든 버튼 줄
   let MEETINGS = [];   // 평가회의 시트에서 만든 회의
+  let MEETING_FAIL = '';   // 평가회의를 못 읽은 이유 (화면에 그대로 보여줍니다)
 
   /* ── 도구 ────────────────────────────────── */
   function esc(v){
@@ -396,9 +484,16 @@
   }
   function trim(v){ return v == null ? '' : String(v).trim(); }
 
-  function normalizeField(raw){
+  /* 4개 분야 통합회의를 나타내는 값들 */
+  const SHARED_FIELD = '__ALL__';
+  const SHARED_ALIASES = [
+    '전체분야','전체','전분야','4개분야','네개분야','통합','공통','합동','전체회의','통합회의','all',
+  ];
+
+  function normalizeField(raw, allowShared){
     const t = trim(raw);
     if(!t) return null;
+    if(allowShared && SHARED_ALIASES.includes(t.replace(/\s/g,'').toLowerCase())) return SHARED_FIELD;
     return FIELD_ALIASES[t] || FIELD_ALIASES[t.toLowerCase()] || null;
   }
 
@@ -542,14 +637,24 @@
      분야·회차·일자·장소·참석·안건·비고는 정보 열,
      나머지 열은 머리글 이름을 라벨로 쓰는 링크 열로 봅니다. */
   const MEETING_INFO_KEYS = [
-    ['field',  ['분야']],
-    ['round',  ['회차','차수']],
-    ['date',   ['일자','날짜','일시']],
-    ['place',  ['장소']],
+    ['field',  ['분야','구분','영역']],
+    ['round',  ['회차','차수','회기']],
+    ['date',   ['일자','날짜','일시','일정','개최일','실시일','진행일','시행일','년월일','date']],
+    ['place',  ['장소','회의장소']],
     ['people', ['참석','참여']],
-    ['agenda', ['안건','주제','내용','제목']],
+    ['agenda', ['안건','주제','내용','제목','회의명']],
     ['note',   ['비고','메모']],
   ];
+
+  /* 값이 날짜처럼 보이는지 / 주소처럼 보이는지 */
+  function looksLikeDate(v){
+    const t = trim(v);
+    if(!t || /^https?:/i.test(t)) return false;
+    return /\d{4}\s*[.\-/년]\s*\d{1,2}/.test(t)               // 2026-09-03, 2026. 9. 3, 2026년 9월
+        || /\d{1,2}\s*월\s*\d{1,2}\s*일/.test(t)               // 9월 3일
+        || /^\d{1,2}[.\-/]\d{1,2}[.\-/]\d{2,4}$/.test(t)      // 9/3/2026
+        || /^\d{1,2}\s*[.\-/]\s*\d{1,2}\s*$/.test(t);         // 9/3
+  }
 
   function meetingsFromGrid(values){
     if(!values || values.length < 2) return [];
@@ -557,15 +662,54 @@
 
     const info = {};
     const linkCols = [];
-    for(let c = 0; c < header.length; c++){
+    const unnamedCols = [];   // 머리글이 비어 있는 열 (gviz가 날짜 열 머리글을 지우는 경우)
+
+    let width = header.length;
+    for(let r = 1; r < values.length; r++){
+      if((values[r] || []).length > width) width = values[r].length;
+    }
+
+    for(let c = 0; c < width; c++){
       const h = trim(header[c]).replace(/\s/g,'');
-      if(!h) continue;
+      if(!h){ unnamedCols.push(c); continue; }
       const match = MEETING_INFO_KEYS.find(k =>
         info[k[0]] === undefined && k[1].some(w => h.includes(w)));
       if(match) info[match[0]] = c;
       else linkCols.push({ col:c, label:trim(header[c]) });
     }
     if(info.field === undefined) return [];
+
+    // 머리글이 비었거나 낯설어 날짜 열을 못 찾았으면, 값이 날짜처럼 보이는 열을 찾아 씁니다.
+    // (구글 gviz 는 날짜 서식 열의 머리글 글자를 빈 값으로 내려보냅니다)
+    if(info.date === undefined){
+      const dateRatio = c => {
+        let seen = 0, hit = 0;
+        for(let r = 1; r < values.length; r++){
+          const v = trim((values[r] || [])[c]);
+          if(!v) continue;
+          seen++;
+          if(looksLikeDate(v)) hit++;
+        }
+        return seen ? hit / seen : 0;
+      };
+
+      let best = -1, bestScore = 0;
+      unnamedCols.forEach(c => {
+        const s = dateRatio(c);
+        if(s > bestScore){ bestScore = s; best = c; }
+      });
+      if(bestScore < 0.6){
+        linkCols.forEach(lc => {
+          const s = dateRatio(lc.col);
+          if(s > bestScore){ bestScore = s; best = lc.col; }
+        });
+      }
+      if(best >= 0 && bestScore >= 0.6){
+        info.date = best;
+        const i = linkCols.findIndex(lc => lc.col === best);
+        if(i >= 0) linkCols.splice(i, 1);
+      }
+    }
 
     const get = (line, key) => info[key] === undefined ? '' : trim(line[info[key]]);
 
@@ -575,7 +719,7 @@
       const line = values[r] || [];
       const rawField = trim(line[info.field]) || lastField;
       lastField = rawField;
-      const field = normalizeField(rawField);
+      const field = normalizeField(rawField, true);
       if(!field) continue;
 
       const m = {
@@ -590,7 +734,7 @@
       };
       linkCols.forEach(c => {
         const url = trim(line[c.col]);
-        if(url) m.links.push({ label:c.label, url });
+        if(url && !looksLikeDate(url)) m.links.push({ label:c.label, url });
       });
 
       // 아무 내용도 없는 빈 줄은 건너뜁니다
@@ -607,13 +751,18 @@
 
   function meetingHtml(m, opts){
     opts = opts || {};
+    const isShared = m.field === SHARED_FIELD;
+    const round = /^[-–—.·]*$/.test(trim(m.round)) ? '' : trim(m.round);   // "-" 같은 자리표시는 숨깁니다
+
     const head = [
-      m.round ? '<span class="round">' + esc(m.round) + '</span>' : '',
-      m.date ? '<span class="date">' + esc(m.date) + '</span>' : '',
       opts.chip || '',
+      round ? '<span class="round">' + esc(round) + '</span>' : '',
+      m.date ? '<span class="date">' + esc(m.date) + '</span>' : '',
     ].filter(Boolean).join('');
 
-    const title = m.agenda || ((m.round ? m.round + ' ' : '') + '평가회의');
+    const title = m.agenda
+      || (isShared ? '전체 분야 통합 평가회의'
+                   : (round ? round + ' 평가회의' : '평가회의'));
     const meta = [m.place, m.people, m.note].filter(Boolean).map(esc).join(' · ');
 
     const btns = m.links.length
@@ -659,10 +808,13 @@
   function meetingsFor(field){
     return MEETINGS.filter(m => m.field === field);
   }
+  function sharedMeetings(){
+    return MEETINGS.filter(m => m.field === SHARED_FIELD);
+  }
 
   function countFor(field, tab){
     return tab === MEETING_TAB
-      ? meetingsFor(field).length
+      ? meetingsFor(field).length + sharedMeetings().length
       : groupItems(ROWS.filter(r => r.field === field && r.tab === tab)).length;
   }
 
@@ -751,14 +903,17 @@
     const list = (tab && !isMeeting) ? ROWS.filter(r => r.field === field && r.tab === tab) : [];
     const items = groupItems(list);
     const meetings = meetingsFor(field);
-    const total = groupItems(ROWS.filter(r => r.field === field)).length + meetings.length;
+    const shared = sharedMeetings();
+    const total = groupItems(ROWS.filter(r => r.field === field)).length + meetings.length + shared.length;
 
     const rail = fieldOrder().map(f => {
       const m = FIELD_META[f];
       const on = f === field;
-      return '<a class="rail-item' + (on ? ' is-active' : '') + '"' +
-        (on ? ' style="color:' + m.color + '"' : '') + ' href="#/' + m.key + '">' +
-        '<span class="dot" style="background:' + m.color + '"></span>' + f + '</a>';
+      return '<a class="rail-tile' + (on ? ' is-active' : '') + '" style="--accent:' + m.color + '"' +
+        ' href="#/' + m.key + '"' + (on ? ' aria-current="page"' : '') + '>' +
+        '<img src="' + m.image + '" alt="">' +
+        '<span class="tint"></span><span class="scrim"></span>' +
+        '<span class="label">' + f + '</span></a>';
     }).join('');
 
     const tabBar = tabs.map(t =>
@@ -767,9 +922,24 @@
 
     let body;
     if(isMeeting){
-      body = meetings.length
-        ? '<div class="items">' + meetings.map(m => meetingHtml(m)).join('') + '</div>'
-        : '<div class="empty">등록된 평가회의가 없습니다. "평가회의" 시트에 이 분야 줄을 추가하면 여기에 표시됩니다.</div>';
+      const sharedHtml = shared.length
+        ? '<section class="mgroup is-shared">' +
+            '<h2 class="mgroup-head">전체 분야 통합회의' +
+              '<span class="mgroup-note">4개 분야가 함께한 회의입니다</span></h2>' +
+            '<div class="items">' + shared.map(m => meetingHtml(m, { chip:SHARED_CHIP })).join('') + '</div>' +
+          '</section>'
+        : '';
+
+      const ownHtml = meetings.length
+        ? '<section class="mgroup">' +
+            (shared.length ? '<h2 class="mgroup-head">' + esc(field) + ' 평가회의</h2>' : '') +
+            '<div class="items">' + meetings.map(m => meetingHtml(m)).join('') + '</div>' +
+          '</section>'
+        : '<div class="empty">' + (MEETING_FAIL
+            ? '평가회의를 불러오지 못했습니다.<br><span style="display:block;margin-top:10px;font-size:13px;line-height:1.7;">' + esc(MEETING_FAIL) + '</span>'
+            : '이 분야의 평가회의는 아직 등록되지 않았습니다.') + '</div>';
+
+      body = sharedHtml + ownHtml;
     }else{
       body = items.length
         ? '<div class="items">' + items.map(it => itemHtml(it)).join('') + '</div>'
@@ -810,10 +980,19 @@
 
     let body = '';
     let count = 0;
+    const hitShared = hitMeetings.filter(m => m.field === SHARED_FIELD);
     if(!hit.length && !hitMeetings.length){
       body = '<div class="empty">"' + esc(query) + '"에 해당하는 자료가 없습니다.</div>';
     }else{
-      body = fieldOrder().map(f => {
+      if(hitShared.length){
+        count += hitShared.length;
+        body += '<section class="mgroup is-shared" style="margin-top:32px;">' +
+          '<h2 class="mgroup-head">전체 분야 통합회의</h2>' +
+          '<div class="items">' +
+            hitShared.map(m => meetingHtml(m, { chip:SHARED_CHIP })).join('') +
+          '</div></section>';
+      }
+      body += fieldOrder().map(f => {
         const mine = hit.filter(r => r.field === f);
         const mineMeetings = hitMeetings.filter(m => m.field === f);
         if(!mine.length && !mineMeetings.length) return '';
@@ -868,10 +1047,11 @@
     return m ? m[1] : '';
   }
 
-  function csvUrl(name){
+  function csvUrl(name, gid){
     return 'https://docs.google.com/spreadsheets/d/' + sheetId() +
       '/gviz/tq?tqx=out:csv&headers=0' +
-      (name ? '&sheet=' + encodeURIComponent(name) : '') +
+      (gid ? '&gid=' + encodeURIComponent(gid) : '') +
+      (!gid && name ? '&sheet=' + encodeURIComponent(name) : '') +
       '&_=' + Date.now();
   }
 
@@ -897,8 +1077,8 @@
 
   /* 시트 한 장을 읽습니다. name 이 비면 문서의 첫 번째 탭을 읽습니다.
      결과: { ok, rows, why } */
-  async function readOne(name){
-    const url = csvUrl(name);
+  async function readOne(name, gid){
+    const url = csvUrl(name, gid);
     let res;
     try{
       res = await fetch(url, { cache:'no-store' });
@@ -940,19 +1120,40 @@
 
   /* 두 번째 탭 = 평가회의. 이름을 모르면 후보를 차례로 시도합니다. */
   async function readSheet2(){
+    // ① gid 를 적어두셨으면 그것만 씁니다 (탭 이름이 바뀌어도 안전)
+    if(SHEET2_GID){
+      const r = await readOne('', SHEET2_GID);
+      if(r.ok && r.rows.length){
+        log('평가회의 시트 읽음 (gid ' + SHEET2_GID + ')',
+          r.rows.length + '행 · 머리글: ' + headerLine(r.rows));
+        return r.rows;
+      }
+      MEETING_FAIL = 'gid ' + SHEET2_GID + ' 로 읽지 못했습니다. ' +
+        (r.why || '해당 gid 의 탭이 없거나 비어 있습니다.');
+      log('평가회의 시트를 읽지 못함', MEETING_FAIL);
+      return [];
+    }
+
+    // ② 이름으로 찾기
     const names = SHEET2_NAME ? [SHEET2_NAME] : SHEET2_CANDIDATES;
     const tried = [];
     for(let i = 0; i < names.length; i++){
       const r = await readOne(names[i]);
-      if(r.locked){ log('평가회의 시트를 읽지 못함', r.why); return []; }
+      if(r.locked){
+        MEETING_FAIL = r.why;
+        log('평가회의 시트를 읽지 못함', r.why);
+        return [];
+      }
       if(r.ok && r.rows.length){
         log('평가회의 시트 읽음 ("' + names[i] + '")', r.rows.length + '행 · 머리글: ' + headerLine(r.rows));
         return r.rows;
       }
       tried.push(names[i]);
     }
-    log('평가회의 시트 없음', '두 번째 탭 이름을 ' + tried.map(n => '"' + n + '"').join(' / ') +
-      ' 중 하나로 하시거나, SHEET2_NAME 값에 실제 이름을 넣어주세요. (평가회의 탭은 빈 채로 표시됩니다)');
+    MEETING_FAIL = '이 문서에서 ' + tried.map(n => '"' + n + '"').join(' / ') +
+      ' 이름의 탭을 찾지 못했습니다. 구글시트에 평가회의 탭이 실제로 있는지 확인하시고, ' +
+      '있다면 그 탭을 누른 뒤 주소창 끝의 gid 숫자를 파일 위쪽 SHEET2_GID 에 넣어주세요.';
+    log('평가회의 시트 없음', MEETING_FAIL);
     return [];
   }
 
@@ -988,8 +1189,19 @@
       log('자료 시트의 표를 해석하지 못함',
         '1행에 "탭"과 "항목" 머리글이 있는지, 분야 이름(무용·미술·음악·전통예술)이 열 머리글에 있는지 확인해 주세요.');
     }
+    const gotMeetingRows = !!(data.meetings && data.meetings.length);
+    if(!MEETINGS.length && gotMeetingRows){
+      MEETING_FAIL = '평가회의 탭은 읽었지만 표를 해석하지 못했습니다. ' +
+        '1행 머리글에 "분야" 열이 있어야 하고, 각 줄의 분야 값이 ' +
+        '무용 · 미술 · 음악 · 전통예술 중 하나여야 합니다. ' +
+        '(읽은 머리글: ' + (headerLine(data.meetings) || '없음') + ')';
+      log('평가회의 표를 해석하지 못함', MEETING_FAIL);
+    }
+
     if(!ROWS.length){
       showDiag('시트에서 자료를 읽지 못했습니다. 아래 단계를 확인해 주세요.');
+    }else if(!MEETINGS.length){
+      showDiag('자료 링크는 정상이지만 평가회의를 불러오지 못했습니다.');
     }
     route();
   }
