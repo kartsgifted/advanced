@@ -369,6 +369,11 @@ button.go.gold{background:var(--gold);color:#241C05;}
 .done .veil{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(11,31,58,.35),rgba(11,31,58,.9));}
 .done .in{position:relative;z-index:2;padding:calc(env(safe-area-inset-top) + 54px) 24px 36px;text-align:center;min-height:340px;}
 .done .mark{width:56px;height:56px;border:1px solid var(--gold);border-radius:50%;margin:0 auto 22px;position:relative;}
+.done .mark.closed::after{
+  content:'!';position:static;width:auto;height:auto;border:0;transform:none;
+  display:block;line-height:54px;text-align:center;color:var(--gold);
+  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-size:26px;
+}
 .done .mark::after{
   content:'';position:absolute;left:17px;top:24px;width:22px;height:11px;
   border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg);
@@ -607,6 +612,24 @@ button.go.gold{background:var(--gold);color:#241C05;}
     </div>
   </section>
 
+  <!-- 마감 -->
+  <section class="screen" id="sClosed" hidden>
+    <div class="done">
+      <div class="art" id="closedImg" aria-hidden="true"></div>
+      <div class="veil"></div>
+      <div class="in">
+        <div class="mark closed"></div>
+        <h2>응답이 마감되었습니다</h2>
+        <p>2026년 9월 9일(수) 18:00부로 수요조사 응답이 마감되었습니다.<br>문의사항은 아래 메일로 연락해 주세요.</p>
+        <div class="recap" style="max-width:280px;">
+          <div><span>마감</span><b>9월 9일(수) 18:00</b></div>
+          <div><span>문의</span><b>kgifted2026@naver.com</b></div>
+        </div>
+      </div>
+      <p class="credit">한국예술영재교육연구원 K예술영재 프로젝트 사무국</p>
+    </div>
+  </section>
+
   <!-- 버튼 -->
   <div class="actions" id="actions">
     <div class="errbar" id="errBar" hidden><div id="errText"></div></div>
@@ -776,7 +799,10 @@ const DONE_SCREEN = 7;
 
 const $ = function(id){ return document.getElementById(id); };
 const state = {field:"", major:"", join:""};
-let cur = 0, sent = false, overwriteOK = false;
+let cur = 0, sent = false, overwriteOK = false, closed = false;
+
+/* 응답 마감 : 2026. 9. 9.(수) 18:00 (한국시간) */
+const DEADLINE = new Date("2026-09-09T18:00:00+09:00");
 
 /* 오늘 날짜 */
 const now = new Date();
@@ -1060,6 +1086,7 @@ function submit(){
             "&field=" + encodeURIComponent(payload["분야"]))
       .then(function(d){
         btn.disabled = false; btn.textContent = STEPS[LAST].btn;
+        if(d && d.ok && d.closed){ closeSurvey(); return; }
         if(d && d.ok && d.submitted){ askAgain(true); return; }
         overwriteOK = true;
         submit();
@@ -1078,7 +1105,9 @@ function submit(){
     done(payload);
   }).catch(function(err){
     btn.disabled = false; btn.textContent = STEPS[LAST].btn;
-    if(err && err.message === "not_in_roster"){
+    if(err && err.message === "closed"){
+      closeSurvey();
+    }else if(err && err.message === "not_in_roster"){
       showErr("합격자 명단에 등록되지 않은 정보입니다. 이름과 생년월일을 다시 확인해 주세요.");
     }else{
       showErr("제출에 실패했습니다. 연결을 확인한 뒤 다시 시도해 주세요.");
@@ -1115,7 +1144,26 @@ function done(p){
     '<div><span>응답</span><b>' + p["참여여부"] + '</b></div>';
 }
 
-show(0);
+function closeSurvey(){
+  closed = true;
+  for(let i = 0; i <= DONE_SCREEN; i++){ $("s" + i).hidden = true; }
+  $("topbar").hidden = true;
+  $("actions").hidden = true;
+  $("sClosed").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+$("closedImg").innerHTML = BANNER.hero;
+
+/* 기기 시계로 먼저 판단하고, 서버 시각으로 최종 확인합니다 */
+if(new Date().getTime() > DEADLINE.getTime()){
+  closeSurvey();
+}else{
+  show(0);
+}
+callApi("view=info").then(function(d){
+  if(d && d.ok && d.closed && !closed) closeSurvey();
+}).catch(function(){});
 </script>
 </body>
 </html>
