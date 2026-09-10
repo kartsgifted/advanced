@@ -64,6 +64,66 @@ body{margin:0;background:var(--cream);color:var(--text);
 .fieldrow .rt{font-size:13.5px;color:var(--mute);}
 .fieldrow .rt b{color:var(--text);font-size:15px;}
 
+/* 탭 */
+.tabs{display:flex;gap:8px;padding:4px 20px 0;}
+.tabs button{
+  flex:1;padding:12px 10px;border:1px solid var(--cream2);background:#fff;border-radius:9px;
+  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:15.5px;
+  color:var(--mute);cursor:pointer;
+}
+.tabs button.on{background:var(--ink0);border-color:var(--ink0);color:var(--cream);}
+
+/* 분야별 표 */
+.fieldview{padding:14px 20px 30px;}
+.fv{margin-bottom:26px;}
+.fvhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px;}
+.fvhead b{font-size:17px;}
+.fvhead span{font-size:13.5px;color:var(--mute);}
+.copybtn{
+  width:100%;min-height:44px;margin-bottom:9px;border:1px solid var(--cream2);background:#fff;
+  border-radius:8px;font-family:inherit;font-size:14.5px;color:var(--text);cursor:pointer;
+}
+.copybtn.done{background:var(--ok-bg);border-color:#BFDCCE;color:var(--ok);}
+.tblwrap{background:#fff;border:1px solid var(--cream2);border-radius:10px;overflow-x:auto;}
+table.tbl{border-collapse:collapse;width:100%;min-width:460px;font-size:14px;}
+table.tbl th{
+  background:#FBF7EC;color:var(--mute);font-weight:700;font-size:13px;text-align:left;
+  padding:10px 12px;border-bottom:1px solid var(--cream2);white-space:nowrap;
+}
+table.tbl td{padding:11px 12px;border-bottom:1px solid var(--cream2);vertical-align:top;}
+table.tbl tr:last-child td{border-bottom:0;}
+table.tbl td.num{color:var(--mute);width:34px;}
+table.tbl td.nm{font-weight:700;white-space:nowrap;}
+table.tbl td.dt{white-space:nowrap;color:var(--mute);font-size:13px;}
+.st{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12.5px;white-space:nowrap;}
+.st.yes{background:var(--ok-bg);color:var(--ok);}
+.st.no{background:var(--no-bg);color:var(--no);}
+.st.wait{background:var(--wait);color:var(--wait-tx);}
+.why2{display:block;margin-top:4px;color:var(--mute);font-size:12.5px;line-height:1.55;}
+
+/* 최종 명단 */
+.final{padding:14px 20px 30px;}
+.fsec{margin-bottom:26px;}
+.fhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.fhead i{width:12px;height:12px;border-radius:3px;display:block;}
+.fhead b{font-size:17px;}
+.fhead span{color:var(--mute);font-size:14px;}
+.fgroup{background:#fff;border:1px solid var(--cream2);border-radius:10px;margin-bottom:9px;overflow:hidden;}
+.fgroup .gt{
+  display:flex;justify-content:space-between;background:#FBF7EC;
+  padding:10px 14px;font-size:14px;font-weight:700;border-bottom:1px solid var(--cream2);
+}
+.fgroup .gt span{color:var(--mute);font-weight:400;}
+.fgroup ol{margin:0;padding:8px 14px 12px 34px;}
+.fgroup li{font-size:15px;padding:4px 0;}
+.fgroup li small{color:var(--mute);font-size:13px;margin-left:8px;}
+.fgroup li .why{display:block;color:var(--mute);font-size:13px;line-height:1.6;margin-top:2px;}
+.exports{display:flex;gap:9px;margin:0 0 18px;}
+.exports button{
+  flex:1;min-height:46px;border:1px solid var(--cream2);background:#fff;border-radius:9px;
+  font-family:inherit;font-size:14.5px;color:var(--text);cursor:pointer;
+}
+
 /* 도구 */
 .tools{padding:6px 20px 4px;display:flex;flex-direction:column;gap:11px;}
 .search{width:100%;min-height:48px;padding:12px 15px;font-family:inherit;font-size:16px;
@@ -155,12 +215,20 @@ button.refresh:disabled{background:#9C978B;}
     <div id="byField"></div>
   </div>
 
-  <div class="tools">
+  <div class="tabs" id="tabs">
+    <button data-v="board" class="on">응답 현황</button>
+    <button data-v="field">분야별</button>
+    <button data-v="final">최종 명단</button>
+  </div>
+
+  <div class="tools" id="tools">
     <input class="search" id="q" type="search" placeholder="이름으로 검색" enterkeyhint="search">
     <div class="filters" id="filters"></div>
   </div>
 
   <div class="board" id="board"></div>
+  <div class="fieldview" id="fieldview" hidden></div>
+  <div class="final" id="final" hidden></div>
 
   <div class="bottom"><button class="refresh" id="reload" type="button">새로고침</button></div>
 </div>
@@ -241,6 +309,161 @@ $('reload').addEventListener('click', async function(){
 });
 $('q').addEventListener('input', function(){ query = $('q').value.trim(); drawBoard(); });
 
+let view = "board";
+$('tabs').querySelectorAll('button').forEach(function(b){
+  b.addEventListener('click', function(){
+    view = b.dataset.v;
+    $('tabs').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
+    $('tools').hidden = (view !== "board");
+    $('board').hidden = (view !== "board");
+    $('fieldview').hidden = (view !== "field");
+    $('final').hidden = (view !== "final");
+    if(view === "final") drawFinal();
+    if(view === "field") drawFields();
+  });
+});
+
+function drawFields(){
+  const g = groups();
+  const cols = ["이름","전공","생년월일","응답","제출시각"];
+  window.__fieldRows = {};
+
+  $('fieldview').innerHTML = names(g).map(function(f, gi){
+    const people = g[f].people.slice().sort(function(a, b){
+      const rank = function(x){ return x.참여여부 === "참여 가능" ? 0 : x.참여여부 === "참여 불가" ? 1 : 2; };
+      return rank(a) - rank(b) || a.이름.localeCompare(b.이름);
+    });
+    window.__fieldRows[f] = people;
+
+    const body = people.map(function(p, i){
+      const st = p.응답상태 === "미응답" ? '<span class="st wait">미응답</span>'
+        : p.참여여부 === "참여 가능" ? '<span class="st yes">참여 가능</span>'
+        : '<span class="st no">참여 불가</span>';
+      const why = (p.불참사유 && p.불참사유 !== "-") ? '<span class="why2">' + esc(p.불참사유) + '</span>' : '';
+      return '<tr><td class="num">' + (i + 1) + '</td>' +
+        '<td class="nm">' + esc(p.이름) + '</td>' +
+        '<td>' + esc(p.전공 || '-') + '</td>' +
+        '<td class="dt">' + esc(p.생년월일 || '-') + '</td>' +
+        '<td>' + st + why + '</td>' +
+        '<td class="dt">' + esc(p.제출시각 || '-') + '</td></tr>';
+    }).join('');
+
+    return '<div class="fv">' +
+      '<div class="fvhead"><b>' + esc(f) + '</b><span>참여 ' + g[f].yes + ' · 불참 ' + g[f].no +
+        ' · 미응답 ' + (g[f].total - g[f].done) + ' / 총 ' + g[f].total + '명</span></div>' +
+      '<button class="copybtn" data-f="' + esc(f) + '">표 복사하기</button>' +
+      '<div class="tblwrap"><table class="tbl"><thead><tr><th></th>' +
+        cols.map(function(c){ return '<th>' + c + '</th>'; }).join('') +
+      '</tr></thead><tbody>' + body + '</tbody></table></div></div>';
+  }).join('') || '<p class="empty">표시할 명단이 없습니다.</p>';
+
+  $('fieldview').querySelectorAll('.copybtn').forEach(function(b){
+    b.addEventListener('click', function(){ copyTable(b, b.dataset.f); });
+  });
+}
+
+/* 표를 탭으로 구분해 복사 (엑셀·한글 표에 그대로 붙습니다) */
+function copyTable(btn, field){
+  const people = (window.__fieldRows || {})[field] || [];
+  const head = ["번호","이름","전공","생년월일","응답","제출시각","불참사유"].join("\t");
+  const lines = people.map(function(p, i){
+    const st = p.응답상태 === "미응답" ? "미응답" : p.참여여부;
+    return [i + 1, p.이름, p.전공 || "", p.생년월일 || "", st, p.제출시각 || "",
+            (p.불참사유 && p.불참사유 !== "-") ? p.불참사유 : ""].join("\t");
+  });
+  const txt = field + "\n" + head + "\n" + lines.join("\n");
+  const ok = function(){
+    btn.textContent = "복사되었습니다";
+    btn.classList.add("done");
+    setTimeout(function(){ btn.textContent = "표 복사하기"; btn.classList.remove("done"); }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok).catch(function(){ fallbackCopy(txt, ok, btn); });
+  }else{
+    fallbackCopy(txt, ok, btn);
+  }
+}
+function fallbackCopy(txt, ok, btn){
+  const ta = document.createElement("textarea");
+  ta.value = txt; ta.style.position = "absolute"; ta.style.left = "-9999px";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); ok(); }
+  catch(e){ btn.textContent = "복사할 수 없습니다"; }
+  document.body.removeChild(ta);
+}
+
+function drawFinal(){
+  const yes = DATA.list.filter(function(x){ return x.참여여부 === "참여 가능"; });
+  const no  = DATA.list.filter(function(x){ return x.참여여부 === "참여 불가"; });
+  const na  = DATA.list.filter(function(x){ return x.응답상태 === "미응답"; });
+
+  function byMajor(arr, withReason){
+    const g = {};
+    arr.forEach(function(x){
+      const k = (x.분야 || "미지정") + (x.전공 && x.전공 !== "-" ? " · " + x.전공 : "");
+      (g[k] = g[k] || []).push(x);
+    });
+    return Object.keys(g).sort(function(a,b){
+      const ia = ORDER.indexOf(a.split(" · ")[0]), ib = ORDER.indexOf(b.split(" · ")[0]);
+      return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib) || a.localeCompare(b);
+    }).map(function(k){
+      const people = g[k].slice().sort(function(a,b){ return a.이름.localeCompare(b.이름); });
+      return '<div class="fgroup"><div class="gt"><b>' + esc(k) + '</b><span>' + people.length + '명</span></div><ol>' +
+        people.map(function(p){
+          return '<li>' + esc(p.이름) + '<small>' + esc(p.생년월일 || '') + '</small>' +
+            (withReason && p.불참사유 && p.불참사유 !== "-" ? '<span class="why">' + esc(p.불참사유) + '</span>' : '') +
+            '</li>';
+        }).join('') + '</ol></div>';
+    }).join('') || '<div class="fgroup"><div class="gt"><b>해당 없음</b><span>0명</span></div></div>';
+  }
+
+  $('final').innerHTML =
+    '<div class="exports">' +
+      '<button id="csvBtn">CSV 내려받기</button>' +
+      '<button id="copyBtn">명단 복사</button>' +
+    '</div>' +
+    '<div class="fsec"><div class="fhead"><i style="background:var(--ok)"></i>' +
+      '<b>참여 확정</b><span>' + yes.length + '명</span></div>' + byMajor(yes, false) + '</div>' +
+    '<div class="fsec"><div class="fhead"><i style="background:var(--no)"></i>' +
+      '<b>참여 불가</b><span>' + no.length + '명</span></div>' + byMajor(no, true) + '</div>' +
+    '<div class="fsec"><div class="fhead"><i style="background:var(--wait)"></i>' +
+      '<b>미응답</b><span>' + na.length + '명</span></div>' + byMajor(na, false) + '</div>' +
+    (DATA.extras.length ? '<div class="fsec"><div class="fhead"><i style="background:var(--gold)"></i>' +
+      '<b>명단 외 응답</b><span>' + DATA.extras.length + '건</span></div>' + byMajor(DATA.extras, true) + '</div>' : '');
+
+  $('csvBtn').addEventListener('click', downloadCsv);
+  $('copyBtn').addEventListener('click', function(){ copyList(yes, no, na); });
+}
+
+function downloadCsv(){
+  const head = ["구분","분야","전공","이름","생년월일","제출시각","불참사유"];
+  const rows = DATA.list.concat(DATA.extras).map(function(x){
+    const kind = x.응답상태 === "미응답" ? "미응답"
+      : x.응답상태 === "명단 외 응답" ? "명단 외"
+      : x.참여여부;
+    return [kind, x.분야, x.전공, x.이름, x.생년월일, x.제출시각, x.불참사유]
+      .map(function(v){ return '"' + String(v || "").replace(/"/g, '""') + '"'; }).join(",");
+  });
+  const blob = new Blob(["\ufeff" + head.join(",") + "\n" + rows.join("\n")], {type:"text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "심화과정_최종명단.csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function copyList(yes, no, na){
+  function block(t, arr){
+    return t + " (" + arr.length + "명)\n" + arr.map(function(p){
+      return "- " + p.이름 + " / " + p.분야 + (p.전공 && p.전공 !== "-" ? " " + p.전공 : "");
+    }).join("\n");
+  }
+  const txt = [block("참여 확정", yes), block("참여 불가", no), block("미응답", na)].join("\n\n");
+  navigator.clipboard.writeText(txt).then(function(){
+    $('copyBtn').textContent = "복사되었습니다";
+    setTimeout(function(){ $('copyBtn').textContent = "명단 복사"; }, 1500);
+  }).catch(function(){ $('copyBtn').textContent = "복사할 수 없습니다"; });
+}
+
 function render(){
   const s = DATA.summary;
   $('when').textContent = s.갱신 + " 기준";
@@ -278,7 +501,9 @@ function render(){
     b.addEventListener('click', function(){ filter = b.dataset.f; picked = null; render(); });
   });
 
-  drawBoard();
+  if(view === "final") drawFinal();
+  else if(view === "field") drawFields();
+  else drawBoard();
 }
 
 function groups(){
