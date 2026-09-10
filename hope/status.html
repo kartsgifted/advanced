@@ -14,7 +14,8 @@
   --ink0:#0B1F3A; --ink1:#12294A; --navy:#1B3A6B; --navy-lt:#2F5B99;
   --cream:#F7F2E6; --cream2:#EDE5D2; --gold:#C39B36; --gold-lt:#EBD9A6;
   --text:#1B1B19; --mute:#55524B;
-  --ok:#2E7D5B; --ok-bg:#E3F0E9; --no:#A03A29; --no-bg:#F6E0DA; --wait:#EDE9DE; --wait-tx:#8A877E;
+  --ok:#2E7D5B; --ok-bg:#E3F0E9; --no:#A03A29; --no-bg:#F6E0DA;
+  --wait:#D8D3C6; --wait-tx:#807D74;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{background:var(--cream);}
@@ -26,147 +27,89 @@ body{margin:0;background:var(--cream);color:var(--text);
 .jua{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;}
 
 /* 헤더 */
-.head{background:var(--ink0);color:var(--cream);padding:calc(env(safe-area-inset-top) + 22px) 20px 22px;}
+.head{background:var(--ink0);color:var(--cream);padding:calc(env(safe-area-inset-top) + 20px) 20px 18px;}
 .head .row{display:flex;align-items:flex-start;gap:12px;}
 .head .row > div{flex:1;min-width:0;}
 .head p{margin:0;font-size:13px;color:var(--gold-lt);letter-spacing:.04em;}
-.head h1{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:22px;margin:7px 0 0;}
-.head .when{margin-top:6px;font-size:12.5px;color:rgba(247,242,230,.6);}
-.sheetbtn{
-  flex:none;display:flex;align-items:center;gap:7px;text-decoration:none;
+.head h1{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:21px;margin:6px 0 0;}
+.head .when{margin-top:5px;font-size:12.5px;color:rgba(247,242,230,.6);}
+.sheetbtn{flex:none;display:flex;align-items:center;gap:7px;text-decoration:none;
   background:rgba(247,242,230,.12);border:1px solid rgba(247,242,230,.28);
-  color:var(--cream);font-size:13.5px;padding:9px 13px;border-radius:8px;white-space:nowrap;
-}
+  color:var(--cream);font-size:13.5px;padding:9px 13px;border-radius:8px;white-space:nowrap;}
 .sheetbtn svg{width:15px;height:15px;}
 
-/* 진행 요약 */
-.summary{padding:20px;}
-.bigbar{background:#fff;border:1px solid var(--cream2);border-radius:12px;padding:18px 18px 16px;}
-.bigbar .top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;}
-.bigbar .pct{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:34px;line-height:1;}
-.bigbar .cnt{font-size:14.5px;color:var(--mute);}
-.bigbar .cnt b{color:var(--text);font-size:16px;}
-.track{height:12px;border-radius:7px;background:var(--wait);overflow:hidden;display:flex;}
-.track i{display:block;height:100%;}
-.track .y{background:var(--ok);}
-.track .n{background:var(--no);}
-.legend{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap;}
-.legend span{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--mute);}
-.legend i{width:11px;height:11px;border-radius:3px;display:block;}
-.legend b{color:var(--text);}
-
-/* 분야별 */
-.sec{padding:0 20px 8px;}
-.sec h2{font-size:14px;color:var(--mute);font-weight:700;margin:14px 0 10px;}
-.fieldrow{background:#fff;border:1px solid var(--cream2);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
-.fieldrow .l1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
-.fieldrow .nm{font-size:15.5px;font-weight:700;}
-.fieldrow .rt{font-size:13.5px;color:var(--mute);}
-.fieldrow .rt b{color:var(--text);font-size:15px;}
-
 /* 탭 */
-.tabs{display:flex;gap:8px;padding:4px 20px 0;}
-.tabs button{
-  flex:1;padding:12px 10px;border:1px solid var(--cream2);background:#fff;border-radius:9px;
-  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:15.5px;
-  color:var(--mute);cursor:pointer;
-}
-.tabs button.on{background:var(--ink0);border-color:var(--ink0);color:var(--cream);}
+.tabs{display:flex;gap:6px;background:var(--ink0);padding:0 14px 14px;overflow-x:auto;}
+.tabs button{flex:none;padding:10px 16px;border:1px solid rgba(247,242,230,.25);
+  background:transparent;border-radius:999px;color:rgba(247,242,230,.75);
+  font-family:inherit;font-size:14.5px;cursor:pointer;white-space:nowrap;}
+.tabs button.on{background:var(--cream);border-color:var(--cream);color:var(--ink0);font-weight:700;}
+.tabs button i{font-style:normal;opacity:.8;margin-left:6px;font-size:12.5px;}
 
-/* 분야별 표 */
-.fieldview{padding:14px 20px 30px;}
-.fv{margin-bottom:26px;}
-.fvhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px;}
-.fvhead b{font-size:17px;}
-.fvhead span{font-size:13.5px;color:var(--mute);}
-.copybtn{
-  width:100%;min-height:44px;margin-bottom:9px;border:1px solid var(--cream2);background:#fff;
-  border-radius:8px;font-family:inherit;font-size:14.5px;color:var(--text);cursor:pointer;
-}
-.copybtn.done{background:var(--ok-bg);border-color:#BFDCCE;color:var(--ok);}
-.tblwrap{background:#fff;border:1px solid var(--cream2);border-radius:10px;overflow-x:auto;}
-table.tbl{border-collapse:collapse;width:100%;min-width:460px;font-size:14px;}
-table.tbl th{
-  background:#FBF7EC;color:var(--mute);font-weight:700;font-size:13px;text-align:left;
-  padding:10px 12px;border-bottom:1px solid var(--cream2);white-space:nowrap;
-}
+/* 카드 공통 */
+.wrap{padding:18px 20px 34px;}
+.card{background:#fff;border:1px solid var(--cream2);border-radius:12px;padding:18px;margin-bottom:14px;}
+.card > h2{font-size:14px;color:var(--mute);font-weight:700;margin:0 0 14px;}
+
+/* 도넛 */
+.donutrow{display:flex;align-items:center;gap:20px;}
+.donut{flex:none;position:relative;width:132px;height:132px;}
+.donut svg{transform:rotate(-90deg);display:block;}
+.donut .mid{position:absolute;left:0;top:0;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.donut .mid b{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:30px;line-height:1;}
+.donut .mid span{font-size:12.5px;color:var(--mute);margin-top:3px;}
+.keys{flex:1;min-width:0;}
+.key{display:flex;align-items:center;gap:9px;padding:7px 0;}
+.key + .key{border-top:1px solid var(--cream2);}
+.key i{width:11px;height:11px;border-radius:3px;flex:none;}
+.key .t{flex:1;font-size:14.5px;}
+.key .v{font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:19px;}
+.key .p{width:44px;text-align:right;font-size:13px;color:var(--mute);}
+
+/* 분야 요약 */
+.fsum{width:100%;border-collapse:collapse;}
+.fsum th{font-size:12.5px;color:var(--mute);font-weight:700;text-align:right;padding:0 0 8px;}
+.fsum th:first-child{text-align:left;}
+.fsum td{padding:11px 0;border-top:1px solid var(--cream2);font-size:14.5px;text-align:right;}
+.fsum td:first-child{text-align:left;font-weight:700;}
+.fsum .bar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:var(--wait);margin-top:6px;}
+.fsum .bar i{display:block;height:100%;}
+.fsum .go{border:none;background:none;padding:0;font:inherit;color:var(--navy);cursor:pointer;text-decoration:underline;}
+
+/* 미응답 */
+.namechips{display:flex;flex-wrap:wrap;gap:7px;}
+.namechips span{background:var(--cream);border:1px solid var(--cream2);border-radius:7px;
+  padding:7px 11px;font-size:14px;color:var(--wait-tx);}
+
+/* 표 */
+.tools{display:flex;gap:9px;margin-bottom:12px;}
+.tools button{flex:1;min-height:46px;border:1px solid var(--cream2);background:#fff;border-radius:9px;
+  font-family:inherit;font-size:14.5px;color:var(--text);cursor:pointer;}
+.tools button.done{background:var(--ok-bg);border-color:#BFDCCE;color:var(--ok);}
+.tblwrap{background:#fff;border:1px solid var(--cream2);border-radius:12px;overflow-x:auto;}
+table.tbl{border-collapse:collapse;width:100%;min-width:440px;font-size:14px;}
+table.tbl th{background:#FBF7EC;color:var(--mute);font-weight:700;font-size:12.5px;text-align:left;
+  padding:10px 12px;border-bottom:1px solid var(--cream2);white-space:nowrap;}
 table.tbl td{padding:11px 12px;border-bottom:1px solid var(--cream2);vertical-align:top;}
 table.tbl tr:last-child td{border-bottom:0;}
-table.tbl td.num{color:var(--mute);width:34px;}
+table.tbl td.num{color:var(--mute);width:32px;}
 table.tbl td.nm{font-weight:700;white-space:nowrap;}
 table.tbl td.dt{white-space:nowrap;color:var(--mute);font-size:13px;}
+table.tbl tr.wait td{background:#FCFAF4;}
 .st{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12.5px;white-space:nowrap;}
 .st.yes{background:var(--ok-bg);color:var(--ok);}
 .st.no{background:var(--no-bg);color:var(--no);}
 .st.wait{background:var(--wait);color:var(--wait-tx);}
-.why2{display:block;margin-top:4px;color:var(--mute);font-size:12.5px;line-height:1.55;}
-
-/* 최종 명단 */
-.final{padding:14px 20px 30px;}
-.fsec{margin-bottom:26px;}
-.fhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
-.fhead i{width:12px;height:12px;border-radius:3px;display:block;}
-.fhead b{font-size:17px;}
-.fhead span{color:var(--mute);font-size:14px;}
-.fgroup{background:#fff;border:1px solid var(--cream2);border-radius:10px;margin-bottom:9px;overflow:hidden;}
-.fgroup .gt{
-  display:flex;justify-content:space-between;background:#FBF7EC;
-  padding:10px 14px;font-size:14px;font-weight:700;border-bottom:1px solid var(--cream2);
-}
-.fgroup .gt span{color:var(--mute);font-weight:400;}
-.fgroup ol{margin:0;padding:8px 14px 12px 34px;}
-.fgroup li{font-size:15px;padding:4px 0;}
-.fgroup li small{color:var(--mute);font-size:13px;margin-left:8px;}
-.fgroup li .why{display:block;color:var(--mute);font-size:13px;line-height:1.6;margin-top:2px;}
-.exports{display:flex;gap:9px;margin:0 0 18px;}
-.exports button{
-  flex:1;min-height:46px;border:1px solid var(--cream2);background:#fff;border-radius:9px;
-  font-family:inherit;font-size:14.5px;color:var(--text);cursor:pointer;
-}
-
-/* 도구 */
-.tools{padding:6px 20px 4px;display:flex;flex-direction:column;gap:11px;}
-.search{width:100%;min-height:48px;padding:12px 15px;font-family:inherit;font-size:16px;
-  background:#fff;border:1px solid var(--cream2);border-radius:8px;}
-.search:focus{outline:none;border-color:var(--navy-lt);}
-.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;}
-.filters button{flex:none;padding:9px 15px;border:1px solid var(--cream2);background:#fff;border-radius:999px;
-  font-family:inherit;font-size:13.5px;color:var(--mute);cursor:pointer;white-space:nowrap;}
-.filters button.on{background:var(--navy);border-color:var(--navy);color:var(--cream);}
-
-/* 명단 보드 */
-.board{padding:10px 20px 30px;}
-.group{margin-bottom:22px;}
-.group .gh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
-.group .gh b{font-size:15.5px;}
-.group .gh span{font-size:13px;color:var(--mute);}
-.chips{display:flex;flex-wrap:wrap;gap:7px;}
-.pchip{
-  border:1px solid var(--cream2);background:#fff;border-radius:8px;
-  padding:9px 12px;font-size:14.5px;font-family:inherit;cursor:pointer;color:var(--text);
-  display:flex;align-items:center;gap:7px;
-}
-.pchip i{width:8px;height:8px;border-radius:50%;background:var(--wait-tx);display:block;}
-.pchip.yes{background:var(--ok-bg);border-color:#BFDCCE;}
-.pchip.yes i{background:var(--ok);}
-.pchip.no{background:var(--no-bg);border-color:#E3C0B6;}
-.pchip.no i{background:var(--no);}
-.pchip.wait{color:var(--wait-tx);}
-.pchip.sel{box-shadow:0 0 0 2px var(--gold);}
-.pchip em{font-style:normal;font-size:11px;color:var(--gold);font-weight:700;}
-.detail{
-  margin-top:11px;background:var(--ink0);color:var(--cream);border-radius:10px;padding:15px 16px;
-}
-.detail h4{margin:0 0 10px;font-size:16.5px;font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;}
-.detail .d{display:flex;gap:12px;font-size:14px;padding:5px 0;}
-.detail .d span{flex:none;width:66px;color:rgba(247,242,230,.6);}
-.detail .d div{flex:1;}
-.empty{text-align:center;color:var(--mute);font-size:14.5px;padding:40px 20px;}
+.why{display:block;margin-top:4px;color:var(--mute);font-size:12.5px;line-height:1.55;}
+.re{display:inline-block;margin-left:6px;font-size:11px;color:var(--gold);font-weight:700;}
+.empty{text-align:center;color:var(--mute);font-size:14.5px;padding:34px 20px;}
+.sub{font-size:13.5px;color:var(--mute);margin:0 0 12px;}
 
 .bottom{position:sticky;bottom:0;background:linear-gradient(180deg,rgba(247,242,230,0),var(--cream) 35%);
-  padding:14px 20px calc(14px + env(safe-area-inset-bottom));}
-button.refresh{width:100%;min-height:52px;border:none;border-radius:8px;background:var(--navy);color:var(--cream);
-  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:16px;cursor:pointer;}
+  padding:12px 20px calc(12px + env(safe-area-inset-bottom));}
+button.refresh{width:100%;min-height:50px;border:none;border-radius:9px;background:var(--navy);color:var(--cream);
+  font-family:'Jua','Pretendard','Noto Sans KR',sans-serif;font-weight:400;font-size:15.5px;cursor:pointer;}
 button.refresh:disabled{background:#9C978B;}
 
 /* 잠금 */
@@ -208,44 +151,23 @@ button.refresh:disabled{background:#9C978B;}
     </div>
   </header>
 
-  <div class="summary"><div class="bigbar" id="bigbar"></div></div>
-
-  <div class="sec">
-    <h2>분야별 현황</h2>
-    <div id="byField"></div>
-  </div>
-
-  <div class="tabs" id="tabs">
-    <button data-v="board" class="on">응답 현황</button>
-    <button data-v="field">분야별</button>
-    <button data-v="final">최종 명단</button>
-  </div>
-
-  <div class="tools" id="tools">
-    <input class="search" id="q" type="search" placeholder="이름으로 검색" enterkeyhint="search">
-    <div class="filters" id="filters"></div>
-  </div>
-
-  <div class="board" id="board"></div>
-  <div class="fieldview" id="fieldview" hidden></div>
-  <div class="final" id="final" hidden></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="wrap" id="view"></div>
 
   <div class="bottom"><button class="refresh" id="reload" type="button">새로고침</button></div>
 </div>
 
 <script>
-/* ═══ Apps Script 웹앱 URL ═══ */
+/* ═══ 설정 ═══ */
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbw3HuhOl8P4upR61iIOE7bMIuOxJalCfk38r6X50R2Ih3xuMdo987pW9QryvkugVE7z3A/exec";
-/* ═══ 원본 스프레드시트 ═══ */
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1q_y9TIchAyAaA4ALOpBqBVXDU9qs4l9RBSPUOvwyH58/edit";
-
-const $ = function(id){ return document.getElementById(id); };
-let KEY = "", DATA = null, filter = "전체", query = "", picked = null;
 const ORDER = ["음악","무용","전통예술","미술"];
 
+const $ = function(id){ return document.getElementById(id); };
+let KEY = "", DATA = null, tab = "전체";
 $('sheetLink').href = SHEET_URL;
 
-/* JSONP 호출 (CORS 영향 없음) */
+/* JSONP */
 function callApi(params){
   return new Promise(function(resolve, reject){
     const cb = 'karts_cb_' + Date.now();
@@ -256,347 +178,233 @@ function callApi(params){
       try{ delete window[cb]; }catch(e){ window[cb] = undefined; }
       if(el.parentNode) el.parentNode.removeChild(el);
     }
-    window[cb] = function(data){ cleanup(); resolve(data); };
+    window[cb] = function(d){ cleanup(); resolve(d); };
     el.onerror = function(){ cleanup(); reject(new Error('network')); };
     el.src = ENDPOINT + '?' + params + '&callback=' + cb + '&t=' + Date.now();
     document.body.appendChild(el);
   });
 }
 
+/* 접속 */
 const saved = localStorage.getItem('kartsKey');
-if (saved) { KEY = saved; load(); }
+if(saved){ KEY = saved; load(); }
 $('enter').addEventListener('click', tryEnter);
-$('key').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryEnter(); });
+$('key').addEventListener('keydown', function(e){ if(e.key === 'Enter') tryEnter(); });
 function tryEnter(){
   const v = $('key').value.trim();
   if(!v) return;
-  KEY = v; $('lockErr').textContent = "확인 중…";
-  load();
+  KEY = v; $('lockErr').textContent = "확인 중…"; load();
 }
 
 async function load(){
-  let data;
-  try{
-    data = await callApi('view=status&key=' + encodeURIComponent(KEY));
-  }catch(err){
+  let d;
+  try{ d = await callApi('view=status&key=' + encodeURIComponent(KEY)); }
+  catch(err){
     $('lockErr').textContent = err.message === 'timeout'
       ? "서버 응답이 없습니다. 잠시 후 다시 시도해 주세요."
-      : "서버에 연결하지 못했습니다. 웹앱 배포의 액세스 권한이 '모든 사용자'인지 확인해 주세요.";
+      : "서버에 연결하지 못했습니다. 웹앱 배포 권한이 '모든 사용자'인지 확인해 주세요.";
     return;
   }
-  if(!data || !data.ok){
-    $('lockErr').textContent = (data && data.error === 'unauthorized')
-      ? "접속 키가 올바르지 않습니다." : "서버 오류: " + ((data && data.error) || "알 수 없음");
+  if(!d || !d.ok){
+    $('lockErr').textContent = (d && d.error === 'unauthorized')
+      ? "접속 키가 올바르지 않습니다." : "서버 오류: " + ((d && d.error) || "알 수 없음");
     localStorage.removeItem('kartsKey');
     return;
   }
-  if(!data.summary){
-    $('lockErr').textContent = "웹앱이 예전 버전입니다. Apps Script에서 [배포 관리 → 새 버전]으로 다시 배포해 주세요.";
+  if(!d.summary){
+    $('lockErr').textContent = "웹앱이 예전 버전입니다. [배포 관리 → 새 버전]으로 다시 배포해 주세요.";
     return;
   }
   localStorage.setItem('kartsKey', KEY);
-  DATA = data;
+  DATA = d;
   $('lock').hidden = true; $('app').hidden = false;
-  try{ render(); }
-  catch(err){ $('board').innerHTML = '<p class="empty">화면을 그리는 중 오류가 발생했습니다: ' + err.message + '</p>'; }
+  draw();
 }
 
 $('reload').addEventListener('click', async function(){
   const b = $('reload'); b.disabled = true; b.textContent = "불러오는 중…";
-  picked = null;
   await load();
   b.disabled = false; b.textContent = "새로고침";
 });
-$('q').addEventListener('input', function(){ query = $('q').value.trim(); drawBoard(); });
 
-let view = "board";
-$('tabs').querySelectorAll('button').forEach(function(b){
-  b.addEventListener('click', function(){
-    view = b.dataset.v;
-    $('tabs').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
-    $('tools').hidden = (view !== "board");
-    $('board').hidden = (view !== "board");
-    $('fieldview').hidden = (view !== "field");
-    $('final').hidden = (view !== "final");
-    if(view === "final") drawFinal();
-    if(view === "field") drawFields();
+/* ── 집계 ── */
+function stat(arr){
+  const o = {total:arr.length, yes:0, no:0, wait:0};
+  arr.forEach(function(x){
+    if(x.참여여부 === "참여 가능") o.yes++;
+    else if(x.참여여부 === "참여 불가") o.no++;
+    else o.wait++;
   });
-});
-
-function drawFields(){
-  const g = groups();
-  const cols = ["이름","전공","생년월일","응답","제출시각"];
-  window.__fieldRows = {};
-
-  $('fieldview').innerHTML = names(g).map(function(f, gi){
-    const people = g[f].people.slice().sort(function(a, b){
-      const rank = function(x){ return x.참여여부 === "참여 가능" ? 0 : x.참여여부 === "참여 불가" ? 1 : 2; };
-      return rank(a) - rank(b) || a.이름.localeCompare(b.이름);
-    });
-    window.__fieldRows[f] = people;
-
-    const body = people.map(function(p, i){
-      const st = p.응답상태 === "미응답" ? '<span class="st wait">미응답</span>'
-        : p.참여여부 === "참여 가능" ? '<span class="st yes">참여 가능</span>'
-        : '<span class="st no">참여 불가</span>';
-      const why = (p.불참사유 && p.불참사유 !== "-") ? '<span class="why2">' + esc(p.불참사유) + '</span>' : '';
-      return '<tr><td class="num">' + (i + 1) + '</td>' +
-        '<td class="nm">' + esc(p.이름) + '</td>' +
-        '<td>' + esc(p.전공 || '-') + '</td>' +
-        '<td class="dt">' + esc(p.생년월일 || '-') + '</td>' +
-        '<td>' + st + why + '</td>' +
-        '<td class="dt">' + esc(p.제출시각 || '-') + '</td></tr>';
-    }).join('');
-
-    return '<div class="fv">' +
-      '<div class="fvhead"><b>' + esc(f) + '</b><span>참여 ' + g[f].yes + ' · 불참 ' + g[f].no +
-        ' · 미응답 ' + (g[f].total - g[f].done) + ' / 총 ' + g[f].total + '명</span></div>' +
-      '<button class="copybtn" data-f="' + esc(f) + '">표 복사하기</button>' +
-      '<div class="tblwrap"><table class="tbl"><thead><tr><th></th>' +
-        cols.map(function(c){ return '<th>' + c + '</th>'; }).join('') +
-      '</tr></thead><tbody>' + body + '</tbody></table></div></div>';
-  }).join('') || '<p class="empty">표시할 명단이 없습니다.</p>';
-
-  $('fieldview').querySelectorAll('.copybtn').forEach(function(b){
-    b.addEventListener('click', function(){ copyTable(b, b.dataset.f); });
-  });
+  return o;
+}
+function byField(f){ return DATA.list.filter(function(x){ return x.분야 === f; }); }
+function fields(){
+  const set = {};
+  DATA.list.forEach(function(x){ set[x.분야 || "미지정"] = 1; });
+  return ORDER.filter(function(f){ return set[f]; })
+    .concat(Object.keys(set).filter(function(f){ return ORDER.indexOf(f) < 0; }));
 }
 
-/* 표를 탭으로 구분해 복사 (엑셀·한글 표에 그대로 붙습니다) */
-function copyTable(btn, field){
-  const people = (window.__fieldRows || {})[field] || [];
-  const head = ["번호","이름","전공","생년월일","응답","제출시각","불참사유"].join("\t");
-  const lines = people.map(function(p, i){
-    const st = p.응답상태 === "미응답" ? "미응답" : p.참여여부;
-    return [i + 1, p.이름, p.전공 || "", p.생년월일 || "", st, p.제출시각 || "",
-            (p.불참사유 && p.불참사유 !== "-") ? p.불참사유 : ""].join("\t");
+/* ── 도넛 ── */
+function donut(o, size){
+  const r = 52, c = 2 * Math.PI * r, t = o.total || 1;
+  const seg = [[o.yes, 'var(--ok)'], [o.no, 'var(--no)'], [o.wait, 'var(--wait)']];
+  let off = 0;
+  const arcs = seg.map(function(s){
+    const len = s[0] / t * c;
+    const el = '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="' + s[1] +
+      '" stroke-width="20" stroke-dasharray="' + len + ' ' + (c - len) + '" stroke-dashoffset="' + (-off) + '"/>';
+    off += len;
+    return el;
+  }).join('');
+  const pct = o.total ? Math.round((o.yes + o.no) / o.total * 100) : 0;
+  return '<div class="donut" style="width:' + size + 'px;height:' + size + 'px">' +
+    '<svg viewBox="0 0 132 132" width="' + size + '" height="' + size + '">' +
+      '<circle cx="66" cy="66" r="52" fill="none" stroke="#F1ECE0" stroke-width="20"/>' + arcs +
+    '</svg><div class="mid"><b>' + pct + '%</b><span>응답</span></div></div>';
+}
+function keys(o){
+  const p = function(n){ return o.total ? Math.round(n / o.total * 100) + '%' : '0%'; };
+  return '<div class="keys">' +
+    key('var(--ok)', '참여 가능', o.yes, p(o.yes)) +
+    key('var(--no)', '참여 불가', o.no, p(o.no)) +
+    key('var(--wait)', '미응답', o.wait, p(o.wait)) +
+  '</div>';
+}
+function key(c, t, v, p){
+  return '<div class="key"><i style="background:' + c + '"></i><span class="t">' + t +
+    '</span><span class="v">' + v + '</span><span class="p">' + p + '</span></div>';
+}
+
+/* ── 화면 ── */
+function draw(){
+  $('when').textContent = DATA.summary.갱신 + " 기준";
+  const fs = fields();
+  $('tabs').innerHTML = ['전체'].concat(fs).map(function(f){
+    const o = f === '전체' ? stat(DATA.list) : stat(byField(f));
+    return '<button data-f="' + f + '" class="' + (f === tab ? 'on' : '') + '">' + f +
+      '<i>' + (o.yes + o.no) + '/' + o.total + '</i></button>';
+  }).join('');
+  $('tabs').querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){ tab = b.dataset.f; draw(); });
   });
-  const txt = field + "\n" + head + "\n" + lines.join("\n");
+  if(tab === '전체') drawAll(); else drawField(tab);
+  window.scrollTo(0, 0);
+}
+
+function drawAll(){
+  const o = stat(DATA.list);
+  const fs = fields();
+
+  let html = '<div class="card"><div class="donutrow">' + donut(o, 132) + keys(o) + '</div></div>';
+
+  html += '<div class="card"><h2>분야별 응답</h2><table class="fsum">' +
+    '<tr><th>분야</th><th>참여</th><th>불참</th><th>미응답</th><th>대상</th></tr>' +
+    fs.map(function(f){
+      const s = stat(byField(f)), t = s.total || 1;
+      return '<tr><td><button class="go" data-f="' + f + '">' + f + '</button>' +
+        '<div class="bar"><i style="width:' + (s.yes / t * 100) + '%;background:var(--ok)"></i>' +
+        '<i style="width:' + (s.no / t * 100) + '%;background:var(--no)"></i></div></td>' +
+        '<td>' + s.yes + '</td><td>' + s.no + '</td><td>' + s.wait + '</td><td>' + s.total + '</td></tr>';
+    }).join('') + '</table></div>';
+
+  const wait = DATA.list.filter(function(x){ return x.응답상태 === "미응답"; });
+  if(wait.length){
+    html += '<div class="card"><h2>미응답 ' + wait.length + '명</h2><div class="namechips">' +
+      wait.map(function(p){ return '<span>' + esc(p.이름) + '<small> · ' + esc(p.분야) + '</small></span>'; }).join('') +
+      '</div></div>';
+  }
+  if(DATA.extras.length){
+    html += '<div class="card"><h2>명단 외 응답 ' + DATA.extras.length + '건</h2><div class="namechips">' +
+      DATA.extras.map(function(p){ return '<span>' + esc(p.이름) + '</span>'; }).join('') + '</div></div>';
+  }
+
+  html += '<div class="tools"><button id="csvBtn">전체 CSV 내려받기</button>' +
+          '<button id="copyAll">전체 표 복사</button></div>';
+
+  $('view').innerHTML = html;
+  $('view').querySelectorAll('.go').forEach(function(b){
+    b.addEventListener('click', function(){ tab = b.dataset.f; draw(); });
+  });
+  $('csvBtn').addEventListener('click', downloadCsv);
+  $('copyAll').addEventListener('click', function(){ copyRows($('copyAll'), DATA.list, "전체"); });
+}
+
+function drawField(f){
+  const people = byField(f).slice().sort(function(a, b){
+    const rank = function(x){ return x.참여여부 === "참여 가능" ? 0 : x.참여여부 === "참여 불가" ? 1 : 2; };
+    return rank(a) - rank(b) || (a.전공 || '').localeCompare(b.전공 || '') || a.이름.localeCompare(b.이름);
+  });
+  const o = stat(people);
+
+  let html = '<div class="card"><div class="donutrow">' + donut(o, 118) + keys(o) + '</div></div>';
+  html += '<div class="tools"><button id="copyF">' + f + ' 표 복사</button></div>';
+
+  if(!people.length){
+    html += '<p class="empty">해당 분야 대상자가 없습니다.</p>';
+  }else{
+    html += '<div class="tblwrap"><table class="tbl"><thead><tr>' +
+      '<th></th><th>이름</th><th>전공</th><th>생년월일</th><th>응답</th><th>제출시각</th></tr></thead><tbody>' +
+      people.map(function(p, i){
+        const wait = p.응답상태 === "미응답";
+        const st = wait ? '<span class="st wait">미응답</span>'
+          : p.참여여부 === "참여 가능" ? '<span class="st yes">참여 가능</span>'
+          : '<span class="st no">참여 불가</span>';
+        const why = (p.불참사유 && p.불참사유 !== "-") ? '<span class="why">' + esc(p.불참사유) + '</span>' : '';
+        const re = /재제출/.test(p.확인 || '') ? '<span class="re">재</span>' : '';
+        return '<tr class="' + (wait ? 'wait' : '') + '"><td class="num">' + (i + 1) + '</td>' +
+          '<td class="nm">' + esc(p.이름) + re + '</td>' +
+          '<td>' + esc(p.전공 || '-') + '</td>' +
+          '<td class="dt">' + esc(p.생년월일 || '-') + '</td>' +
+          '<td>' + st + why + '</td>' +
+          '<td class="dt">' + esc(p.제출시각 || '-') + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+
+  $('view').innerHTML = html;
+  $('copyF').addEventListener('click', function(){ copyRows($('copyF'), people, f); });
+}
+
+/* ── 복사 · 내보내기 ── */
+function rowText(p, i){
+  const st = p.응답상태 === "미응답" ? "미응답" : p.참여여부;
+  return [i + 1, p.분야, p.전공 || "", p.이름, p.생년월일 || "", st, p.제출시각 || "",
+          (p.불참사유 && p.불참사유 !== "-") ? p.불참사유 : ""].join("\t");
+}
+function copyRows(btn, people, label){
+  const head = ["번호","분야","전공","이름","생년월일","응답","제출시각","불참사유"].join("\t");
+  const txt = label + "\n" + head + "\n" + people.map(rowText).join("\n");
   const ok = function(){
-    btn.textContent = "복사되었습니다";
-    btn.classList.add("done");
-    setTimeout(function(){ btn.textContent = "표 복사하기"; btn.classList.remove("done"); }, 1600);
+    const old = btn.textContent;
+    btn.textContent = "복사되었습니다"; btn.classList.add("done");
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove("done"); }, 1600);
   };
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(ok).catch(function(){ fallbackCopy(txt, ok, btn); });
-  }else{
-    fallbackCopy(txt, ok, btn);
-  }
+    navigator.clipboard.writeText(txt).then(ok).catch(function(){ fallback(txt, ok, btn); });
+  }else fallback(txt, ok, btn);
 }
-function fallbackCopy(txt, ok, btn){
+function fallback(txt, ok, btn){
   const ta = document.createElement("textarea");
   ta.value = txt; ta.style.position = "absolute"; ta.style.left = "-9999px";
   document.body.appendChild(ta); ta.select();
-  try{ document.execCommand("copy"); ok(); }
-  catch(e){ btn.textContent = "복사할 수 없습니다"; }
+  try{ document.execCommand("copy"); ok(); }catch(e){ btn.textContent = "복사할 수 없습니다"; }
   document.body.removeChild(ta);
 }
-
-function drawFinal(){
-  const yes = DATA.list.filter(function(x){ return x.참여여부 === "참여 가능"; });
-  const no  = DATA.list.filter(function(x){ return x.참여여부 === "참여 불가"; });
-  const na  = DATA.list.filter(function(x){ return x.응답상태 === "미응답"; });
-
-  function byMajor(arr, withReason){
-    const g = {};
-    arr.forEach(function(x){
-      const k = (x.분야 || "미지정") + (x.전공 && x.전공 !== "-" ? " · " + x.전공 : "");
-      (g[k] = g[k] || []).push(x);
-    });
-    return Object.keys(g).sort(function(a,b){
-      const ia = ORDER.indexOf(a.split(" · ")[0]), ib = ORDER.indexOf(b.split(" · ")[0]);
-      return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib) || a.localeCompare(b);
-    }).map(function(k){
-      const people = g[k].slice().sort(function(a,b){ return a.이름.localeCompare(b.이름); });
-      return '<div class="fgroup"><div class="gt"><b>' + esc(k) + '</b><span>' + people.length + '명</span></div><ol>' +
-        people.map(function(p){
-          return '<li>' + esc(p.이름) + '<small>' + esc(p.생년월일 || '') + '</small>' +
-            (withReason && p.불참사유 && p.불참사유 !== "-" ? '<span class="why">' + esc(p.불참사유) + '</span>' : '') +
-            '</li>';
-        }).join('') + '</ol></div>';
-    }).join('') || '<div class="fgroup"><div class="gt"><b>해당 없음</b><span>0명</span></div></div>';
-  }
-
-  $('final').innerHTML =
-    '<div class="exports">' +
-      '<button id="csvBtn">CSV 내려받기</button>' +
-      '<button id="copyBtn">명단 복사</button>' +
-    '</div>' +
-    '<div class="fsec"><div class="fhead"><i style="background:var(--ok)"></i>' +
-      '<b>참여 확정</b><span>' + yes.length + '명</span></div>' + byMajor(yes, false) + '</div>' +
-    '<div class="fsec"><div class="fhead"><i style="background:var(--no)"></i>' +
-      '<b>참여 불가</b><span>' + no.length + '명</span></div>' + byMajor(no, true) + '</div>' +
-    '<div class="fsec"><div class="fhead"><i style="background:var(--wait)"></i>' +
-      '<b>미응답</b><span>' + na.length + '명</span></div>' + byMajor(na, false) + '</div>' +
-    (DATA.extras.length ? '<div class="fsec"><div class="fhead"><i style="background:var(--gold)"></i>' +
-      '<b>명단 외 응답</b><span>' + DATA.extras.length + '건</span></div>' + byMajor(DATA.extras, true) + '</div>' : '');
-
-  $('csvBtn').addEventListener('click', downloadCsv);
-  $('copyBtn').addEventListener('click', function(){ copyList(yes, no, na); });
-}
-
 function downloadCsv(){
   const head = ["구분","분야","전공","이름","생년월일","제출시각","불참사유"];
   const rows = DATA.list.concat(DATA.extras).map(function(x){
     const kind = x.응답상태 === "미응답" ? "미응답"
-      : x.응답상태 === "명단 외 응답" ? "명단 외"
-      : x.참여여부;
+      : x.응답상태 === "명단 외 응답" ? "명단 외" : x.참여여부;
     return [kind, x.분야, x.전공, x.이름, x.생년월일, x.제출시각, x.불참사유]
       .map(function(v){ return '"' + String(v || "").replace(/"/g, '""') + '"'; }).join(",");
   });
   const blob = new Blob(["\ufeff" + head.join(",") + "\n" + rows.join("\n")], {type:"text/csv;charset=utf-8"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "심화과정_최종명단.csv";
+  a.download = "심화과정_응답현황.csv";
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
-
-function copyList(yes, no, na){
-  function block(t, arr){
-    return t + " (" + arr.length + "명)\n" + arr.map(function(p){
-      return "- " + p.이름 + " / " + p.분야 + (p.전공 && p.전공 !== "-" ? " " + p.전공 : "");
-    }).join("\n");
-  }
-  const txt = [block("참여 확정", yes), block("참여 불가", no), block("미응답", na)].join("\n\n");
-  navigator.clipboard.writeText(txt).then(function(){
-    $('copyBtn').textContent = "복사되었습니다";
-    setTimeout(function(){ $('copyBtn').textContent = "명단 복사"; }, 1500);
-  }).catch(function(){ $('copyBtn').textContent = "복사할 수 없습니다"; });
-}
-
-function render(){
-  const s = DATA.summary;
-  $('when').textContent = s.갱신 + " 기준";
-
-  const pct = s.대상 ? Math.round(s.응답 / s.대상 * 100) : 0;
-  const wy = s.대상 ? (s.참여 / s.대상 * 100) : 0;
-  const wn = s.대상 ? (s.불참 / s.대상 * 100) : 0;
-  $('bigbar').innerHTML =
-    '<div class="top"><span class="pct">' + pct + '%</span>' +
-      '<span class="cnt"><b>' + s.응답 + '</b> / ' + s.대상 + '명 응답</span></div>' +
-    '<div class="track"><i class="y" style="width:' + wy + '%"></i><i class="n" style="width:' + wn + '%"></i></div>' +
-    '<div class="legend">' +
-      '<span><i style="background:var(--ok)"></i>참여 <b>' + s.참여 + '</b></span>' +
-      '<span><i style="background:var(--no)"></i>불참 <b>' + s.불참 + '</b></span>' +
-      '<span><i style="background:var(--wait)"></i>미응답 <b>' + s.미응답 + '</b></span>' +
-      (s.명단외 ? '<span><i style="background:var(--gold)"></i>명단 외 <b>' + s.명단외 + '</b></span>' : '') +
-    '</div>';
-
-  const g = groups();
-  $('byField').innerHTML = names(g).map(function(f){
-    const x = g[f], pc = x.total ? Math.round(x.done / x.total * 100) : 0;
-    const y = x.total ? (x.yes / x.total * 100) : 0, n = x.total ? (x.no / x.total * 100) : 0;
-    return '<div class="fieldrow">' +
-      '<div class="l1"><span class="nm">' + f + '</span>' +
-        '<span class="rt"><b>' + x.done + '</b> / ' + x.total + ' · ' + pc + '%</span></div>' +
-      '<div class="track"><i class="y" style="width:' + y + '%"></i><i class="n" style="width:' + n + '%"></i></div>' +
-    '</div>';
-  }).join('');
-
-  const fs = ["전체","미응답","참여","불참"].concat(names(g));
-  $('filters').innerHTML = fs.map(function(f){
-    return '<button data-f="' + f + '" class="' + (f === filter ? 'on' : '') + '">' + f + '</button>';
-  }).join('');
-  $('filters').querySelectorAll('button').forEach(function(b){
-    b.addEventListener('click', function(){ filter = b.dataset.f; picked = null; render(); });
-  });
-
-  if(view === "final") drawFinal();
-  else if(view === "field") drawFields();
-  else drawBoard();
-}
-
-function groups(){
-  const g = {};
-  DATA.list.forEach(function(x){
-    const f = x.분야 || "미지정";
-    if(!g[f]) g[f] = {total:0, done:0, yes:0, no:0, people:[]};
-    const o = g[f];
-    o.total++; o.people.push(x);
-    if(x.응답상태 === "응답 완료"){
-      o.done++;
-      if(x.참여여부 === "참여 가능") o.yes++;
-      else if(x.참여여부 === "참여 불가") o.no++;
-    }
-  });
-  return g;
-}
-function names(g){
-  return Object.keys(g).sort(function(a,b){
-    const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
-    return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib);
-  });
-}
-
-function keep(x){
-  if(query && x.이름.indexOf(query) === -1) return false;
-  if(filter === "전체") return true;
-  if(filter === "미응답") return x.응답상태 === "미응답";
-  if(filter === "참여")   return x.참여여부 === "참여 가능";
-  if(filter === "불참")   return x.참여여부 === "참여 불가";
-  return x.분야 === filter;
-}
-
-function drawBoard(){
-  const g = groups();
-  let html = "";
-  names(g).forEach(function(f){
-    const people = g[f].people.filter(keep);
-    if(!people.length) return;
-    people.sort(function(a,b){
-      return (a.응답상태 === b.응답상태 ? 0 : a.응답상태 === "미응답" ? -1 : 1)
-        || a.이름.localeCompare(b.이름);
-    });
-    html += '<div class="group"><div class="gh"><b>' + f + '</b>' +
-      '<span>' + g[f].done + ' / ' + g[f].total + ' 응답</span></div><div class="chips">' +
-      people.map(function(p){ return chip(p); }).join('') + '</div>' +
-      (picked && picked.분야 === f ? detail(picked) : '') + '</div>';
-  });
-
-  if(DATA.extras.length && filter === "전체" && !query){
-    html += '<div class="group"><div class="gh"><b>명단 외 응답</b><span>' + DATA.extras.length + '건</span></div>' +
-      '<div class="chips">' + DATA.extras.map(function(p){ return chip(p); }).join('') + '</div>' +
-      (picked && picked.응답상태 === "명단 외 응답" ? detail(picked) : '') + '</div>';
-  }
-
-  $('board').innerHTML = html || '<p class="empty">해당하는 대상자가 없습니다.</p>';
-  $('board').querySelectorAll('.pchip').forEach(function(b){
-    b.addEventListener('click', function(){
-      const k = b.dataset.k;
-      const all = DATA.list.concat(DATA.extras);
-      const hit = all.filter(function(x){ return x.이름 + '|' + x.생년월일 === k; })[0];
-      picked = (picked && picked.이름 + '|' + picked.생년월일 === k) ? null : hit;
-      drawBoard();
-    });
-  });
-}
-
-function chip(p){
-  const cls = p.응답상태 === "미응답" ? "wait"
-    : p.참여여부 === "참여 가능" ? "yes"
-    : p.참여여부 === "참여 불가" ? "no" : "wait";
-  const k = p.이름 + '|' + p.생년월일;
-  const sel = picked && (picked.이름 + '|' + picked.생년월일) === k ? ' sel' : '';
-  const again = /재제출/.test(p.확인 || '') ? '<em>재</em>' : '';
-  return '<button class="pchip ' + cls + sel + '" data-k="' + esc(k) + '"><i></i>' + esc(p.이름) + again + '</button>';
-}
-
-function detail(p){
-  const rows = [
-    ["전공", p.전공 || "-"],
-    ["생년월일", p.생년월일 || "-"],
-    ["응답", p.응답상태 === "미응답" ? "미응답" : p.참여여부],
-    ["제출", p.제출시각 || "-"]
-  ];
-  if(p.불참사유 && p.불참사유 !== "-") rows.push(["사유", p.불참사유]);
-  if(p.확인 && p.확인 !== "확인 완료") rows.push(["비고", p.확인]);
-  return '<div class="detail"><h4>' + esc(p.이름) + '</h4>' +
-    rows.map(function(r){
-      return '<div class="d"><span>' + r[0] + '</span><div>' + esc(r[1]) + '</div></div>';
-    }).join('') + '</div>';
-}
-
-function esc(s){ return String(s).replace(/[<>&"]/g, function(c){
+function esc(s){ return String(s == null ? "" : s).replace(/[<>&"]/g, function(c){
   return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
 </script>
 </body>
